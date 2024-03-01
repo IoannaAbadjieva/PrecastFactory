@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Configurations;
 using Models;
 
-public class PrecastFactorySystemDbContext : IdentityDbContext
+public class PrecastFactoryDbContext : IdentityDbContext
 {
-    public PrecastFactorySystemDbContext(DbContextOptions<PrecastFactorySystemDbContext> options)
+    public PrecastFactoryDbContext(DbContextOptions<PrecastFactoryDbContext> options)
         : base(options)
     {
 

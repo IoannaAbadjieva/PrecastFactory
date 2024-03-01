@@ -11,7 +11,7 @@ using PrecastFactorySystem.Data;
 
 namespace PrecastFactorySystem.Data.Migrations
 {
-    [DbContext(typeof(PrecastFactorySystemDbContext))]
+    [DbContext(typeof(PrecastFactoryDbContext))]
     [Migration("20240301002605_DateAddedOn")]
     partial class DateAddedOn
     {

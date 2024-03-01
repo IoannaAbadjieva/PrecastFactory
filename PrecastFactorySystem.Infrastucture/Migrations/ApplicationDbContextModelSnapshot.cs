@@ -7,7 +7,7 @@ namespace PrecastFactorySystem.Data.Migrations
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore.Infrastructure;
 
-	[DbContext(typeof(PrecastFactorySystemDbContext))]
+	[DbContext(typeof(PrecastFactoryDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

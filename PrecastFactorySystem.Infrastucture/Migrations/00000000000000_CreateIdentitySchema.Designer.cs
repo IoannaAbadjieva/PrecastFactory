@@ -11,7 +11,7 @@ using PrecastFactorySystem.Data;
 
 namespace PrecastFactorySystem.Data.Migrations
 {
-    [DbContext(typeof(PrecastFactorySystemDbContext))]
+    [DbContext(typeof(PrecastFactoryDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
