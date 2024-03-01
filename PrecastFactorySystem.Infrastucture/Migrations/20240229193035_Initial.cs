@@ -1,11 +1,12 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
+﻿#nullable disable
 
 namespace PrecastFactorySystem.Data.Migrations
 {
-    public partial class Initial : Migration
+	using System;
+
+	using Microsoft.EntityFrameworkCore.Migrations;
+
+	public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
