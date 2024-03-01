@@ -62,6 +62,8 @@
         //Common
         public const int CountMinValue = 0;
 
+        public const string DateFormat = "dd-MMM-yyyy";
+
 
 
     }

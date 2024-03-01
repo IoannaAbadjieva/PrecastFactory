@@ -18,9 +18,14 @@
         [ForeignKey(nameof(PrecastType))]
         public int PrecastTypeId { get; set; }
 
+        [Required]
         public PrecastType PrecastType { get; set; } = null!;
 
+        [Required]
         public int Count { get; set; }
+
+        [Required]
+        public DateTime AddedOn { get; set; }
 
         [Required]
         [ForeignKey(nameof(Project))]
