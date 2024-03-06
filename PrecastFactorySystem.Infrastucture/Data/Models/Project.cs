@@ -13,7 +13,7 @@
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(ProjectNumberMinLength)]
+        [MaxLength(ProjectNumberMaxLength)]
         public string ProdNumber { get; set; } = string.Empty;
 
         [Required]

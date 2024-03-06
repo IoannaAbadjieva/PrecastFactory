@@ -163,9 +163,9 @@
 		/// Saves all made changes in transaction
 		/// </summary>
 		/// <returns>Error code</returns>
-		public async Task<int> SaveChangesAsync()
+		public async Task SaveChangesAsync()
 		{
-			return await context.SaveChangesAsync();
+			await context.SaveChangesAsync();
 		}
 
 		/// <summary>
