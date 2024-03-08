@@ -1,36 +1,40 @@
-﻿namespace Microsoft.Extensions.DependencyInjection
+﻿namespace Microsoft.Extensions.DependencyInjection;
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
+using PrecastFactorySystem.Core.Contracts;
+using PrecastFactorySystem.Core.Services;
+using PrecastFactorySystem.Data;
+using PrecastFactorySystem.Infrastructure.Data.Common;
+
+public static class ServiceCollectionExtension
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
+	public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+	{
+		services.AddScoped<IRepository, Repository>();
+		services.AddScoped<IProjectService, ProjectService>();
+		return services;
+	}
 
-    using PrecastFactorySystem.Data;
+	public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration configuration)
+	{
+		var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-    public static class ServiceCollectionExtension
-    {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-        {
-            return services;
-        }
+		services.AddDbContext<PrecastFactoryDbContext>(options =>
+			options.UseSqlServer(connectionString));
 
-        public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration configuration)
-        {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+		services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDbContext<PrecastFactorySystemDbContext>(options =>
-                options.UseSqlServer(connectionString));
+		return services;
+	}
 
-            services.AddDatabaseDeveloperPageExceptionFilter();
+	public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration configuration)
+	{
+		services
+			.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+			.AddEntityFrameworkStores<PrecastFactoryDbContext>();
 
-            return services;
-        }
-
-        public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration configuration)
-        {
-            services
-                .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<PrecastFactorySystemDbContext>();
-
-            return services;
-        }
-    }
+		return services;
+	}
 }

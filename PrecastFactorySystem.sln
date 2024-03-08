@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastFactorySystem", "PrecastFactorySystem\PrecastFactorySystem.csproj", "{961B9323-01FB-4489-862B-288916676B74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastFactorySystem", "PrecastFactorySystem\PrecastFactorySystem.csproj", "{961B9323-01FB-4489-862B-288916676B74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9787C160-52F2-4F0D-9190-80F02964992C}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastFactorySystem.Infrastucture", "PrecastFactorySystem.Infrastucture\PrecastFactorySystem.Infrastucture.csproj", "{267013C3-7771-4989-9187-2DEBF2775347}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastFactorySystem.Infrastructure", "PrecastFactorySystem.Infrastucture\PrecastFactorySystem.Infrastructure.csproj", "{267013C3-7771-4989-9187-2DEBF2775347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastFactorySystem.Core", "PrecastFactorySystem.Core\PrecastFactorySystem.Core.csproj", "{27FD3B45-CBB9-49DF-8CD1-7F6EA528D567}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastFactorySystem.Core", "PrecastFactorySystem.Core\PrecastFactorySystem.Core.csproj", "{27FD3B45-CBB9-49DF-8CD1-7F6EA528D567}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
