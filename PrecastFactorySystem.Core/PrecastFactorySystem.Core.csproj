@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PrecastFactorySystem.Infrastucture\PrecastFactorySystem.Infrastucture.csproj" />
+    <ProjectReference Include="..\PrecastFactorySystem.Infrastucture\PrecastFactorySystem.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

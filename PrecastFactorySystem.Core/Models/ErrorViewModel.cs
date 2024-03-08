@@ -1,9 +1,8 @@
-namespace PrecastFactorySystem.Models
-{
-    public class ErrorViewModel
-    {
-        public string? RequestId { get; set; }
+namespace PrecastFactorySystem.Models;
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+public class ErrorViewModel
+{
+	public string? RequestId { get; set; }
+
+	public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }
