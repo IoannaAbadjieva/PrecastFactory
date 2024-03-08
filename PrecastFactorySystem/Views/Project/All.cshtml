@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ProjectInfoViewModel>
+
+@{
+	ViewBag.Title = "All Projects";
+	Layout = "_Layout";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row gap-md-5">
+	@foreach (var p in Model)
+	{
+		<div class="card bg-transparent text-light border-secondary p-3" style="max-width:18rem">
+			<h5 class="card-title">@p.Name</h5>
+			<h6 class="card-subtitle mb-2 text-body-secondary">@p.ProdNumber</h6>
+			<p class="card-text"><span class="fw-bold">Started At: </span>@p.AddedOn</p>
+			<p class="card-text"><span class="fw-bold">Precast: </span>@p.PrecastCount</p>
+			<hr />
+			<div><a asp-controller="Project" asp-action="Details" asp-route-id="@p.Id" class="card-link">Details</a></div>
+			<div><a asp-controller="Project" asp-action="Edit" asp-route-id="@p.Id">Edit</a></div>
+		</div>
+	}
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
