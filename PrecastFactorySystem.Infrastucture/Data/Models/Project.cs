@@ -19,6 +19,6 @@
         [Required]
         public DateTime AddedOn { get; set; }
 
-        public ICollection<Precast> Precasts = new HashSet<Precast>();
+        public ICollection<Precast> Precast = new HashSet<Precast>();
     }
 }

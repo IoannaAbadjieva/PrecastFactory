@@ -96,6 +96,6 @@
 		/// Saves all made changes in transaction
 		/// </summary>
 		/// <returns>Error code</returns>
-		Task SaveChangesAsync();
+		Task<int> SaveChangesAsync();
 	}
 }

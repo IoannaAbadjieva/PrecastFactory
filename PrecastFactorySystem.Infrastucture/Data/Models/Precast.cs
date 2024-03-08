@@ -45,8 +45,8 @@
 
         [NotMapped]
         public decimal ConcreteActualAmount
-            => this.DepartmentPrecasts.Count > 0 ?
-            this.DepartmentPrecasts.Average(dp => dp.ConcreteAmount)
+            => this.DepartmentPrecast.Count > 0 ?
+            this.DepartmentPrecast.Average(dp => dp.ConcreteAmount)
             : default;
 
 
@@ -60,10 +60,10 @@
             this.PrecastReinforceOrders.Average(pro => pro.ReinforceOrder.PrecastWeight)
             : default;
 
-        public ICollection<PrecastReinforce> PrecastReinforces = new HashSet<PrecastReinforce>();
+        public ICollection<PrecastReinforce> PrecastReinforce = new HashSet<PrecastReinforce>();
 
         public ICollection<PrecastReinforceOrder> PrecastReinforceOrders = new HashSet<PrecastReinforceOrder>();
 
-        public ICollection<PrecastDepartment> DepartmentPrecasts = new HashSet<PrecastDepartment>();
+        public ICollection<PrecastDepartment> DepartmentPrecast = new HashSet<PrecastDepartment>();
     }
 }

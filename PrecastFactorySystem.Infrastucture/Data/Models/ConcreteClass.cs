@@ -15,6 +15,6 @@
         [Required]
         public int CompressiveStrengthRequired { get; set; }
 
-        public ICollection<Precast> Precasts = new HashSet<Precast>();
+        public ICollection<Precast> Precast = new HashSet<Precast>();
     }
 }
