@@ -18,6 +18,6 @@
         [Required]
         public PrecastReinforceType PrecastReinforceType { get; set; }
 
-        public ICollection<Precast> Precast = new HashSet<Precast>();
+        public ICollection<Precast> TypePrecast { get; set; } = new HashSet<Precast>();
     }
 }

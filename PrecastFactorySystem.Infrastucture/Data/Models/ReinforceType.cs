@@ -18,7 +18,7 @@
         public decimal SpecificMass 
             => (decimal)(Math.Pow(this.Diameter / 2.0, 2) * Math.PI);
 
-        public ICollection<PrecastReinforce> PrecastReinforce = new HashSet<PrecastReinforce>();
+        public ICollection<PrecastReinforce> PrecastReinforce { get; set; } = new HashSet<PrecastReinforce>();
 
 
     }

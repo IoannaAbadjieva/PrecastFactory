@@ -16,6 +16,6 @@
         [MaxLength(DelivererEmailMaxLength)]
         public string Email { get; set; } = string.Empty;
 
-        public ICollection<ReinforceOrder> ReinforceOrders = new HashSet<ReinforceOrder>();
+        public ICollection<ReinforceOrder> ReinforceOrders { get; set; } = new HashSet<ReinforceOrder>();
     }
 }

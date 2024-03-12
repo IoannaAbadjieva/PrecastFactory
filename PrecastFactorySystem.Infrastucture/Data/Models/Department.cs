@@ -17,10 +17,10 @@
         [Required]
         public DepartmentType DepartmentType { get; set; }
 
-        public ICollection<PrecastDepartment> DepartmentPrecast = new HashSet<PrecastDepartment>();
+        public ICollection<PrecastDepartment> DepartmentPrecast { get; set; } = new HashSet<PrecastDepartment>();
 
-        public ICollection<ReinforceOrder> ReinforceOrders = new HashSet<ReinforceOrder>();
+        public ICollection<ReinforceOrder> ReinforceOrders { get; set; } = new HashSet<ReinforceOrder>();
 
-        public ICollection<DepartmentEmployee> DepartmentEmployees = new HashSet<DepartmentEmployee>();
+        public ICollection<DepartmentEmployee> DepartmentEmployees { get; set; } = new HashSet<DepartmentEmployee>();
     }
 }

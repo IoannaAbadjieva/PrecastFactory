@@ -60,10 +60,10 @@
             this.PrecastReinforceOrders.Average(pro => pro.ReinforceOrder.PrecastWeight)
             : default;
 
-        public ICollection<PrecastReinforce> PrecastReinforce = new HashSet<PrecastReinforce>();
+        public ICollection<PrecastReinforce> PrecastReinforce { get; set; } = new HashSet<PrecastReinforce>();
 
-        public ICollection<PrecastReinforceOrder> PrecastReinforceOrders = new HashSet<PrecastReinforceOrder>();
+        public ICollection<PrecastReinforceOrder> PrecastReinforceOrders { get; set; } = new HashSet<PrecastReinforceOrder>();
 
-        public ICollection<PrecastDepartment> DepartmentPrecast = new HashSet<PrecastDepartment>();
+        public ICollection<PrecastDepartment> DepartmentPrecast { get; set; } = new HashSet<PrecastDepartment>();
     }
 }
