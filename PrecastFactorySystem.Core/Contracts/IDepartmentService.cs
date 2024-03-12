@@ -12,6 +12,6 @@
 
 	public interface IDepartmentService
 	{
-		Task<IEnumerable<DepartmentViewModel>> GetDepartmentsAsync(Expression<Func<Department, bool>> condition);
+		Task<IEnumerable<BaseViewModel>> GetDepartmentsAsync(Expression<Func<Department, bool>> condition);
 	}
 }

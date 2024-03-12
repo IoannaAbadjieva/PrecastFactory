@@ -10,9 +10,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar  bg-dark navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 data-bs-theme=" dark"">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand  text-light" asp-area="" asp-controller="Home" asp-action="Index">PrecastFactory</a>
+                <a class="navbar-brand link-light" asp-area="" asp-controller="Home" asp-action="Index">PrecastFactory</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,23 +20,23 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link link-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @if (User?.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle link-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Projects
                                 </a>
-                                <ul class="dropdown-menu bg-dark ">
-                                    <li><a class="dropdown-item text-light " asp-area="" asp-controller="Project" asp-action="All">All Projects</a></li>
-                                    <li><a class="dropdown-item text-light " asp-area="" asp-controller="Project" asp-action="Add">Add New</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-light" href="#">Something else here</a></li>
+                                <ul class="dropdown-menu bg-dark">
+                                    <li><a class="dropdown-item link-light" asp-area="" asp-controller="Project" asp-action="All">All Projects</a></li>
+                                    <li><a class="dropdown-item link-light" asp-area="" asp-controller="Project" asp-action="Add">Add New</a></li>
+                                    <li><hr class="dropdown-divider link-light"></li>
+                                    <li><a class="dropdown-item link-light" asp-area="" asp-controller="Project" asp-action="AddPrecast">Add Precast</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item mx-2">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Project" asp-action="Add">Announce New</a>
+                                <a class="nav-link link-light" asp-area="" asp-controller="Precast" asp-action="Add">Announce New</a>
                             </li>
                            
                         }

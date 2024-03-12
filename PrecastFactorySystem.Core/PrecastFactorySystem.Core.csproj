@@ -10,4 +10,8 @@
     <ProjectReference Include="..\PrecastFactorySystem.Infrastucture\PrecastFactorySystem.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Department\" />
+  </ItemGroup>
+
 </Project>

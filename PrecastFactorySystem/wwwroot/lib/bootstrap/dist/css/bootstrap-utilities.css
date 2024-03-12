@@ -60,11 +60,11 @@
 }
 
 .link-dark {
-  color: #212529;
+    color: #f8f9fa;
 }
-.link-dark:hover, .link-dark:focus {
-  color: #1a1e21;
-}
+    .link-dark:hover, .link-dark:focus {
+        color: #f9fafb;
+    }
 
 .ratio {
   position: relative;

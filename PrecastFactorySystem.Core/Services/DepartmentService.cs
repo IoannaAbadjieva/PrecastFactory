@@ -22,11 +22,11 @@
 		{
 			repository = _repository;
 		}
-		public async Task<IEnumerable<DepartmentViewModel>> GetDepartmentsAsync(Expression<Func<Department, bool>> condition)
+		public async Task<IEnumerable<BaseViewModel>> GetDepartmentsAsync(Expression<Func<Department, bool>> condition)
 		{
 			return await repository
 				.AllReadonly<Department>(condition)
-				.Select(d => new DepartmentViewModel()
+				.Select(d => new BaseViewModel()
 				{
 					Id = d.Id,
 					Name = d.Name,

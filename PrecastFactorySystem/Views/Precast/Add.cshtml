@@ -1,0 +1,79 @@
+﻿@model PrecastFormViewModel
+
+@{
+	ViewBag.Title = "Add new precast";
+	Layout = "_Layout";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row ">
+	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 " >
+		<form asp-action="Add" method="post" >
+			<div class="mb-3">
+				<label asp-for="@Model.ProjectId" class="form-label-add-edit">Select Project</label>
+				<select asp-for="@Model.ProjectId" class="form-control" aria-required="true">
+					<option disabled selected value="">Select Project...</option>
+					@foreach (var project in Model.Projects)
+					{
+						<option value="@project.Id">@project.Name</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.ProjectId" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="@Model.PrecastTypeId" class="form-label-add-edit">Select PrecastType</label>
+				<select asp-for="@Model.PrecastTypeId" class="form-control" aria-required="true">
+					<option disabled selected value="">Select Type...</option>
+					@foreach (var type in Model.Types)
+					{
+						<option value="@type.Id">@type.Name</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.PrecastTypeId" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="@Model.Name" class="form-label-add-edit">Project Name</label>
+				<input asp-for="@Model.Name" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.Name" class="text-danger"></span>
+			</div>
+		
+			<div class="mb-3">
+				<label asp-for="@Model.Count" class="form-label-add-edit">Count</label>
+				<input asp-for="@Model.Count" class="form-control" aria-required="true"  />
+				<span asp-validation-for="@Model.Count" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="@Model.ConcreteClassId" class="form-label-add-edit">Select ConcreteClass</label>
+				<select asp-for="@Model.ConcreteClassId" class="form-control" aria-required="true">
+					<option disabled selected value="">Select ConcreteClass...</option>
+					@foreach (var concrete in Model.Concrete)
+					{
+						<option value="@concrete.Id">@concrete.Name</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.ConcreteClassId" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="@Model.ConcreteProjectAmount" class="form-label-add-edit">Concrete m3</label>
+				<input asp-for="@Model.ConcreteProjectAmount" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.ConcreteProjectAmount" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="@Model.ReinforceProjectAmount" class="form-label-add-edit">Reinforce kg</label>
+				<input asp-for="@Model.ReinforceProjectAmount" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.ReinforceProjectAmount" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<input class="btn btn-secondary mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+			</div>
+		</form>
+	</div>
+</div>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+

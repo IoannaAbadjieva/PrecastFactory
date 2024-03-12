@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PrecastInfoViewModel>
+
+@{
+	ViewBag.Title = "Precast";
+	var query = Model.GroupBy(m => m.Project, (key, group) => new
+	{
+		project = key,
+		types = group.GroupBy(m => m.PrecastType, (key, group) => new
+		{
+			type = key,
+			precast = group.ToArray()
+		})
+	});
+
+	int accordionCounter = 1;
+}
+
+<h3 class="text-center">@ViewBag.Title</h3>
+<hr />
+
+@foreach (var result in query)
+{
+	<div class="container">
+		<h3>@result.project</h3>
+
+		<div class="accordion text-bg-dark p-3" id="accordion">
+			@foreach (var type in result.types)
+			{
+				<div class="accordion-item ">
+					<h2 class="accordion-header">
+						<button class="accordion-button  bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target=@($"#collapse{accordionCounter}") aria-expanded="true" aria-controls=@($"collapse{accordionCounter}")>
+							@type.type
+						</button>
+					</h2>
+
+					<div id=@($"collapse{accordionCounter}") class="accordion-collapse" data-bs-parent="#accordion">
+
+						<partial name="_PrecastPartial" model="type.precast" />
+
+					</div>
+				</div>
+				accordionCounter++;
+			}
+
+		</div>
+	</div>
+}
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+

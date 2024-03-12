@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PrecastInfoViewModel>
+@{
+	int counter = 1;
+}
+<table class=" table table table-hover table-borderless">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Name</th>
+			<th scope="col">Count</th>
+			<th scope="col">Reinforced</th>
+			<th scope="col">Produced</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
+	
+
+		@foreach (var p in Model)
+		{
+			<tr>
+				<th scope="row">@counter</th>
+				<td>@p.Name</td>
+				<td>@p.Count</td>
+				<td>@p.Reinforced</td>
+				<td>@p.Produced</td>
+			</tr>
+			counter++;
+		}
+</table>
