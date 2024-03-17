@@ -1,7 +1,6 @@
 ﻿namespace PrecastFactorySystem.Core.Models.Precast
 {
     using System.ComponentModel.DataAnnotations;
-    using PrecastFactorySystem.Core.Models.Base;
 
     using static Constants.DataConstants;
 
@@ -15,7 +14,7 @@
 		[Required]
 		public int PrecastTypeId { get; set; }
 
-		public IEnumerable<PrecastTypeViewModel> Types = new PrecastTypeViewModel[] { };
+		public IEnumerable<BaseSelectorViewModel> Types = new BaseSelectorViewModel[] { };
 
 		[Required]
 		public int Count { get; set; }
@@ -24,11 +23,12 @@
 		[Required]
 		public int ProjectId { get; set; }
 
-		public IEnumerable<ProjectViewModel> Projects = new ProjectViewModel[] { };
+		public IEnumerable<BaseSelectorViewModel> Projects = new BaseSelectorViewModel[] { };
+
 		[Required]
 		public int ConcreteClassId { get; set; }
 
-		public IEnumerable<ConcreteClassViewModel> Concrete = new ConcreteClassViewModel[] { };
+		public IEnumerable<BaseSelectorViewModel> Concrete = new BaseSelectorViewModel[] { };
 
 		[Required]
 		public decimal ConcreteProjectAmount { get; set; }

@@ -22,15 +22,6 @@
 		{
 			repository = _repository;
 		}
-		public async Task<IEnumerable<BaseViewModel>> GetDepartmentsAsync(Expression<Func<Department, bool>> condition)
-		{
-			return await repository
-				.AllReadonly<Department>(condition)
-				.Select(d => new BaseViewModel()
-				{
-					Id = d.Id,
-					Name = d.Name,
-				}).ToArrayAsync();
-		}
+	
 	}
 }
