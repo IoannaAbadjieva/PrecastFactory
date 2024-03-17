@@ -11,4 +11,6 @@ public class ProjectInfoViewModel
 	public string AddedOn { get; set; } = string.Empty;
 
 	public int PrecastCount { get; set; }
+
+	public int PrecastTotalCount { get; set; }
 }
