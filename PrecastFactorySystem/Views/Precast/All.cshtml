@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<PrecastInfoViewModel>
 
-@{
+@* @{
 	ViewBag.Title = "Precast";
-	var query = Model.GroupBy(m => m.Project, (key, group) => new
+	var query = Model.GroupBy(m => m.PrecastType, (key, group) => new
 	{
-		project = key,
-		types = group.GroupBy(m => m.PrecastType, (key, group) => new
+		type = key,
+		projects = group.GroupBy(m => m.Project, (key, group) => new
 		{
-			type = key,
+			project = key,
 			precast = group.ToArray()
 		})
 	});
@@ -21,29 +21,29 @@
 @foreach (var result in query)
 {
 	<div class="container">
-		<h3>@result.project</h3>
+		<h3>@result.type</h3>
 
 		<div class="accordion text-bg-dark p-3" id="accordion">
-			@foreach (var type in result.types)
+			@foreach (var project in result.projects)
 			{
-				<div class="accordion-item ">
+				<div class="accordion-item  bg-dark text-light">
 					<h2 class="accordion-header">
-						<button class="accordion-button  bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target=@($"#collapse{accordionCounter}") aria-expanded="true" aria-controls=@($"collapse{accordionCounter}")>
-							@type.type
+						<button class="accordion-button collapsed  bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target=@($"#collapse{accordionCounter}") aria-expanded="true" aria-controls=@($"collapse{accordionCounter}")>
+							@project.project
 						</button>
 					</h2>
 
-					<div id=@($"collapse{accordionCounter}") class="accordion-collapse" data-bs-parent="#accordion">
-
-						<partial name="_PrecastPartial" model="type.precast" />
-
+					<div id=@($"collapse{accordionCounter}") class="accordion-collapse collapse" data-bs-parent="#accordion">
+						<div class="accordion-body">
+							<partial name="_PrecastPartial" model="project.precast" />
+						</div>
 					</div>
 				</div>
 				accordionCounter++;
 			}
 
 		</div>
-	</div>
+	</div> *@
 }
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

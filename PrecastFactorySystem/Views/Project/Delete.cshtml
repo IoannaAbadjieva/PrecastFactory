@@ -1,0 +1,25 @@
+﻿@model ProjectInfoViewModel
+
+@{
+	ViewBag.Title = "Delete Project";
+}
+
+<div class="card bg-transparent text-light " style="max-width:18rem">
+	<h5 class="card-title">@Model.Name</h5>
+	<h6 class="card-subtitle mb-2 text-body-secondary">@Model.ProdNumber</h6>
+	<p class="card-text"><span class="fw-bold">Started At: </span>@Model.AddedOn</p>
+	<p class="card-text"><span class="fw-bold">Precast: </span>@Model.PrecastCount</p>
+	@if (Model.PrecastCount > 0)
+	{
+		<p class="text-danger mt-3">"If you delete this project all the precast added to project will be deleted too."</p>
+	}
+	<p class="text-danger mt-3">"Are you sure you want to delete this project?"</p>
+	<hr />
+	<div class="card-footer">
+		<form asp-action="DeleteConfirmed" method="post">
+			<input type="hidden" asp-for="Id" />
+			<button type="submit" class="btn btn-danger">Confirm Delete</button>
+			<a asp-action="All" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div>
+</div>

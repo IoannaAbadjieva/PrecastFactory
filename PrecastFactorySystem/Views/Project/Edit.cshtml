@@ -1,0 +1,36 @@
+﻿@model ProjectFormViewModel
+
+@{
+	ViewBag.Title = "Add new project";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+		<form asp-action="Edit" method="post">
+			<div class="mb-3">
+				<label asp-for="@Model.Name" class="form-label-add-edit">Project Name</label>
+				<input asp-for="@Model.Name" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.Name" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="@Model.ProdNumber" class="form-label-add-edit">ProdNumber</label>
+				<input asp-for="@Model.ProdNumber" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.ProdNumber" class="text-danger"></span>
+			</div>
+			
+			<div class="mb-3">
+				<input class="btn btn-secondary mb-2 w-100 p-3 fw-bold" type="submit" value="Edit" />
+			</div>
+		</form>
+	</div>
+</div>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
+
