@@ -13,7 +13,6 @@ public static class ServiceCollectionExtension
 	public static IServiceCollection AddApplicationServices(this IServiceCollection services)
 	{
 		services.AddScoped<IRepository, Repository>();
-		services.AddScoped<IBaseService, BaseService>();
 		services.AddScoped<IProjectService, ProjectService>();
 		services.AddScoped<IPrecastService, PrecastService>();
 		return services;
