@@ -11,9 +11,12 @@
 	<p class="card-text"><span class="fw-bold">Precast: </span>@Model.PrecastCount</p>
 	@if (Model.PrecastCount > 0)
 	{
-		<p class="text-danger mt-3">"If you delete this project all the precast added to project will be deleted too."</p>
+		<p class="text-danger mt-3">"If you delete this project all the precast added to project will be deleted too.You will not be able to undo operation."</p>
 	}
-	<p class="text-danger mt-3">"Are you sure you want to delete this project?"</p>
+	else
+	{
+		<p class="text-danger mt-3">"Are you sure you want to delete this project?"</p>
+	}
 	<hr />
 	<div class="card-footer">
 		<form asp-action="DeleteConfirmed" method="post">

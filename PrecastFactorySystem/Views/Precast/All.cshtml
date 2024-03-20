@@ -1,51 +1,47 @@
 ﻿@model IEnumerable<PrecastInfoViewModel>
 
-@* @{
-	ViewBag.Title = "Precast";
-	var query = Model.GroupBy(m => m.PrecastType, (key, group) => new
-	{
-		type = key,
-		projects = group.GroupBy(m => m.Project, (key, group) => new
-		{
-			project = key,
-			precast = group.ToArray()
-		})
-	});
-
-	int accordionCounter = 1;
+@{
+	ViewBag.Title = "Precast List";
 }
 
 <h3 class="text-center">@ViewBag.Title</h3>
 <hr />
 
-@foreach (var result in query)
-{
-	<div class="container">
-		<h3>@result.type</h3>
+<table class="table table-hover table-borderless">
+	<thead>
+		<tr>
+			<th scope="col">Project</th>
+			<th scope="col">Type</th>
+			<th scope="col">Name</th>
+			<th scope="col">Count</th>
+			<th scope="col">Reinforced</th>
+			<th scope="col">Produced</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
 
-		<div class="accordion text-bg-dark p-3" id="accordion">
-			@foreach (var project in result.projects)
-			{
-				<div class="accordion-item  bg-dark text-light">
-					<h2 class="accordion-header">
-						<button class="accordion-button collapsed  bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target=@($"#collapse{accordionCounter}") aria-expanded="true" aria-controls=@($"collapse{accordionCounter}")>
-							@project.project
-						</button>
-					</h2>
 
-					<div id=@($"collapse{accordionCounter}") class="accordion-collapse collapse" data-bs-parent="#accordion">
-						<div class="accordion-body">
-							<partial name="_PrecastPartial" model="project.precast" />
-						</div>
-					</div>
-				</div>
-				accordionCounter++;
-			}
+		@foreach (var p in Model)
+		{
+			<tr>
+				<td>@p.Project</td>
+				<td>@p.PrecastType</td>
+				<td>@p.Name</td>
+				<td>@p.Count</td>
+				<td>@p.Reinforced</td>
+				<td>@p.Produced</td>
+				<td><a asp-controller="Precast" asp-action="Details" asp-route-id="@p.Id" class="card-link">Details</a></td>
+				@if (User?.Identity?.IsAuthenticated ?? false)
+				{
+					<td><a asp-controller="Precast" asp-action="Edit" asp-route-id="@p.Id" class="card-link">Edit</a></td>
+					<td><a asp-controller="Precast" asp-action="Delete" asp-route-id="@p.Id" class="card-link">Delete</a></td>
+				}
+			</tr>
 
-		</div>
-	</div> *@
-}
-@section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-}
+		}
+	</tbody>
+
+	@section Scripts {
+		<partial name="_ValidationScriptsPartial" />
+	}
 

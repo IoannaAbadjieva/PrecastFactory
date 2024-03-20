@@ -1,0 +1,37 @@
+﻿@model PrecastDetailsViewModel
+@{
+    ViewBag.Title = "Precast Details";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="card bg-dark text-light">
+        <div class="card-body">
+            <h3 class="card-title">@Model.Name</h3>
+            <p class="mb-0"><span class="fw-bold">Project: </span>@Model.Project</p>
+            <p class="mb-0"><span class="fw-bold">Type: </span>@Model.PrecastType</p>
+            <p class="mb-0"><span class="fw-bold">Count: </span>@Model.Count</p>
+            <p class="mb-0"><span class="fw-bold">Reinforced: </span>@Model.Reinforced</p>
+            <p class="mb-0"><span class="fw-bold">Produced: </span>@Model.Produced</p>
+            <p class="mb-0"><span class="fw-bold">Starting Time: </span>@Model.AddeOn</p>
+            <p class="mb-0"><span class="fw-bold">Concrete class: </span>@Model.ConcreteClass</p>
+            <p class="mb-0"><span class="fw-bold">Concrete m3: </span>@Model.ConcreteProjectAmount</p>
+            <p class="mb-0"><span class="fw-bold">Reinforce kg: </span>@Model.ReinforceProjectAmount</p>
+        </div>
+
+        <a asp-controller="Precast" asp-action="All" class="btn btn-secondary mb-2  p-3 fw-bold">All Precast</a>
+        @if (User?.Identity?.IsAuthenticated ?? false)
+        {
+            <a asp-controller="Precast" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary mb-2 w-100 p-3 fw-bold">Edit</a>
+            <a asp-controller="Precast" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
+        }
+
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

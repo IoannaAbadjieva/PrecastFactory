@@ -7,7 +7,6 @@
 	using System.Text;
 	using System.Threading.Tasks;
 
-	using PrecastFactorySystem.Core.Models.Base;
 	using PrecastFactorySystem.Data.Models;
 
 	public interface IDepartmentService

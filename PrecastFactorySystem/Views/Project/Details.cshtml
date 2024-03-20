@@ -1,8 +1,8 @@
-﻿@model IEnumerable<PrecastInfoViewModel>
+﻿@model ProjectDetailsViewModel
 
 @{
 	ViewBag.Title = "Precast";
-	var query = Model.GroupBy(m => m.PrecastType, (key, group) => new
+	var query = Model.Precast.GroupBy(m => m.PrecastType, (key, group) => new
 	{
 		type = key,
 		precast = group.ToArray()
@@ -12,7 +12,8 @@
 
 }
 
-<h3 class="text-center">@ViewBag.Title</h3>
+<h3 class="text-center">@Model.Name</h3>
+<p class="text-center">@Model.ProdNumber</p>
 <hr />
 
 @foreach (var result in query)

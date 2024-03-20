@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<PrecastInfoViewModel>
-@{
-	int counter = 1;
-}
+
 <table class="table table-hover table-borderless">
 	<thead>
 		<tr>
-			<th scope="col">#</th>
 			<th scope="col">Name</th>
 			<th scope="col">Count</th>
 			<th scope="col">Reinforced</th>
@@ -18,20 +15,18 @@
 		@foreach (var p in Model)
 		{
 			<tr>
-				<th scope="row">@counter</th>
 				<td>@p.Name</td>
 				<td>@p.Count</td>
 				<td>@p.Reinforced</td>
 				<td>@p.Produced</td>
-				@if (User?.Identity?.IsAuthenticated ?? false)
-				{
-					<td><a asp-controller="Precast" asp-action="Details" asp-route-id="@p.Id" class="card-link">Details</a></td>
-					<td><a asp-controller="Precast" asp-action="Edit" asp-route-id="@p.Id" class="card-link">Edit</a></td>
-					<td><a asp-controller="Precast" asp-action="Edit" asp-route-id="@p.Id" class="card-link">Delete</a></td>
-				}
+				<td><a asp-controller="Precast" asp-action="Details" asp-route-id="@p.Id" class="card-link">Details</a></td>
+				@* @if (User?.Identity?.IsAuthenticated ?? false)
+			{
+			<td><a asp-controller="Precast" asp-action="Edit" asp-route-id="@p.Id" class="card-link">Edit</a></td>
+			<td><a asp-controller="Precast" asp-action="Delete" asp-route-id="@p.Id" class="card-link">Delete</a></td>
+			} *@
 			</tr>
 
-			counter++;
 		}
 	</tbody>
 
