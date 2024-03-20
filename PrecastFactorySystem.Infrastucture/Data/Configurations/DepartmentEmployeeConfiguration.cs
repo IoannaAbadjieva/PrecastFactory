@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.Data.Configurations
+﻿namespace PrecastFactorySystem.Infrastructure.Data.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,7 +10,7 @@
         public void Configure(EntityTypeBuilder<DepartmentEmployee> builder)
         {
             builder
-                .HasKey(de => new { de.DepartmentId, de.EmployeetId });
+                .HasKey(de => new { de.DepartmentId, de.EmployeeId });
 
             builder
                 .HasOne(de => de.Department)

@@ -1,8 +1,9 @@
-﻿namespace PrecastFactorySystem.Data.Models
+﻿namespace PrecastFactorySystem.Infrastructure.Data.Models
 {
 	using System.ComponentModel.DataAnnotations;
 
-	using static Constants.DataConstants;
+	using static DataValidation.DataConstants;
+
 	public class Project
 	{
 		[Key]

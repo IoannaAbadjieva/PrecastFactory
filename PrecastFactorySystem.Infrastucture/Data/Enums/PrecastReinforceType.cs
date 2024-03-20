@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.Data.Enums
+﻿namespace PrecastFactorySystem.Infrastructure.Data.Enums
 {
     public enum PrecastReinforceType
     {

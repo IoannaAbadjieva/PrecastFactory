@@ -1,38 +1,38 @@
-﻿namespace PrecastFactorySystem.Data.Models
+﻿namespace PrecastFactorySystem.Infrastructure.Data.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
 
-    public class ReinforceOrder
-    {
-        [Key]
-        public int Id { get; set; }
+	public class ReinforceOrder
+	{
+		[Key]
+		public int Id { get; set; }
 
-        [Required]
-        public int Count { get; set; }
+		[Required]
+		public int Count { get; set; }
 
-        [Required]
-        public DateTime OrderDate { get; set; }
+		[Required]
+		public DateTime OrderDate { get; set; }
 
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal PrecastWeight { get; set; }
+		[Required]
+		[Column(TypeName = "decimal(18,2)")]
+		public decimal PrecastWeight { get; set; }
 
-        [Required]
-        public DateTime DeliverDate { get; set; }
+		[Required]
+		public DateTime DeliverDate { get; set; }
 
-        [Required]
-        [ForeignKey(nameof(Department))]
-        public int DepartmentId { get; set; }
+		[Required]
+		[ForeignKey(nameof(Department))]
+		public int DepartmentId { get; set; }
 
-        public Department Department { get; set; } = null!;
+		public Department Department { get; set; } = null!;
 
-        [Required]
-        [ForeignKey(nameof(Deliverer))]
-        public int DelivererId { get; set; }
+		[Required]
+		[ForeignKey(nameof(Deliverer))]
+		public int DelivererId { get; set; }
 
-        public Deliverer Deliverer { get; set; } = null!;
+		public Deliverer Deliverer { get; set; } = null!;
 
-        public ICollection<PrecastReinforceOrder> PrecastReinforceOrders { get; set; } = new HashSet<PrecastReinforceOrder>();
-    }
+		public ICollection<PrecastReinforceOrder> PrecastReinforceOrders { get; set; } = new HashSet<PrecastReinforceOrder>();
+	}
 }

@@ -1,23 +1,23 @@
-﻿namespace PrecastFactorySystem.Data.Models
+﻿namespace PrecastFactorySystem.Infrastructure.Data.Models
 {
-    using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations;
 
-    using Enums;
+	using Enums;
+	
+	using static DataValidation.DataConstants;
 
-    using static Constants.DataConstants;
+	public class PrecastType
+	{
+		[Key]
+		public int Id { get; set; }
 
-    public class PrecastType
-    {
-        [Key]
-        public int Id { get; set; }
+		[Required]
+		[MaxLength(PrecastTypeNameMaxLength)]
+		public string Name { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(PrecastTypeNameMaxLength)]
-        public string Name { get; set; } = string.Empty;
+		[System.ComponentModel.DataAnnotations.Required]
+		public PrecastReinforceType PrecastReinforceType { get; set; }
 
-        [Required]
-        public PrecastReinforceType PrecastReinforceType { get; set; }
-
-        public ICollection<Precast> TypePrecast { get; set; } = new HashSet<Precast>();
-    }
+		public ICollection<Precast> TypePrecast { get; set; } = new HashSet<Precast>();
+	}
 }

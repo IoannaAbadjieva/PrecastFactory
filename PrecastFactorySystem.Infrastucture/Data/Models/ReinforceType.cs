@@ -1,25 +1,25 @@
-﻿namespace PrecastFactorySystem.Data.Models
+﻿namespace PrecastFactorySystem.Infrastructure.Data.Models
 {
-    using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations;
 
-    using Enums;
+	using Enums;
 
-    public class ReinforceType
-    {
-        [Key]
-        public int Id { get; set; }
+	public class ReinforceType
+	{
+		[Key]
+		public int Id { get; set; }
 
-        [Required]
-        public ReinforceClass ReinforceClass { get; set; }
+		[Required]
+		public ReinforceClass ReinforceClass { get; set; }
 
-        [Required]
-        public int Diameter { get; set; }
+		[Required]
+		public int Diameter { get; set; }
 
-        public decimal SpecificMass 
-            => (decimal)(Math.Pow(this.Diameter / 2.0, 2) * Math.PI);
+		public decimal SpecificMass 
+			=> (decimal)(Math.Pow(this.Diameter / 2.0, 2) * Math.PI);
 
-        public ICollection<PrecastReinforce> PrecastReinforce { get; set; } = new HashSet<PrecastReinforce>();
+		public ICollection<PrecastReinforce> PrecastReinforce { get; set; } = new HashSet<PrecastReinforce>();
 
 
-    }
+	}
 }

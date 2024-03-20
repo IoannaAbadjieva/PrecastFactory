@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.Data.Configurations
+﻿namespace PrecastFactorySystem.Infrastructure.Data.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
