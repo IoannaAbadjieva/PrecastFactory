@@ -1,25 +1,24 @@
-﻿@model ErrorViewModel
+﻿@model DeleteErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+	ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">You can not delete this precast/project, it's in production.</h2>
+<div class="row">
+	<div class="col-3"></div>
+	<div class="col-6">
+		<br>
+		<div class="row">
+			<div class="col-10">
+				<img src="https://as1.ftcdn.net/v2/jpg/05/89/50/68/1000_F_589506892_75EVpdvO8KP9AKoohtdQFjLmr9u4gLF3.webp" alt="Alternative image" class="img-thumbnail">
+				<div class="text-left h4">
+					<p>@Model.Message</p>
+				</div>
+				<div class="text-left h4">  Go back to <a asp-controller="Home" asp-action="Index">Home</a> Page</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-3"></div>
+</div>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+
