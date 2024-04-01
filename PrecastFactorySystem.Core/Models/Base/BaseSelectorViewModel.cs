@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.Core.Models.Precast
+﻿namespace PrecastFactorySystem.Core.Models.Base
 {
     public class BaseSelectorViewModel
     {
