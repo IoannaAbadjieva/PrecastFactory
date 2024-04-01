@@ -1,0 +1,22 @@
+﻿@model DelivererDeleteViewModel
+
+@{
+	ViewBag.Title = "Delete Deliverer";
+}
+
+<div class="card bg-transparent text-light " style="max-width:18rem">
+	<h5 class="card-title">@Model.Name</h5>
+	<h6 class="card-subtitle mb-2 text-body-secondary">@Model.Name</h6>
+	<p class="card-text"><span class="fw-bold">Email: </span>@Model.Email</p>
+
+	<p class="text-danger mt-3">"Are you sure you want to delete this deliverer?"</p>
+
+	<hr />
+	<div class="card-footer">
+		<form asp-action="DeleteConfirmed" method="post">
+			<input type="hidden" asp-for="Id" />
+			<button type="submit" class="btn btn-danger">Confirm Delete</button>
+			<a asp-action="All" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div>
+</div>

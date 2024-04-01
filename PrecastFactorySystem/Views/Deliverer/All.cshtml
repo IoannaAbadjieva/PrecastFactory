@@ -1,0 +1,28 @@
+﻿@model IEnumerable<DelivererInfoViewModel>
+
+@{
+	ViewBag.Title = "All Deliverers";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row gap-md-5">
+	@foreach (var p in Model)
+	{
+		<div class="card bg-transparent text-light " style="max-width:18rem">
+			<h5 class="card-title">@p.Name</h5>
+			<h6 class="card-subtitle mb-2 text-body-secondary">@p.Email</h6>
+			<p class="card-text"><span class="fw-bold">Orders: </span>@p.OrdersCount</p>
+			<hr />
+	
+			<div><a asp-controller="Deliverer" asp-action="Edit" asp-route-id="@p.Id">Edit</a></div>
+			<div><a asp-controller="Deliverer" asp-action="Delete" asp-route-id="@p.Id">Delete</a></div>
+		</div>
+	}
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
+
