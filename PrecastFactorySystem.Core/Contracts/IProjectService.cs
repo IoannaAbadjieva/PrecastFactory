@@ -1,27 +1,29 @@
-﻿namespace PrecastFactorySystem.Core.Contracts;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using Models.Project;
-
-using PrecastFactorySystem.Core.Models.Precast;
-
-public interface IProjectService
+﻿namespace PrecastFactorySystem.Core.Contracts
 {
-	Task AddPrecastToProjectAsync(PrecastFormViewModel model, int id);
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
 
-	Task AddProjectAsync(ProjectFormViewModel model);
+	using Models.Project;
 
-	Task DeleteProjectAsync(int id);
+	using PrecastFactorySystem.Core.Models.Precast;
 
-	Task EditProjectAsync(int id, ProjectFormViewModel model);
+	public interface IProjectService
+	{
+		Task AddPrecastToProjectAsync(PrecastFormViewModel model, int id);
 
-	Task<IEnumerable<ProjectInfoViewModel>> GetAllProjectsAsync();
+		Task AddProjectAsync(ProjectFormViewModel model);
 
-	Task<ProjectFormViewModel> GetProjectByIdAsync(int id);
-    Task<ProjectDetailsViewModel> GetProjectDetails(int id);
+		Task DeleteProjectAsync(int id);
+
+		Task EditProjectAsync(int id, ProjectFormViewModel model);
+
+		Task<IEnumerable<ProjectInfoViewModel>> GetAllProjectsAsync();
+
+		Task<ProjectFormViewModel> GetProjectByIdAsync(int id);
+
+		Task<ProjectDetailsViewModel> GetProjectDetails(int id);
 
 
-    Task<ProjectInfoViewModel> GetProjectToDeleteByIdAsync(int id);
+		Task<ProjectInfoViewModel> GetProjectToDeleteByIdAsync(int id);
+	}
 }

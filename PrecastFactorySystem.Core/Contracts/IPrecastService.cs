@@ -5,23 +5,18 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    using PrecastFactorySystem.Core.Models.Precast;
-	using PrecastFactorySystem.Core.Models.Project;
-	using PrecastFactorySystem.Data.Models;
+    using Models.Precast;
+
+    using Infrastructure.Data.Models;
+    using PrecastFactorySystem.Core.Models.Base;
 
     public interface IPrecastService
     {
-        Task AddPrecastAsync(PrecastFormViewModel model);
-
         Task<IEnumerable<PrecastInfoViewModel>> GetAllPrecastAsync();
 
+        Task AddPrecastAsync(PrecastFormViewModel model);
+
         Task<PrecastFormViewModel> GetNewPrecastFormViewModelAsync();
-
-        Task<IEnumerable<BaseSelectorViewModel>> GetProjectAsync();
-
-        Task<IEnumerable<BaseSelectorViewModel>> GetPrecastTypeAsync();
-
-        Task<IEnumerable<BaseSelectorViewModel>> GetConcreteClassAsync();
 
         Task<PrecastFormViewModel> GetPrecastByIdAsync(int id);
 
@@ -31,8 +26,18 @@
 
         Task<PrecastDetailsViewModel> GetPrecastDetailsAsync(int id);
 
-        Task<IEnumerable<PrecastInfoViewModel>> GetPrecastByClauseAsync(Expression<Func<Precast, bool>> clasue);
+        Task<IEnumerable<PrecastInfoViewModel>> GetPrecastByClauseAsync(Expression<Func<Precast, bool>> clause);
+
 		Task<PrecastDeleteViewModel> GetPrecastToDeleteByIdAsync(int id);
+
 		Task DeletePrecastAsync(int id);
+
+
+		Task<IEnumerable<BaseSelectorViewModel>> GetProjectAsync();
+
+		Task<IEnumerable<BaseSelectorViewModel>> GetPrecastTypeAsync();
+
+		Task<IEnumerable<BaseSelectorViewModel>> GetConcreteClassAsync();
+		Task<PrecastReinforceViewModel> GetPrecastReinforceAsync(int id);
 	}
 }
