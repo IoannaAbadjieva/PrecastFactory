@@ -8,20 +8,25 @@
 
 	using Microsoft.EntityFrameworkCore;
 
-	using PrecastFactorySystem.Core.Contracts;
-	using PrecastFactorySystem.Core.Models.Precast;
-	using PrecastFactorySystem.Data.Models;
-	using PrecastFactorySystem.Infrastructure.Data.Common;
+	using Contracts;
+	using Exceptions;
+	using Models.Precast;
+	using Infrastructure.Data.Common;
+	using Infrastructure.Data.Models;
 
-	using static Constants.DataConstants;
+	using static Constants.MessageConstants;
+	using static Infrastructure.DataValidation.DataConstants;
+	using PrecastFactorySystem.Core.Models.Base;
 
 	public class PrecastService : IPrecastService
 	{
 		private readonly IRepository repository;
+		private readonly IReinforceService reinforceService;
 
-		public PrecastService(IRepository _repository)
+		public PrecastService(IRepository _repository, IReinforceService _reinforceService)
 		{
 			repository = _repository;
+			reinforceService = _reinforceService;
 		}
 
 		public async Task AddPrecastAsync(PrecastFormViewModel model)
@@ -52,7 +57,7 @@
 					  Name = p.Name,
 					  Count = p.Count,
 					  Project = p.Project.Name,
-					  Reinforced = p.Reiforced,
+					  Reinforced = p.Reinforced,
 					  Produced = p.Produced,
 				  })
 				  .OrderBy(p => p.Project)
@@ -156,7 +161,8 @@
 				throw new ArgumentException();
 			}
 
-			return precast.PrecastReinforceOrders.Sum(p => p.ReinforceOrder.Count);
+
+			return precast.Reinforced;
 		}
 
 		public async Task<PrecastDetailsViewModel> GetPrecastDetailsAsync(int id)
@@ -172,7 +178,7 @@
 					   ConcreteClass = p.ConcreteClass.Name,
 					   ConcreteProjectAmount = p.ConcreteProjectAmount,
 					   ReinforceProjectAmount = p.ReinforceProjectWeight,
-					   Reinforced = p.Reiforced,
+					   Reinforced = p.Reinforced,
 					   Produced = p.Produced,
 
 				   }).FirstOrDefaultAsync();
@@ -195,7 +201,7 @@
 						  Name = p.Name,
 						  Count = p.Count,
 						  Project = p.Project.Name,
-						  Reinforced = p.Reiforced,
+						  Reinforced = p.Reinforced,
 						  Produced = p.Produced,
 					  }).ToArrayAsync();
 		}
@@ -205,7 +211,7 @@
 			var model = await repository.AllReadonly<Precast>(p => p.Id == id)
 			   .Select(p => new PrecastDeleteViewModel()
 			   {
-				   Id= p.Id,
+				   Id = p.Id,
 				   Name = p.Name,
 				   AddedOn = p.AddedOn.ToString(DateFormat),
 				   Project = p.Project.Name,
@@ -220,7 +226,7 @@
 
 			if (await GetReinforcedPrecastCount(id) > 0)
 			{
-				throw new InvalidOperationException("You can not delete this precast, it's in production!");
+				throw new DeleteActionException(DeletePrecastErrorMessage);
 			}
 
 			return model;
@@ -237,11 +243,32 @@
 
 			if (await GetReinforcedPrecastCount(id) > 0)
 			{
-				throw new InvalidOperationException();
+				throw new DeleteActionException(DeletePrecastErrorMessage);
 			}
 
 			repository.Delete(precast);
 			await repository.SaveChangesAsync();
+		}
+
+		public async Task<PrecastReinforceViewModel> GetPrecastReinforceAsync(int id)
+		{
+			var model = await repository.AllReadonly<Precast>(p => p.Id == id)
+				.Select(p => new PrecastReinforceViewModel()
+				{
+					Id = p.Id,
+					Name = p.Name,
+					Count = p.Count,
+					Reinforced = p.Reinforced
+				}).FirstOrDefaultAsync();
+
+			if (model == null)
+			{
+				throw new ArgumentException();
+			}
+
+			model.Reinforce = await reinforceService.GetReinforceAsync(id);
+
+			return model;
 		}
 	}
 }

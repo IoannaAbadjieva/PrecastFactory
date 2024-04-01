@@ -1,109 +1,118 @@
 ﻿namespace PrecastFactorySystem.Controllers
 {
-    using AspNetCore;
+	using Core.Exceptions;
+	using Core.Models;
 
-    using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Mvc;
 
-    using PrecastFactorySystem.Core.Contracts;
-    using PrecastFactorySystem.Core.Models.Precast;
+	using Core.Contracts;
+	using Core.Models.Precast;
 
-    public class PrecastController : BaseController
-    {
-        private readonly IPrecastService precastService;
+	using static Core.Constants.MessageConstants;
 
-        public PrecastController(IPrecastService _precastService)
-        {
-            precastService = _precastService;
-        }
-        public async Task<IActionResult> All()
-        {
-            IEnumerable<PrecastInfoViewModel> model = await precastService.GetAllPrecastAsync();
-            return View(model);
-        }
+	public class PrecastController : BaseController
+	{
+		private readonly IPrecastService precastService;
 
-        public async Task<IActionResult> Add()
-        {
-            PrecastFormViewModel model = await precastService.GetNewPrecastFormViewModelAsync();
+		public PrecastController(IPrecastService _precastService)
+		{
+			precastService = _precastService;
+		}
+		public async Task<IActionResult> All()
+		{
+			IEnumerable<PrecastInfoViewModel> model = await precastService.GetAllPrecastAsync();
+			return View(model);
+		}
 
-            return View(model);
-        }
+		public async Task<IActionResult> Add()
+		{
+			PrecastFormViewModel model = new PrecastFormViewModel()
+			{
+				Projects = await precastService.GetProjectAsync(),
+				Types = await precastService.GetPrecastTypeAsync(),
+				Concrete = await precastService.GetConcreteClassAsync()
+			};
 
-        [HttpPost]
-        public async Task<IActionResult> Add(PrecastFormViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                model.Projects = await precastService.GetProjectAsync();
-                model.Types = await precastService.GetPrecastTypeAsync();
-                model.Concrete = await precastService.GetConcreteClassAsync();
+			return View(model);
+		}
 
-                return View(model);
-            }
+		[HttpPost]
+		public async Task<IActionResult> Add(PrecastFormViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				model.Projects = await precastService.GetProjectAsync();
+				model.Types = await precastService.GetPrecastTypeAsync();
+				model.Concrete = await precastService.GetConcreteClassAsync();
 
-            await precastService.AddPrecastAsync(model);
+				return View(model);
+			}
 
-            return RedirectToAction(nameof(All));
-        }
+			await precastService.AddPrecastAsync(model);
 
-        public async Task<IActionResult> Edit(int id)
-        {
-            try
-            {
-                PrecastFormViewModel model = await precastService.GetPrecastByIdAsync(id);
-                return View(model);
-            }
-            catch (ArgumentException)
-            {
-                return BadRequest();
-            }
+			return RedirectToAction(nameof(All));
+		}
 
-        }
+		public async Task<IActionResult> Edit(int id)
+		{
+			try
+			{
+				PrecastFormViewModel model = await precastService.GetPrecastByIdAsync(id);
+				return View(model);
+			}
+			catch (ArgumentException)
+			{
+				return BadRequest();
+			}
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(PrecastFormViewModel model, int id)
-        {
-            int reinforced = await precastService.GetReinforcedPrecastCount(id);
+		}
 
-            if (model.Count < reinforced)
-            {
-                ModelState.AddModelError(nameof(model.Count), $"You can not change precast count to less than {reinforced}");
-            }
+		[HttpPost]
+		public async Task<IActionResult> Edit(PrecastFormViewModel model, int id)
+		{
+			int reinforced = await precastService.GetReinforcedPrecastCount(id);
 
-            if (!ModelState.IsValid)
-            {
-                model.Projects = await precastService.GetProjectAsync();
-                model.Types = await precastService.GetPrecastTypeAsync();
-                model.Concrete = await precastService.GetConcreteClassAsync();
+			if (model.Count < reinforced)
+			{
+				ModelState.AddModelError(nameof(model.Count),
+					string.Format(InvalidPrecastCountErrorMessage, reinforced));
+			}
 
-                return View(model);
-            }
+			if (!ModelState.IsValid)
+			{
+				model.Projects = await precastService.GetProjectAsync();
+				model.Types = await precastService.GetPrecastTypeAsync();
+				model.Concrete = await precastService.GetConcreteClassAsync();
 
-            try
-            {
-                await precastService.EditPrecastAsync(id, model);
-                return RedirectToAction(nameof(All));
-            }
-            catch (ArgumentException)
-            {
-                return BadRequest();
-            }
+				return View(model);
+			}
 
-        }
+			try
+			{
+				await precastService.EditPrecastAsync(id, model);
+				return RedirectToAction(nameof(All));
+			}
+			catch (ArgumentException)
+			{
+				return BadRequest();
+			}
+
+		}
 
 
-        public async Task<IActionResult> Details(int id)
-        {
-            try
-            {
-                PrecastDetailsViewModel model = await precastService.GetPrecastDetailsAsync(id);
-                return View(model);
-            }
-            catch (ArgumentException)
-            {
-                return BadRequest();
-            }
+		public async Task<IActionResult> Details(int id)
+		{
+			try
+			{
+				PrecastDetailsViewModel model = await precastService.GetPrecastDetailsAsync(id);
+				return View(model);
+			}
+			catch (ArgumentException)
+			{
+				return BadRequest();
+			}
 
-        }
+		}
 
 		public async Task<IActionResult> Delete(int id)
 		{
@@ -116,13 +125,18 @@
 			{
 				return BadRequest();
 			}
-			catch (InvalidOperationException)
+			catch (DeleteActionException dae)
 			{
-                return View(nameof(Views_Shared_DeleteError));
-            }
+
+				return View("DeleteError", new DeleteErrorViewModel()
+				{
+					Message = dae.Message
+				});
+			}
 
 		}
 
+		[HttpPost]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try
@@ -133,13 +147,31 @@
 			{
 				return BadRequest();
 			}
-			catch (InvalidOperationException)
+			catch (DeleteActionException dae)
 			{
-				return View(nameof(Views_Shared_DeleteError));
+
+				return View("DeleteError", new DeleteErrorViewModel()
+				{
+					Message = dae.Message
+				});
 			}
 
 			return RedirectToAction(nameof(All));
 
+		}
+
+		public async Task<IActionResult> Reinforce(int id)
+		{
+			try
+			{
+				PrecastReinforceViewModel model = await precastService.GetPrecastReinforceAsync(id);
+				return View(model);
+
+			}
+			catch (ArgumentException )
+			{
+				return BadRequest();
+			}
 		}
 	}
 }
