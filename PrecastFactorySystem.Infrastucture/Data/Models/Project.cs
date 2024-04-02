@@ -1,9 +1,12 @@
 ﻿namespace PrecastFactorySystem.Infrastructure.Data.Models
 {
 	using System.ComponentModel.DataAnnotations;
+	using Microsoft.EntityFrameworkCore;
 
 	using static DataValidation.DataConstants;
 
+
+	[Index(nameof(ProdNumber), IsUnique = true)]
 	public class Project
 	{
 		[Key]

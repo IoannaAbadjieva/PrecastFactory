@@ -57,8 +57,8 @@
 					  Name = p.Name,
 					  Count = p.Count,
 					  Project = p.Project.Name,
-					  Reinforced = p.Reinforced,
-					  Produced = p.Produced,
+					  Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
+					  Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
 				  })
 				  .OrderBy(p => p.Project)
 				  .ThenBy(p => p.PrecastType)
@@ -162,7 +162,8 @@
 			}
 
 
-			return precast.Reinforced;
+			return await repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id)
+				.SumAsync(pro => pro.ReinforceOrder.Count);
 		}
 
 		public async Task<PrecastDetailsViewModel> GetPrecastDetailsAsync(int id)
@@ -178,8 +179,8 @@
 					   ConcreteClass = p.ConcreteClass.Name,
 					   ConcreteProjectAmount = p.ConcreteProjectAmount,
 					   ReinforceProjectAmount = p.ReinforceProjectWeight,
-					   Reinforced = p.Reinforced,
-					   Produced = p.Produced,
+					   Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
+					   Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
 
 				   }).FirstOrDefaultAsync();
 
@@ -201,8 +202,8 @@
 						  Name = p.Name,
 						  Count = p.Count,
 						  Project = p.Project.Name,
-						  Reinforced = p.Reinforced,
-						  Produced = p.Produced,
+						  Reinforced = p.PrecastReinforceOrders.Sum(pro =>pro.ReinforceOrder.Count),
+						  Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
 					  }).ToArrayAsync();
 		}
 
@@ -258,7 +259,7 @@
 					Id = p.Id,
 					Name = p.Name,
 					Count = p.Count,
-					Reinforced = p.Reinforced
+					Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
 				}).FirstOrDefaultAsync();
 
 			if (model == null)

@@ -124,8 +124,7 @@
 				throw new ArgumentException();
 			}
 
-			bool isReinforce = await repository.AllReadonly<Precast>(p => p.ProjectId == id)
-				 .AnyAsync(p => p.Reinforced > 0);
+			bool isReinforce = await IsReinforcedProjectPrecastAsync(id);
 
 			if (isReinforce)
 			{
@@ -146,8 +145,7 @@
 			}
 
 
-			bool isReinforce = await repository.AllReadonly<Precast>(p => p.ProjectId == id)
-						   .AnyAsync(p => p.PrecastReinforceOrders.Count > 0);
+			bool isReinforce = await IsReinforcedProjectPrecastAsync(id);
 
 			if (isReinforce)
 			{
@@ -174,6 +172,12 @@
 			}
 
 			return model;
+		}
+
+		public async Task<bool> IsReinforcedProjectPrecastAsync(int id)
+		{
+			return await repository.AllReadonly<Precast>(p => p.ProjectId == id)
+				.AnyAsync(p => p.PrecastReinforceOrders.Count > 0);
 		}
 	}
 }

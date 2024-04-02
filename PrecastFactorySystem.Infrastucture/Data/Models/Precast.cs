@@ -5,6 +5,7 @@
 
 	using static DataValidation.DataConstants;
 
+
 	public class Precast
 	{
 		[Key]
@@ -60,17 +61,6 @@
 				this.PrecastReinforceOrders.Average(pro => pro.ReinforceOrder.PrecastWeight)
 				: default;
 
-		[NotMapped]
-		public int Reinforced
-			=> this.PrecastReinforceOrders.Count > 0 ?
-				this.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count)
-				: default;
-
-		[NotMapped]
-		public int Produced
-			=> this.DepartmentPrecast.Count > 0 ?
-				this.DepartmentPrecast.Sum(dp => dp.Count)
-				: default;
 
 		public ICollection<PrecastReinforce> PrecastReinforce { get; set; } = new HashSet<PrecastReinforce>();
 
