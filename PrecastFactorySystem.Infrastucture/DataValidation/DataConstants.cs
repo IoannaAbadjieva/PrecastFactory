@@ -7,6 +7,10 @@
 
         public const int PrecastNameMaxLength = 30;
 
+        public const int PrecastCountMinValue = 0;
+
+        public const int PrecastCountMaxValue = 1000;
+
         public const string ConcreteAmountMinValue = "0";
 
         public const string ConcreteAmountMaxValue = "50";

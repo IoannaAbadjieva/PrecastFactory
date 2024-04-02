@@ -2,16 +2,19 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
-	using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
+	using static Infrastructure.DataValidation.DataConstants;
+	using static Infrastructure.DataValidation.ErrorMessages;
 
 	public class ProjectFormViewModel
 	{
-		[Required]
-		[StringLength(ProjectNameMaxLength, MinimumLength = ProjectNameMinLength)]
+		[Required(ErrorMessage = RequiredErrorMessage)]
+		[StringLength(ProjectNameMaxLength, MinimumLength = ProjectNameMinLength,
+			ErrorMessage = StringLengthErrorMessage)]
 		public string Name { get; set; } = string.Empty;
 
-		[Required]
-		[StringLength(ProjectNumberMaxLength, MinimumLength = ProjectNumberMinLength)]
+		[Required(ErrorMessage = RequiredErrorMessage)]
+		[StringLength(ProjectNumberMaxLength, MinimumLength = ProjectNumberMinLength, 
+			ErrorMessage = StringLengthErrorMessage)]
 		public string ProdNumber { get; set; } = string.Empty;
 
 		public string AddedOn { get; set; } = string.Empty;
