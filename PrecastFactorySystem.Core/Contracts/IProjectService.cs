@@ -23,6 +23,7 @@
 
 		Task<ProjectDetailsViewModel> GetProjectDetails(int id);
 
+		Task<bool>IsReinforcedProjectPrecastAsync(int id);
 
 		Task<ProjectInfoViewModel> GetProjectToDeleteByIdAsync(int id);
 	}
