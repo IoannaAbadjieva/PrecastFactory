@@ -17,7 +17,7 @@
 		public Precast Precast { get; set; } = null!;
 
 		[Required]
-		[MaxLength(PositionMaxLength)]
+		[MaxLength(ReinforcePositionMaxLength)]
 		public string Position { get; set; } = string.Empty;
 
 		[Required]

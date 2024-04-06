@@ -17,7 +17,7 @@
 
         public const string ReinforceAmountMinValue = "0";
 
-        public const string ReinforceAmountMaxValue = "10 000";
+        public const string ReinforceAmountMaxValue = "10000";
 
         //PrecastType
         public const int PrecastTypeNameMinLength = 5;
@@ -30,11 +30,16 @@
         public const int ConcreteClassNameMaxLength = 20;
 
         //Reinforce
-        public const int PositionMinLength = 1;
+        public const int ReinforcePositionMinLength = 1;
+                         
+        public const int ReinforcePositionMaxLength = 20;
 
-        public const int PositionMaxLength = 20;
 
-        public const string ReinforceLengthMinValue = "0";
+		public const int ReinforceCountMinValue = 0;
+
+		public const int ReinforceCountMaxValue = 500;
+
+		public const string ReinforceLengthMinValue = "0";
 
         public const string ReinforceLengthMaxValue = "14";
 

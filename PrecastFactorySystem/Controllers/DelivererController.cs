@@ -2,12 +2,11 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
+	using Attributes;
 	using Core.Contracts;
 	using Core.Exceptions;
 	using Core.Models;
 	using Core.Models.Deliverer;
-
-	using static Core.Constants.MessageConstants;
 
 	public class DelivererController : BaseController
 	{
@@ -43,33 +42,26 @@
 			return RedirectToAction(nameof(All));
 		}
 
+		[DelivererExist]
 		public async Task<IActionResult> Edit(int id)
 		{
-			try
-			{
-				DelivererFormViewModel model = await delivererService.GetDelivererByIdAsync(id);
-				return View(model);
-			}
-			catch (ArgumentException)
-			{
 
-				return BadRequest();
-			}
+			DelivererFormViewModel model = await delivererService.GetDelivererByIdAsync(id);
+			return View(model);
+
 		}
+
 		[HttpPost]
+		[DelivererExist]
 		public async Task<IActionResult> Edit(int id, DelivererFormViewModel model)
 		{
-			try
-			{
-				await delivererService.EditDelivererAsync(id, model);
-				return RedirectToAction(nameof (All));
-			}
-			catch (ArgumentException)
-			{
-				return BadRequest();
-			}
+
+			await delivererService.EditDelivererAsync(id, model);
+			return RedirectToAction(nameof(All));
+
 		}
 
+		[DelivererExist]
 		public async Task<IActionResult> Delete(int id)
 		{
 			try
@@ -77,14 +69,10 @@
 				DelivererDeleteViewModel model = await delivererService.GetDelivererToDeleteByIdAsync(id);
 				return View(model);
 			}
-			catch (ArgumentException)
+					catch (DeleteActionException dae)
 			{
-				return BadRequest();
-			}
-			catch (DeleteActionException dae)
-			{
-			
-				return View("DeleteError",new DeleteErrorViewModel()
+
+				return View("DeleteError", new DeleteErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -92,15 +80,12 @@
 		}
 
 		[HttpPost]
+		[DelivererExist]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try
 			{
 				await delivererService.DeletePrecastAsync(id);
-			}
-			catch (ArgumentException)
-			{
-				return BadRequest();
 			}
 			catch (DeleteActionException dae)
 			{

@@ -134,15 +134,6 @@
 			entry.State = EntityState.Detached;
 		}
 
-		/// <summary>
-		/// Disposing the context when it is not needed
-		/// Don't have to call this method explicitly
-		/// Leave it to the IoC container
-		/// </summary>
-		public void Dispose()
-		{
-			context.Dispose();
-		}
 
 		/// <summary>
 		/// Gets specific record from database by primary key
@@ -204,6 +195,11 @@
 		{
 			var entities = All<T>(deleteWhereClause);
 			DeleteRange(entities);
+		}
+
+		public void Dispose()
+		{
+			context.Dispose();
 		}
 	}
 }

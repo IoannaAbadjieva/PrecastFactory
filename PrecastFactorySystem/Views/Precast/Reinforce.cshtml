@@ -1,0 +1,64 @@
+﻿@model PrecastReinforceViewModel
+
+@{
+	ViewBag.Title = "Precast reinforce";
+
+}
+
+<h3 class="text-center">@ViewBag.Title</h3>
+
+<div class="d-flex p-2 justify-content-between">
+	<div>
+		<p disabled class="mb-0"><span class="fw-bold">Id: </span>@Model.Id</p>
+		<p class="mb-0"><span class="fw-bold">Type: </span>@Model.PrecastType</p>
+		<p class="mb-0"><span class="fw-bold">Precast: </span>@Model.Name</p>
+		<p class="mb-0"><span class="fw-bold">Count: </span>@Model.Count</p>
+	</div>
+	<div>
+		<p class="mb-0"><span class="fw-bold">Project: </span>@Model.Project</p>
+		<p class="mb-0"><span class="fw-bold">Reinforced: </span>@Model.Reinforced</p>
+		<p class="mb-0"><span class="fw-bold">Produced: </span>@Model.Produced</p>
+	</div>
+</div>
+<div class="text-center mt-4 p-5">
+	<a asp-area="" asp-controller="Precast" asp-action="AddReinforce" asp-route-id="@Model.Id" class="btn btn-dark ">Add Reinforce</a>
+	<a asp-area="" asp-controller="Precast" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-dark ">Order</a>
+	<a asp-area="" asp-controller="Precast" asp-action="All" class="btn btn-dark ">Back to all precast </a>
+</div>
+
+<hr />
+<table class="table table-hover table-borderless">
+	<thead>
+		<tr>
+			<th hidden scope="col">Id</th>
+			<th hidden scope="col">PrecastId</th>
+			<th scope="col">Position</th>
+			<th scope="col">Count</th>
+			<th scope="col">ReinforceType</th>
+			<th scope="col">Length</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider overflow-scroll">
+
+		@foreach (var r in Model.Reinforce)
+		{
+			<tr>
+				<td hidden>@r.Id</td>
+				<td hidden>@r.PrecastId</td>
+				<td>@r.Position</td>
+				<td>@r.Count</td>
+				<td>@r.ReinforceType</td>
+				<td>@r.Length</td>
+				<td><a asp-controller="Reinforce" asp-action="Edit" asp-route-id="@r.Id" class="card-link">Edit</a></td>
+				<td><a asp-controller="Reinforce" asp-action="Delete" asp-route-id="@r.Id" class="card-link"
+				onclick="return confirm('Are you sure you want to delete this reinforce?')">Delete</a></td>
+			</tr>
+		}
+	</tbody>
+
+</table>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

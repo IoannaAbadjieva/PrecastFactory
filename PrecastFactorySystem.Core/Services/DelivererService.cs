@@ -53,11 +53,6 @@
 		{
 			var entity = await repository.GetByIdAsync<Deliverer>(id);
 
-			if (entity == null)
-			{
-				throw new ArgumentException();
-			}
-
 			return new DelivererFormViewModel()
 			{
 				Name = entity.Name,
@@ -69,11 +64,6 @@
 		{
 			var entity = await repository.GetByIdAsync<Deliverer>(id);
 
-			if (entity == null)
-			{
-				throw new ArgumentException();
-			}
-
 			entity.Name = model.Name;
 			entity.Email = model.Email;
 
@@ -81,34 +71,24 @@
 		}
 		public async Task<DelivererDeleteViewModel> GetDelivererToDeleteByIdAsync(int id)
 		{
-			var model = await repository.AllReadonly<Deliverer>(d => d.Id == id)
-				.Select(d => new DelivererDeleteViewModel()
-				{
-					Name = d.Name,
-					Email = d.Email,
-				}).FirstOrDefaultAsync();
-
-			if (model == null)
-			{
-				throw new ArgumentException();
-			}
+			var entity = await repository.GetByIdAsync<Deliverer>(id);
 
 			if (await HasOrdersAsync(id))
 			{
 				throw new DeleteActionException(DeleteDelivererErrorMessage);
 			}
 
-			return model;
+			return new DelivererDeleteViewModel()
+			{
+				Name = entity.Name,
+				Email = entity.Email,
+			};
+
 		}
 
 		public async Task DeletePrecastAsync(int id)
 		{
 			var entity = await repository.GetByIdAsync<Deliverer>(id);
-
-			if (entity == null)
-			{
-				throw new ArgumentException();
-			}
 
 			if (await HasOrdersAsync(id))
 			{
@@ -123,6 +103,12 @@
 		{
 			return await repository.AllReadonly<Deliverer>()
 				.AnyAsync(d => d.Id == id && d.ReinforceOrders.Count > 0);
+		}
+
+		public async Task<bool> IsDelivererExistAsync(int id)
+		{
+			return await repository.AllReadonly<Deliverer>()
+				.AnyAsync(d => d.Id == id);
 		}
 	}
 }

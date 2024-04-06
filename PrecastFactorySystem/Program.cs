@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Microsoft.AspNetCore.Mvc;
 
 using PrecastFactorySystem.ModelBinders;
 
@@ -10,6 +10,7 @@ builder.Services.AddApplicationIdentity(builder.Configuration);
 builder.Services.AddControllersWithViews(options =>
 {
 	options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+	options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
 
 builder.Services.AddApplicationServices();

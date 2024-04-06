@@ -1,43 +1,50 @@
 ﻿namespace PrecastFactorySystem.Core.Contracts
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using System.Threading.Tasks;
+	using System;
+	using System.Collections.Generic;
+	using System.Linq.Expressions;
+	using System.Threading.Tasks;
 
-    using Models.Precast;
+	using Models.Precast;
+	using Models.Reinforce;
 
-    using Infrastructure.Data.Models;
-    using PrecastFactorySystem.Core.Models.Base;
 
-    public interface IPrecastService
-    {
-        Task<IEnumerable<PrecastInfoViewModel>> GetAllPrecastAsync();
+	using Infrastructure.Data.Models;
 
-        Task AddPrecastAsync(PrecastFormViewModel model);
+	public interface IPrecastService
+	{
+		Task<IEnumerable<PrecastInfoViewModel>> GetAllPrecastAsync();
 
-        Task<PrecastFormViewModel> GetNewPrecastFormViewModelAsync();
+		Task AddPrecastAsync(PrecastFormViewModel model);
 
-        Task<PrecastFormViewModel> GetPrecastByIdAsync(int id);
+		Task<PrecastFormViewModel> GetNewPrecastFormViewModelAsync();
 
-        Task EditPrecastAsync(int id, PrecastFormViewModel model);
+		Task<PrecastFormViewModel> GetPrecastByIdAsync(int id);
 
-        Task<int> GetReinforcedPrecastCount(int id);
+		Task EditPrecastAsync(int id, PrecastFormViewModel model);
 
-        Task<PrecastDetailsViewModel> GetPrecastDetailsAsync(int id);
+		Task<int> GetReinforcedPrecastCount(int id);
 
-        Task<IEnumerable<PrecastInfoViewModel>> GetPrecastByClauseAsync(Expression<Func<Precast, bool>> clause);
+		Task<int> GetPrecastToReinforceCount(int id);
 
-		Task<PrecastDeleteViewModel> GetPrecastToDeleteByIdAsync(int id);
+		Task<int> GetProducedPrecastCount(int id);
+
+		Task<PrecastDetailsViewModel?> GetPrecastDetailsAsync(int id);
+
+		Task<IEnumerable<PrecastInfoViewModel>> GetPrecastByClauseAsync(Expression<Func<Precast, bool>> clause);
+
+		Task<PrecastDeleteViewModel?> GetPrecastToDeleteByIdAsync(int id);
 
 		Task DeletePrecastAsync(int id);
 
+		Task<PrecastReinforceViewModel?> GetPrecastReinforceAsync(int id);
 
-		Task<IEnumerable<BaseSelectorViewModel>> GetProjectAsync();
+		Task AddReinforceAsync(int id, ReinforceFormViewModel model);
 
-		Task<IEnumerable<BaseSelectorViewModel>> GetPrecastTypeAsync();
+		Task<bool> IsPrecastExist(int id);
 
-		Task<IEnumerable<BaseSelectorViewModel>> GetConcreteClassAsync();
-		Task<PrecastReinforceViewModel> GetPrecastReinforceAsync(int id);
+		Task OrderPrecastAsync(int id, OrderPrecastReinforceViewModel model);
+
+		Task<decimal> GetPrecastActualWeightAsync(int id);
 	}
 }

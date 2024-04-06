@@ -5,8 +5,6 @@
 
 	using Models;
 
-	using PrecastFactorySystem.Infrastructure.Data.Models;
-
 	public class ConcreteClassConfiguration : IEntityTypeConfiguration<ConcreteClass>
     {
         private readonly ConcreteClass[] concreteClasses = new ConcreteClass[]

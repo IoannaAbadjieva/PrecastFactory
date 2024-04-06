@@ -20,5 +20,7 @@
 		Task<DelivererDeleteViewModel> GetDelivererToDeleteByIdAsync(int id);
 
 		Task<bool> HasOrdersAsync(int id);
+
+		Task<bool> IsDelivererExistAsync(int id);
 	}
 }

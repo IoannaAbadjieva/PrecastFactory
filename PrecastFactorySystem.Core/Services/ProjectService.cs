@@ -179,5 +179,11 @@
 			return await repository.AllReadonly<Precast>(p => p.ProjectId == id)
 				.AnyAsync(p => p.PrecastReinforceOrders.Count > 0);
 		}
+
+		public async Task<bool> IsProjectExistAsync(int id)
+		{
+			 return await repository.AllReadonly<Project>()
+				.AnyAsync(p => p.Id == id);
+		}
 	}
 }

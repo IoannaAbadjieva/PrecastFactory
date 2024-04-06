@@ -1,0 +1,53 @@
+﻿@model ReinforceFormViewModel
+@{
+	ViewBag.Title = "Add reinforce to precast";
+
+}
+
+<h4 class="text-center">@ViewBag.Title</h4>
+<hr />
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 ">
+			<form asp-controller="Precast" asp-action="AddReinforce" method="post">
+				<div class="bg-dark text-light">
+					<label asp-for="@Model.Position" class="form-label-add-edit">Position</label>
+					<input asp-for="@Model.Position" class="form-control" aria-required="true" />
+					<span asp-validation-for="@Model.Position" class="text-danger"></span>
+				</div>
+
+				<div class="bg-dark text-light">
+					<label asp-for="@Model.Count" class="form-label-add-edit">Count</label>
+					<input asp-for="@Model.Count" class="form-control" aria-required="true" />
+					<span asp-validation-for="@Model.Count" class="text-danger"></span>
+				</div>
+				<div class="bg-dark text-light">
+					<label asp-for="@Model.ReinforceTypeId" class="form-label-add-edit">Select Reinforce Type</label>
+					<select class="bg-dark text-light" asp-for="@Model.ReinforceTypeId" class="form-control" aria-required="true">
+						<option disabled selected value="">Select Reinforce Type...</option>
+						@foreach (var type in Model.ReinforceTypes)
+						{
+							<option value="@type.Id">@type.Name</option>
+						}
+					</select>
+					<span asp-validation-for="@Model.ReinforceTypeId" class="text-danger"></span>
+				</div>
+				<div class="bg-dark text-light">
+					<label asp-for="@Model.Length" class="form-label-add-edit">Length m</label>
+					<input asp-for="@Model.Length" class="form-control" aria-required="true" />
+					<span asp-validation-for="@Model.Length" class="text-danger"></span>
+				</div>
+				<div class="bg-dark text-light">
+					<input class="btn btn-secondary mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
