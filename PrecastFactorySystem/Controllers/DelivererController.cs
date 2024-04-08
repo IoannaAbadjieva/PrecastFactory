@@ -85,7 +85,7 @@
 		{
 			try
 			{
-				await delivererService.DeletePrecastAsync(id);
+				await delivererService.DeleteDelivererAsync(id);
 			}
 			catch (DeleteActionException dae)
 			{

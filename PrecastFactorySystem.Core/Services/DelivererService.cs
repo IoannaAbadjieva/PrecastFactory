@@ -86,7 +86,7 @@
 
 		}
 
-		public async Task DeletePrecastAsync(int id)
+		public async Task DeleteDelivererAsync(int id)
 		{
 			var entity = await repository.GetByIdAsync<Deliverer>(id);
 
@@ -109,6 +109,14 @@
 		{
 			return await repository.AllReadonly<Deliverer>()
 				.AnyAsync(d => d.Id == id);
+		}
+
+		public Task<string?> GetDelivererEmailAsync(int id)
+		{
+			return repository.AllReadonly<Deliverer>()
+				.Where(d => d.Id == id)
+				.Select(d => d.Email)
+				.FirstOrDefaultAsync();
 		}
 	}
 }

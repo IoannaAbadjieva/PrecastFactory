@@ -9,7 +9,7 @@
 	{
 		Task AddDelivererAsync(DelivererFormViewModel model);
 
-		Task DeletePrecastAsync(int id);
+		Task DeleteDelivererAsync(int id);
 
 		Task EditDelivererAsync(int id, DelivererFormViewModel model);
 
@@ -20,6 +20,8 @@
 		Task<DelivererDeleteViewModel> GetDelivererToDeleteByIdAsync(int id);
 
 		Task<bool> HasOrdersAsync(int id);
+
+		Task<string?> GetDelivererEmailAsync(int id);
 
 		Task<bool> IsDelivererExistAsync(int id);
 	}
