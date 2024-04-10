@@ -18,6 +18,9 @@
 			services.AddScoped<IPrecastService, PrecastService>();
 			services.AddScoped<IReinforceService, ReinforceService>();
 			services.AddScoped<IDelivererService, DelivererService>();
+			services.AddScoped<IOrderService, OrderService>();
+			services.AddScoped<IExportService, ExportService>();
+			services.AddScoped<IEmailService, EmailService>();
 			return services;
 		}
 

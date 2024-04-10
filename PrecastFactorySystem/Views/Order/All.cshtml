@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ReinforceOrderInfoViewModel>
+
+@{
+	ViewBag.Title = "Orders List";
+}
+
+<h3 class="text-center">@ViewBag.Title</h3>
+<hr />
+
+<table class="table table-hover table-borderless">
+	<thead>
+		<tr>
+			<th scope="col">Order N</th>
+			<th scope="col">OrderDate</th>
+			<th scope="col">Project</th>
+			<th scope="col">PrecastType</th>
+			<th scope="col">Precast</th>
+			<th scope="col">OrderedCount</th>
+			<th scope="col">DeliverDate</th>
+			<th scope="col">Department</th>
+			<th scope="col">Deliverer</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
+
+
+		@foreach (var order in Model)
+		{
+			<tr>
+				<td>@order.OrderId</td>
+				<td>@order.OrderDate</td>
+				<td>@order.Project</td>
+				<td>@order.PrecastType</td>
+				<td>@order.Precast</td>
+				<td>@order.OrderedCount</td>
+				<td>@order.DeliverDate</td>
+				<td>@order.Department</td>
+				<td>@order.Deliverer</td>
+				@if (User?.Identity?.IsAuthenticated ?? false)
+				{
+					<td><a asp-controller="Order" asp-action="Delete" asp-route-id="@order.OrderId" class="card-link">Delete</a></td>
+				}
+			</tr>
+		}
+	</tbody>
+</table>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
