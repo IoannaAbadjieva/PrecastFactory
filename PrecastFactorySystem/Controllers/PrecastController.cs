@@ -72,7 +72,7 @@
 		[PrecastExist]
 		public async Task<IActionResult> Edit(PrecastFormViewModel model, int id)
 		{
-			int reinforced = await precastService.GetReinforcedPrecastCount(id);
+			int reinforced = await precastService.GetReinforcedPrecastCountAsync(id);
 
 			if (model.Count < reinforced)
 			{
@@ -175,40 +175,42 @@
 			return RedirectToAction(nameof(Reinforce), new { id });
 		}
 
+
 		[PrecastExist]
-		public async Task<IActionResult> Order(int id)
+		public async Task<IActionResult> Production(int id)
 		{
-			OrderPrecastReinforceViewModel model = new OrderPrecastReinforceViewModel()
-			{
-				Id = id,
-				OrderedCount = await precastService.GetPrecastToReinforceCount(id),
-				Deliverers = await baseService.GetDeliverersAsync(),
-				Departments = await baseService.GetDepartmentsAsync()
-			};
+			PrecastProductionViewModel? model = await precastService.GetPrecastProductionAsync(id);
 			return View(model);
 		}
 
 		[PrecastExist]
-		[HttpPost]
-		public async Task<IActionResult> Order(int id, OrderPrecastReinforceViewModel model)
+		public async Task<IActionResult> Produce(int id)
 		{
-			int maxCount = await precastService.GetPrecastToReinforceCount(id);
+			PrecastProductionFormViewModel? model = await precastService.GetPrecastProductionFormAsync(id);
+			return View(model);
+		}
 
-			if (model.OrderedCount > maxCount)
+		[HttpPost]
+		[PrecastExist]
+		public async Task<IActionResult> Produce(int id, PrecastProductionFormViewModel model)
+		{
+
+			int maxCount = await precastService.GetPrecastToProduceCountAsync(id);
+
+			if (model.ProducedCount > maxCount)
 			{
-				ModelState.AddModelError(nameof(model.OrderedCount),
-					string.Format(InvalidOrderCountErrorMessage, maxCount));
+				ModelState.AddModelError(nameof(model.ProducedCount),
+					string.Format(InvalidProduceCountErrorMessage, maxCount));
 			}
 
 			if (!ModelState.IsValid)
 			{
-				model.Deliverers = await baseService.GetDeliverersAsync();
 				model.Departments = await baseService.GetDepartmentsAsync();
 				return View(model);
 			}
 
-			await precastService.OrderPrecastAsync(id, model);
-			return RedirectToAction(nameof(Reinforce), new { id });
+			await precastService.ProducePrecastAsync(id, model);
+			return RedirectToAction(nameof(Production), new { id });
 		}
 
 	}

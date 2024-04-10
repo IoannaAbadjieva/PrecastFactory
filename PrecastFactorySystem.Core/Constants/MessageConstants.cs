@@ -12,5 +12,7 @@
 
 		public const string InvalidOrderCountErrorMessage = "You can not order more than {0} precast.";
 
+		public const string InvalidProduceCountErrorMessage = "You can not mark as produced more than {0} precast.";
+
 	}
 }

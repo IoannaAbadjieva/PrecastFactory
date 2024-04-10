@@ -1,13 +1,14 @@
 ﻿namespace PrecastFactorySystem.Core.Contracts
 {
-	using Models.Reinforce;
+    using System.Collections.Generic;
 
-	using PrecastFactorySystem.Core.Models.Base;
+    using Models.Reinforce;
 
-	public interface IReinforceService
+    using PrecastFactorySystem.Core.Models.Base;
+    using PrecastFactorySystem.Core.Models.Order;
+
+    public interface IReinforceService
 	{
-		Task<IEnumerable<ReinforceInfoViewModel>> GetReinforceAsync(int id);
-
 		Task<int> EditReinforceAsync(int id, ReinforceFormViewModel model);
 
 		Task<int> DeleteReinforceAsync(int id);
@@ -15,6 +16,6 @@
 		Task<ReinforceFormViewModel> GetReinforceByIdAsync(int id);
 
 		Task<bool> IsReinforceExist(int id);
-
+		
 	}
 }

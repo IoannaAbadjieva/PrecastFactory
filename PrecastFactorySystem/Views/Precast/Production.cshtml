@@ -1,7 +1,7 @@
-﻿@model PrecastReinforceViewModel
+﻿@model PrecastProductionViewModel
 
 @{
-	ViewBag.Title = "Precast reinforce";
+	ViewBag.Title = "Precast production by Departments";
 
 }
 
@@ -21,8 +21,7 @@
 	</div>
 </div>
 <div class="text-center mt-4 p-5">
-	<a asp-area="" asp-controller="Precast" asp-action="AddReinforce" asp-route-id="@Model.Id" class="btn btn-dark ">Add Reinforce</a>
-	<a asp-area="" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-dark ">Order</a>
+	<a asp-area="" asp-controller="Precast" asp-action="Produce" asp-route-id="@Model.Id" class="btn btn-dark ">Mark as produced</a>
 	<a asp-area="" asp-controller="Precast" asp-action="All" class="btn btn-dark ">Back to all precast </a>
 </div>
 
@@ -30,28 +29,30 @@
 <table class="table table-hover table-borderless">
 	<thead>
 		<tr>
-			<th disabled scope="col">Id</th>
-			<th disabled scope="col">PrecastId</th>
-			<th scope="col">Position</th>
+			<th hidden scope="col">Id</th>
+			<th hidden scope="col">PrecastId</th>
+			<th scope="col">Department</th>
 			<th scope="col">Count</th>
-			<th scope="col">ReinforceType</th>
-			<th scope="col">Length</th>
+			<th scope="col">Date</th>
+			<th scope="col">ConcreteAmont m3</th>
 		</tr>
 	</thead>
 	<tbody class="table-group-divider overflow-scroll">
 
-		@foreach (var r in Model.Reinforce)
+		@foreach (var pd in Model.ByDepartments)
 		{
 			<tr>
-				<td disabled>@r.Id</td>
-				<td disabled>@r.PrecastId</td>
-				<td>@r.Position</td>
-				<td>@r.Count</td>
-				<td>@r.ReinforceType</td>
-				<td>@r.Length</td>
-				<td><a asp-controller="Reinforce" asp-action="Edit" asp-route-id="@r.Id" class="card-link">Edit</a></td>
-				<td><a asp-controller="Reinforce" asp-action="Delete" asp-route-id="@r.Id" class="card-link"
-				onclick="return confirm('Are you sure you want to delete this reinforce?')">Delete</a></td>
+				<td hidden>@pd.Id</td>
+				<td hidden>@pd.PrecastId</td>
+				<td>@pd.Department</td>
+				<td>@pd.Count</td>
+				<td>@pd.Date</td>
+				<td>@pd.ConcreteAmont</td>
+				<td><a asp-controller="Reinforce" asp-action="Edit" asp-route-id="@pd.Id" class="card-link">Edit</a></td>
+				<td>
+					<a asp-controller="Reinforce" asp-action="Delete" asp-route-id="@pd.Id" class="card-link"
+					   onclick="return confirm('Are you sure you want to delete this reinforce?')">Delete</a>
+				</td>
 			</tr>
 		}
 	</tbody>

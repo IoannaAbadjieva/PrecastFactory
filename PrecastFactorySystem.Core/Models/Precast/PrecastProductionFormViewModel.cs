@@ -6,32 +6,33 @@
 
 	using PrecastFactorySystem.Core.Models.Base;
 
-	using static Infrastructure.DataValidation.DataConstants;
-	using static Infrastructure.DataValidation.ErrorMessages;
+	using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
+	using static PrecastFactorySystem.Infrastructure.DataValidation.ErrorMessages;
 
-	public class OrderPrecastReinforceViewModel
+	public class PrecastProductionFormViewModel
 	{
 		[Required]
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
-		[Range(PrecastCountMinValue, PrecastCountMaxValue, 
+		[Range(PrecastCountMinValue, PrecastCountMaxValue,
 			ErrorMessage = NumberRangeErrorMessage)]
-		public int OrderedCount { get; set; }
+		public int ProducedCount { get; set; }
 
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
-		public int DelivererId { get; set; }
-
-		public IEnumerable<BaseSelectorViewModel> Deliverers { get; set; } = Array.Empty<BaseSelectorViewModel>();
+		public DateTime Date { get; set; }
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
-		public DateTime DeliverDate { get; set; }
+		[Range(typeof(decimal), ConcreteAmountMinValue, ConcreteAmountMaxValue,
+						ErrorMessage = NumberRangeErrorMessage)]
+		public decimal ConcreteAmount { get; set; }
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public int DepartmentId { get; set; }
 
 		public IEnumerable<BaseSelectorViewModel> Departments { get; set; } = Array.Empty<BaseSelectorViewModel>();
+
 
 	}
 }

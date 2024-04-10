@@ -17,17 +17,9 @@
 
 		Task AddPrecastAsync(PrecastFormViewModel model);
 
-		Task<PrecastFormViewModel> GetNewPrecastFormViewModelAsync();
-
 		Task<PrecastFormViewModel> GetPrecastByIdAsync(int id);
 
 		Task EditPrecastAsync(int id, PrecastFormViewModel model);
-
-		Task<int> GetReinforcedPrecastCount(int id);
-
-		Task<int> GetPrecastToReinforceCount(int id);
-
-		Task<int> GetProducedPrecastCount(int id);
 
 		Task<PrecastDetailsViewModel?> GetPrecastDetailsAsync(int id);
 
@@ -41,10 +33,22 @@
 
 		Task AddReinforceAsync(int id, ReinforceFormViewModel model);
 
-		Task<bool> IsPrecastExist(int id);
+		Task<PrecastProductionViewModel?> GetPrecastProductionAsync(int id);
 
-		Task OrderPrecastAsync(int id, OrderPrecastReinforceViewModel model);
+		Task<PrecastProductionFormViewModel?> GetPrecastProductionFormAsync(int id);
+
+		Task ProducePrecastAsync(int id, PrecastProductionFormViewModel model);
+
+		Task<int> GetReinforcedPrecastCountAsync(int id);
+
+		Task<int> GetPrecastToReinforceCountAsync(int id);
+
+		Task<int> GetPrecastToProduceCountAsync(int id);
+
+		Task<int> GetProducedPrecastCountAsync(int id);
 
 		Task<decimal> GetPrecastActualWeightAsync(int id);
+
+		Task<bool> IsPrecastExist(int id);
 	}
 }

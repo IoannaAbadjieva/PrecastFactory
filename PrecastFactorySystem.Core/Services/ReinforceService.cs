@@ -1,17 +1,20 @@
 ﻿namespace PrecastFactorySystem.Core.Services
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
+    using System;
+    using System.Threading.Tasks;
 
-	using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
-	using Contracts;
-	using Infrastructure.Data.Common;
-	using Infrastructure.Data.Models;
-	using Models.Reinforce;
+    using Contracts;
+    using Infrastructure.Data.Common;
+    using Infrastructure.Data.Models;
+    using Models.Reinforce;
+    using System.Collections.Generic;
 
-	public class ReinforceService : IReinforceService
+    using static Infrastructure.DataValidation.DataConstants;
+    using PrecastFactorySystem.Core.Models.Order;
+
+    public class ReinforceService : IReinforceService
 	{
 		private readonly IRepository repository;
 		private readonly IBaseServise baseServise;
@@ -61,23 +64,6 @@
 			return entity.PrecastId;
 		}
 
-
-
-		public async Task<IEnumerable<ReinforceInfoViewModel>> GetReinforceAsync(int id)
-		{
-			return await repository.AllReadonly<PrecastReinforce>(r => r.PrecastId == id)
-				.Select(r => new ReinforceInfoViewModel()
-				{
-					Id = r.Id,
-					PrecastId = r.PrecastId,
-					Count = r.Count,
-					Position = r.Position,
-					Length = r.Length,
-					ReinforceType = $"{r.ReinforceType.ReinforceClass}  {r.ReinforceType.Diameter}"
-				}).ToArrayAsync();
-
-		}
-
 		public async Task<ReinforceFormViewModel> GetReinforceByIdAsync(int id)
 		{
 			var model = await repository.All<PrecastReinforce>(pr => pr.Id == id)
@@ -98,6 +84,8 @@
 			model.ReinforceTypes = await baseServise.GetReinforceTypesAsync();
 			return model;
 		}
+
+		
 
 		public async Task<bool> IsReinforceExist(int id)
 		{
