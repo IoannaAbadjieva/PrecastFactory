@@ -8,6 +8,7 @@
 	using Microsoft.EntityFrameworkCore;
 
 	using PrecastFactorySystem.Core.Contracts;
+	using PrecastFactorySystem.Core.Enumeration;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models.Order;
 	using PrecastFactorySystem.Core.Models.Reinforce;
@@ -16,7 +17,6 @@
 
 	using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
 	using static PrecastFactorySystem.Core.Constants.MessageConstants;
-	using PrecastFactorySystem.Core.Enumeration;
 
 	public class OrderService : IOrderService
 	{
@@ -144,12 +144,12 @@
 
 			if (fromDate.HasValue)
 			{
-				query = query.Where(pro => pro.ReinforceOrder.DeliverDate >= fromDate);
+				query = query.Where(pro => pro.ReinforceOrder.DeliverDate.Date >= fromDate.Value.Date);
 			}
 
 			if (toDate.HasValue)
 			{
-				query = query.Where(pro => pro.ReinforceOrder.DeliverDate <= toDate);
+				query = query.Where(pro => pro.ReinforceOrder.DeliverDate.Date <= toDate.Value.Date);
 			}
 
 
@@ -167,7 +167,7 @@
 				OrderSorting.ByProject => query.OrderBy(pro => pro.Precast.Project.Name),
 				OrderSorting.ByDeliverer => query.OrderBy(pro => pro.ReinforceOrder.Deliverer.Name),
 				OrderSorting.ByDepartment => query.OrderBy(pro => pro.ReinforceOrder.Department.Name),
-				_ => query.OrderBy(pro => pro.ReinforceOrder.DeliverDate)
+				_ => query.OrderByDescending(pro => pro.ReinforceOrder.DeliverDate)
 			};
 
 			var totalOrders = await query.CountAsync();
@@ -233,7 +233,7 @@
 			var currentDate = DateTime.Now;
 			var entity = await repository.GetByIdAsync<ReinforceOrder>(id);
 
-			if ((currentDate - entity.DeliverDate).Days < DaysLeftToDeliverDate)
+			if ((entity.DeliverDate.Date - currentDate.Date).Days < DaysLeftToDeliverDate)
 			{
 				throw new DeleteActionException(DeleteOrderErrorMessage);
 			}

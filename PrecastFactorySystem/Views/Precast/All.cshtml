@@ -25,7 +25,8 @@
 		<div class="form-group col-sm-2">
 			<div class="form-group">
 				<label asp-for="PrecastTypeId">Type</label>
-				<select asp-for="PrecastTypeId" class="form-control">.
+				<select asp-for="PrecastTypeId" class="form-control">
+					.
 
 					<option disabled selected value="">...</option>
 					@foreach (var type in Model.PrecastTypes)
@@ -46,7 +47,7 @@
 				<select asp-for="Sorting" class="form-control">
 					<option disabled selected value="">...</option>
 					<option class="bg-dark text-light" value="0">Newest</option>
-					<option class ="bg-dark text-light" value="1">By Project</option>
+					<option class="bg-dark text-light" value="1">By Project</option>
 					<option class="bg-dark text-light" value="2">By Type</option>
 				</select>
 			</div>
@@ -102,41 +103,7 @@
 }
 
 
-<table class="table table-hover table-borderless">
-	<thead>
-		<tr>
-			<th scope="col">Project</th>
-			<th scope="col">Type</th>
-			<th scope="col">Name</th>
-			<th scope="col">Count</th>
-			<th scope="col">Reinforced</th>
-			<th scope="col">Produced</th>
-		</tr>
-	</thead>
-	<tbody class="table-group-divider">
-
-
-		@foreach (var p in Model.Precast)
-		{
-			<tr>
-				<td>@p.Project</td>
-				<td>@p.PrecastType</td>
-				<td>@p.Name</td>
-				<td>@p.Count</td>
-				<td>@p.Reinforced</td>
-				<td>@p.Produced</td>
-				<td><a asp-controller="Precast" asp-action="Details" asp-route-id="@p.Id" class="card-link">Details</a></td>
-				@if (User?.Identity?.IsAuthenticated ?? false)
-				{
-					<td><a asp-controller="Precast" asp-action="Delete" asp-route-id="@p.Id" class="card-link">Delete</a></td>
-					<td><a asp-controller="Precast" asp-action="Reinforce" asp-route-id="@p.Id" class="card-link">Reinforce</a></td>
-					<td><a asp-controller="Precast" asp-action="Production" asp-route-id="@p.Id" class="card-link">By Department</a></td>
-				}
-			</tr>
-
-		}
-	</tbody>
-</table>
+<partial name="_PrecastPartial" model=@Model.Precast />
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

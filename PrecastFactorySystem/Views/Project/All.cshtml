@@ -19,7 +19,7 @@
 				<select asp-for="Sorting" class="form-control">
 					<option disabled selected value="">...</option>
 					<option class="bg-dark text-light" value="0">Newest</option>
-					<option class ="bg-dark text-light" value="1">By Name</option>
+					<option class="bg-dark text-light" value="1">By Name</option>
 				</select>
 			</div>
 		</div>
@@ -75,20 +75,9 @@
 }
 
 <div class="row gap-md-5">
-	@foreach (var p in Model.Projects)
+	@foreach (var project in Model.Projects)
 	{
-		<div class="card bg-transparent text-light " style="max-width:18rem">
-			<h5 class="card-title">@p.Name</h5>
-			<h6 class="card-subtitle mb-2 text-body-secondary">@p.ProdNumber</h6>
-			<p class="card-text"><span class="fw-bold">Started At: </span>@p.AddedOn</p>
-			<p class="card-text"><span class="fw-bold">Precast: </span>@p.PrecastCount<span class="fw-bold"> pcs</span></p>
-			<p class="card-text"><span class="fw-bold">Total count: </span>@p.PrecastTotalCount<span class="fw-bold"> pcs</span></p>
-			<hr />
-			<div><a asp-controller="Project" asp-action="Details" asp-route-id="@p.Id" class="card-link">Details</a></div>
-			<div><a asp-controller="Project" asp-action="AddPrecast" asp-route-id="@p.Id">Add Precast</a></div>
-			<div><a asp-controller="Project" asp-action="Edit" asp-route-id="@p.Id">Edit</a></div>
-			<div><a asp-controller="Project" asp-action="Delete" asp-route-id="@p.Id">Delete</a></div>
-		</div>
+		<partial name="_ProjectPartial" model=@project />
 	}
 </div>
 

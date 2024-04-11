@@ -20,13 +20,7 @@
 				<td>@p.Reinforced</td>
 				<td>@p.Produced</td>
 				<td><a asp-controller="Precast" asp-action="Details" asp-route-id="@p.Id" class="card-link">Details</a></td>
-				@* @if (User?.Identity?.IsAuthenticated ?? false)
-			{
-			<td><a asp-controller="Precast" asp-action="Edit" asp-route-id="@p.Id" class="card-link">Edit</a></td>
-			<td><a asp-controller="Precast" asp-action="Delete" asp-route-id="@p.Id" class="card-link">Delete</a></td>
-			} *@
 			</tr>
-
 		}
 	</tbody>
 

@@ -1,0 +1,14 @@
+﻿@model ProjectInfoViewModel
+
+<div class="card bg-transparent text-light " style="max-width:18rem">
+	<h5 class="card-title">@Model.Name</h5>
+	<h6 class="card-subtitle mb-2 text-body-secondary">@Model.ProdNumber</h6>
+	<p class="card-text"><span class="fw-bold">Started At: </span>@Model.AddedOn</p>
+	<p class="card-text"><span class="fw-bold">Precast: </span>@Model.PrecastCount<span class="fw-bold"> pcs</span></p>
+	<p class="card-text"><span class="fw-bold">Total count: </span>@Model.PrecastTotalCount<span class="fw-bold"> pcs</span></p>
+	<hr />
+	<div><a asp-controller="Model" asp-action="Details" asp-route-id="@Model.Id" class="card-link">Details</a></div>
+	<div><a asp-controller="Model" asp-action="AddPrecast" asp-route-id="@Model.Id">Add Precast</a></div>
+	<div><a asp-controller="Model" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
+	<div><a asp-controller="Model" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+</div>
