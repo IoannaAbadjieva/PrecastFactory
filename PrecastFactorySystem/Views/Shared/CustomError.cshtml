@@ -1,0 +1,26 @@
+﻿@model CustomErrorViewModel
+@{
+	ViewData["Title"] = "Error";
+}
+
+<div class="row text-center">
+	<div class="col-3"></div>
+	<div class="col-6">
+		<br>
+		<div class="row">
+			<div class="col-10">
+				<div>
+					<img src="https://as1.ftcdn.net/v2/jpg/05/89/50/68/1000_F_589506892_75EVpdvO8KP9AKoohtdQFjLmr9u4gLF3.webp" height="100" width="120" alt="Alternative image" class="img-thumbnail">
+				</div>
+				<div class="h4">
+					<p>@Model.Message</p>
+				</div>
+				<div class="h4">  Go back to <a asp-controller="Home" asp-action="Index">Home</a> Page</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-3"></div>
+</div>
+
+
+
