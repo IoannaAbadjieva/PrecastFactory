@@ -1,15 +1,16 @@
 ﻿namespace PrecastFactorySystem.Core.Models.Order
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
 
-    using PrecastFactorySystem.Core.Models.Base;
+    using ValidationAttributes;
+	using PrecastFactorySystem.Core.Models.Base;
 
-    using static Infrastructure.DataValidation.DataConstants;
-    using static Infrastructure.DataValidation.ErrorMessages;
+	using static Infrastructure.DataValidation.DataConstants;
+	using static Infrastructure.DataValidation.ErrorMessages;
 
-    public class OrderPrecastReinforceViewModel
+	public class OrderPrecastReinforceViewModel
     {
         [Required]
         public int Id { get; set; }
@@ -26,6 +27,7 @@
         public IEnumerable<BaseSelectorViewModel> Deliverers { get; set; } = Array.Empty<BaseSelectorViewModel>();
 
         [Required(ErrorMessage = RequiredErrorMessage)]
+        [DeliverDateValidation]
         public DateTime DeliverDate { get; set; }
 
         [Required(ErrorMessage = RequiredErrorMessage)]
