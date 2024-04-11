@@ -3,14 +3,24 @@
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
 
+	using PrecastFactorySystem.Core.Enumeration;
 	using PrecastFactorySystem.Core.Models.Order;
 
 	public interface IOrderService
 	{
-		
-		Task<IEnumerable<ReinforceOrderInfoViewModel>> GetReinforceOrdersAsync();
-		Task<int> DeleteOrderAsync(int id);
-		//Task<OrderFormViewModel> GetOrderByIdAsync(int id);
+
+		Task<OrdersQueryModel> GetReinforceOrdersAsync(string? searchTerm = null,
+			int? projectId = null,
+			int? departmentId = null,
+			DateTime? fromDate = null,
+			DateTime? toDate = null,
+			OrderSorting sorting = OrderSorting.ByDeliverDate,
+			int currentPage = 1,
+			int ordersPerPage = 12);
+
+		Task<ReinforceOrderInfoViewModel> GetOrderToDeleteByIdAsync(int id);
+
+		Task DeleteOrderAsync(int id);
 
 		Task<OrderPrecastReinforceViewModel> GetOrderPrecastReinforceViewModel(int precastId);
 

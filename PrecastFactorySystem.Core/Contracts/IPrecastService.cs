@@ -1,19 +1,20 @@
 ﻿namespace PrecastFactorySystem.Core.Contracts
 {
-	using System;
 	using System.Collections.Generic;
-	using System.Linq.Expressions;
 	using System.Threading.Tasks;
 
 	using Models.Precast;
 	using Models.Reinforce;
-
-
-	using Infrastructure.Data.Models;
+	using PrecastFactorySystem.Core.Enumeration;
 
 	public interface IPrecastService
 	{
-		Task<IEnumerable<PrecastInfoViewModel>> GetAllPrecastAsync();
+		Task<PrecastQueryModel> GetAllPrecastAsync(string? searchTerm = null,
+			int? projectId = null,
+			int? precastTypeId = null,
+			PrecastSorting sorting = PrecastSorting.Newest,
+			int currentPage = 1,
+			int projectsPerPage = 12);
 
 		Task AddPrecastAsync(PrecastFormViewModel model);
 
@@ -22,8 +23,6 @@
 		Task EditPrecastAsync(int id, PrecastFormViewModel model);
 
 		Task<PrecastDetailsViewModel?> GetPrecastDetailsAsync(int id);
-
-		Task<IEnumerable<PrecastInfoViewModel>> GetPrecastByClauseAsync(Expression<Func<Precast, bool>> clause);
 
 		Task<PrecastDeleteViewModel?> GetPrecastToDeleteByIdAsync(int id);
 

@@ -1,15 +1,14 @@
 ﻿namespace PrecastFactorySystem.Core.Services
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Data;
 	using System.Linq;
-	using System.Linq.Expressions;
 	using System.Threading.Tasks;
 
 	using Microsoft.EntityFrameworkCore;
 
 	using Contracts;
+	using Enumeration;
 	using Exceptions;
 	using Models.Precast;
 	using Models.Reinforce;
@@ -33,23 +32,67 @@
 			baseServise = _baseService;
 		}
 
-		public async Task<IEnumerable<PrecastInfoViewModel>> GetAllPrecastAsync()
+		public async Task<PrecastQueryModel> GetAllPrecastAsync(string? searchTerm = null,
+			int? projectId = null,
+			int? precastTypeId = null,
+			PrecastSorting sorting = PrecastSorting.Newest,
+			int currentPage = 1,
+			int projectsPerPage = 12)
 		{
-			return await repository.AllReadonly<Precast>()
-				  .Select(p => new PrecastInfoViewModel()
-				  {
-					  Id = p.Id,
-					  PrecastType = p.PrecastType.Name,
-					  Name = p.Name,
-					  Count = p.Count,
-					  Project = p.Project.Name,
-					  Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
-					  Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
-				  })
-				  .OrderBy(p => p.Project)
-				  .ThenBy(p => p.PrecastType)
-				  .ThenBy(p => p.Name)
-				  .ToArrayAsync();
+			var query = repository.AllReadonly<Precast>();
+
+			string search = searchTerm?.ToLower() ?? string.Empty;
+
+			if (!string.IsNullOrWhiteSpace(search))
+			{
+				query = query.Where(p => p.Name.ToLower().Contains(search)
+									|| p.Project.Name.Contains(search)
+									|| p.PrecastType.Name.Contains(search)
+									|| p.ConcreteClass.Name.Contains(search));
+			}
+
+			if (projectId.HasValue)
+			{
+				query = query.Where(p => p.ProjectId == projectId);
+			}
+
+			if (precastTypeId.HasValue)
+			{
+				query = query.Where(p => p.PrecastTypeId == precastTypeId);
+			}
+
+			query = sorting switch
+			{
+				PrecastSorting.ByProject => query.OrderBy(p => p.Project.Name)
+												 .ThenBy(p => p.PrecastType.Name)
+												 .ThenBy(p => p.Name),
+				PrecastSorting.ByType => query.OrderBy(p => p.PrecastType.Name)
+												.ThenBy(p => p.Project.Name)
+												.ThenBy(p => p.Name),
+				_ => query.OrderByDescending(p => p.Id)
+			};
+
+			var totalPrecasts = await query.CountAsync();
+
+			var precast = await query
+				.Skip((currentPage - 1) * projectsPerPage)
+				.Take(projectsPerPage)
+				.Select(p => new PrecastInfoViewModel()
+				{
+					Id = p.Id,
+					Name = p.Name,
+					Project = p.Project.Name,
+					PrecastType = p.PrecastType.Name,
+					Count = p.Count,
+					Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
+					Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
+				}).ToArrayAsync();
+
+			return new PrecastQueryModel()
+			{
+				TotalPrecast = totalPrecasts,
+				Precasts = precast
+			};
 		}
 
 		public async Task AddPrecastAsync(PrecastFormViewModel model)
@@ -123,21 +166,6 @@
 				   }).FirstOrDefaultAsync();
 
 			return model;
-		}
-
-		public async Task<IEnumerable<PrecastInfoViewModel>> GetPrecastByClauseAsync(Expression<Func<Precast, bool>> clause)
-		{
-			return await repository.AllReadonly<Precast>(clause)
-					  .Select(p => new PrecastInfoViewModel()
-					  {
-						  Id = p.Id,
-						  PrecastType = p.PrecastType.Name,
-						  Name = p.Name,
-						  Count = p.Count,
-						  Project = p.Project.Name,
-						  Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
-						  Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
-					  }).ToArrayAsync();
 		}
 
 		public async Task<PrecastDeleteViewModel?> GetPrecastToDeleteByIdAsync(int id)
@@ -237,18 +265,27 @@
 
 		public async Task<PrecastProductionFormViewModel?> GetPrecastProductionFormAsync(int id)
 		{
-			var model = new PrecastProductionFormViewModel()
+			if (await GetPrecastToProduceCountAsync(id) <= 0)
+			{
+				throw new ProduceActionException(NoPrecastToProduceErrorMessage);
+			}
+
+			return new PrecastProductionFormViewModel()
 			{
 				Id = id,
 				ProducedCount = await GetPrecastToProduceCountAsync(id),
 				Departments = await baseServise.GetDepartmentsAsync()
 			};
 
-			return model;
 		}
 
 		public async Task ProducePrecastAsync(int id, PrecastProductionFormViewModel model)
 		{
+			if (await GetPrecastToProduceCountAsync(id) <= 0)
+			{
+				throw new ProduceActionException(NoPrecastToProduceErrorMessage);
+			}
+
 			var entity = new PrecastDepartment()
 			{
 				PrecastId = id,

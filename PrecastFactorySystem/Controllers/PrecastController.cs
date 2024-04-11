@@ -26,9 +26,21 @@
 			baseService = _baseService;
 			reinforceService = _reinforceService;
 		}
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All([FromQuery]AllPrecastQueryModel model)
 		{
-			IEnumerable<PrecastInfoViewModel> model = await precastService.GetAllPrecastAsync();
+			var precasts = await precastService.GetAllPrecastAsync(
+				model.SearchTerm,
+				model.ProjectId,
+				model.PrecastTypeId,
+				model.Sorting,
+				model.CurrentPage,
+				AllPrecastQueryModel.PrecastsPerPage);
+
+			model.Projects = await baseService.GetProjectsAsync();
+			model.PrecastTypes = await baseService.GetPrecastTypesAsync();
+			model.Precast = precasts.Precasts;
+			model.TotalPrecast = precasts.TotalPrecast;
+
 			return View(model);
 		}
 
@@ -111,7 +123,7 @@
 			}
 			catch (DeleteActionException dae)
 			{
-				return View("DeleteError", new DeleteErrorViewModel()
+				return View("CustomError", new CustomErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -130,7 +142,7 @@
 			catch (DeleteActionException dae)
 			{
 
-				return View("DeleteError", new DeleteErrorViewModel()
+				return View("CustomError", new CustomErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -186,8 +198,20 @@
 		[PrecastExist]
 		public async Task<IActionResult> Produce(int id)
 		{
-			PrecastProductionFormViewModel? model = await precastService.GetPrecastProductionFormAsync(id);
-			return View(model);
+			try
+			{
+				PrecastProductionFormViewModel? model = await precastService.GetPrecastProductionFormAsync(id);
+				return View(model);
+			}
+			catch (ProduceActionException pae)
+			{
+
+				return View("CustomError", new CustomErrorViewModel()
+				{
+					Message = pae.Message
+				});
+			}
+
 		}
 
 		[HttpPost]

@@ -2,12 +2,13 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
+	using PrecastFactorySystem.Attributes;
+
 	using Core.Contracts;
 	using Core.Models.Precast;
 	using Core.Models.Project;
 	using Core.Exceptions;
 	using Core.Models;
-	using PrecastFactorySystem.Attributes;
 
 	public class ProjectController : BaseController
 	{
@@ -25,9 +26,16 @@
 			precastService = _precastService;
 			baseService = _baseService;
 		}
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All([FromQuery]AllProjectsQueryModel model)
 		{
-			IEnumerable<ProjectInfoViewModel> model = await projectService.GetAllProjectsAsync();
+			var projects = await projectService.GetAllProjectsAsync(
+				model.SearchTerm,
+				model.Sorting,
+				model.CurrentPage,
+				AllProjectsQueryModel.ProjectsPerPage);
+
+			model.Projects = projects.Projects;
+			model.TotalProjects = projects.TotalProjects;
 
 			return View(model);
 		}
@@ -52,23 +60,14 @@
 			return RedirectToAction(nameof(All));
 		}
 
+		[ProjectExist]
 		public async Task<IActionResult> Details(int id)
 		{
-			try
-			{
-				ProjectDetailsViewModel model = await projectService.GetProjectDetails(id);
-				model.Precast = await precastService.GetPrecastByClauseAsync(p => p.ProjectId == id);
-
-				return View(model);
-			}
-			catch (ArgumentException)
-			{
-
-				return BadRequest();
-			}
-
+			ProjectDetailsViewModel? model = await projectService.GetProjectDetails(id);
+			return View(model);
 		}
 
+		[ProjectExist]
 		public async Task<IActionResult> AddPrecast(int id)
 		{
 			PrecastFormViewModel model = new PrecastFormViewModel()
@@ -82,6 +81,7 @@
 		}
 
 		[HttpPost]
+		[ProjectExist]
 		public async Task<IActionResult> AddPrecast(PrecastFormViewModel model, int id)
 		{
 			if (!ModelState.IsValid)
@@ -93,30 +93,17 @@
 				return View(model);
 			}
 
-			try
-			{
-				await projectService.AddPrecastToProjectAsync(model, id);
-				return RedirectToAction(nameof(Details), new { id = id });
-			}
-			catch (ArgumentException)
-			{
-				return BadRequest();
-			}
+
+			await projectService.AddPrecastToProjectAsync(model, id);
+			return RedirectToAction(nameof(Details), new { id = id });
+
 		}
 
 		[ProjectExist]
 		public async Task<IActionResult> Edit(int id)
 		{
-			try
-			{
-				ProjectFormViewModel model = await projectService.GetProjectByIdAsync(id);
-				return View(model);
-			}
-			catch (ArgumentException)
-			{
-				return BadRequest();
-			}
-
+			ProjectFormViewModel model = await projectService.GetProjectByIdAsync(id);
+			return View(model);
 		}
 
 		[HttpPost]
@@ -128,16 +115,8 @@
 				return View(model);
 			}
 
-			try
-			{
-				await projectService.EditProjectAsync(id, model);
-				return RedirectToAction(nameof(All));
-			}
-			catch (ArgumentException)
-			{
-				return BadRequest();
-			}
-
+			await projectService.EditProjectAsync(id, model);
+			return RedirectToAction(nameof(All));
 		}
 
 		[ProjectExist]
@@ -145,17 +124,12 @@
 		{
 			try
 			{
-				ProjectInfoViewModel model = await projectService.GetProjectToDeleteByIdAsync(id);
+				ProjectInfoViewModel? model = await projectService.GetProjectToDeleteByIdAsync(id);
 				return View(model);
-			}
-			catch (ArgumentException)
-			{
-				return BadRequest();
 			}
 			catch (DeleteActionException dae)
 			{
-
-				return View("DeleteError", new DeleteErrorViewModel()
+				return View("CustomError", new CustomErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -172,20 +146,14 @@
 				await projectService.DeleteProjectAsync(id);
 				return RedirectToAction(nameof(All));
 			}
-			catch (ArgumentException)
-			{
-				return BadRequest();
-			}
 			catch (DeleteActionException dae)
 			{
 
-				return View("DeleteError", new DeleteErrorViewModel()
+				return View("CustomError", new CustomErrorViewModel()
 				{
 					Message = dae.Message
 				});
 			}
-
-
 		}
 	}
 }

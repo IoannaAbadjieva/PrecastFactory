@@ -13,10 +13,11 @@
 
 	using static Constants.MessageConstants;
 	using static Infrastructure.DataValidation.DataConstants;
-
+	using PrecastFactorySystem.Core.Enumeration;
 
 	public class ProjectService : IProjectService
 	{
+
 		private readonly IRepository repository;
 
 		public ProjectService(IRepository _repository)
@@ -24,20 +25,45 @@
 			repository = _repository;
 		}
 
-		public async Task<IEnumerable<ProjectInfoViewModel>> GetAllProjectsAsync()
+		public async Task<ProjectQueryModel> GetAllProjectsAsync(string? searchTerm = null,
+			ProjectSorting sorting = ProjectSorting.Newest,
+			int currentPage = 1,
+			int projectsPerPage = 4)
 		{
-			return await repository.AllReadonly<Project>()
+			var query = repository.AllReadonly<Project>();
+
+			if (!string.IsNullOrWhiteSpace(searchTerm))
+			{
+				query = query.Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()));
+			}
+
+			query = sorting switch
+			{
+				ProjectSorting.Newest => query.OrderBy(p => p.AddedOn),
+				ProjectSorting.Name => query.OrderBy(p => p.Name),
+				_ => query.OrderByDescending(p => p.Id)
+			};
+
+			var totalProjects = await query.CountAsync();
+
+			var projects = await query
+				.Skip((currentPage - 1) * projectsPerPage)
+				.Take(projectsPerPage)
 				.Select(p => new ProjectInfoViewModel()
 				{
 					Id = p.Id,
 					Name = p.Name,
 					ProdNumber = p.ProdNumber,
 					AddedOn = p.AddedOn.ToString(DateFormat),
-					PrecastCount = p.ProjectPrecast.Count,
-					PrecastTotalCount = p.ProjectPrecast.Sum(precast => precast.Count)
-				})
-				.OrderByDescending(p => p.Id)
-				.ToArrayAsync();
+					PrecastCount = p.ProjectPrecast.Count(),
+					PrecastTotalCount = p.ProjectPrecast.Sum(p => p.Count),
+				}).ToListAsync();
+
+			return new ProjectQueryModel()
+			{
+				TotalProjects = totalProjects,
+				Projects = projects
+			};
 		}
 
 		public async Task AddProjectAsync(ProjectFormViewModel model)
@@ -57,11 +83,6 @@
 		{
 			var project = await repository.GetByIdAsync<Project>(id);
 
-			if (project == null)
-			{
-				throw new ArgumentException();
-			}
-
 			return new ProjectFormViewModel()
 			{
 				Name = project.Name,
@@ -73,11 +94,6 @@
 		{
 			var project = await repository.GetByIdAsync<Project>(id);
 
-			if (project == null)
-			{
-				throw new ArgumentException();
-			}
-
 			project.Name = model.Name;
 			project.ProdNumber = model.ProdNumber;
 
@@ -87,11 +103,6 @@
 		public async Task AddPrecastToProjectAsync(PrecastFormViewModel model, int id)
 		{
 			var project = await repository.GetByIdAsync<Project>(id);
-
-			if (project == null)
-			{
-				throw new ArgumentException();
-			}
 
 			project.ProjectPrecast.Add(new Precast()
 			{
@@ -107,9 +118,16 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<ProjectInfoViewModel> GetProjectToDeleteByIdAsync(int id)
+		public async Task<ProjectInfoViewModel?> GetProjectToDeleteByIdAsync(int id)
 		{
-			var model = await repository.AllReadonly<Project>(p => p.Id == id)
+			bool isReinforce = await IsReinforcedProjectPrecastAsync(id);
+
+			if (isReinforce)
+			{
+				throw new DeleteActionException(DeleteProjectErrorMessage);
+			}
+
+			return await repository.AllReadonly<Project>(p => p.Id == id)
 			.Select(p => new ProjectInfoViewModel()
 			{
 				Id = p.Id,
@@ -119,31 +137,11 @@
 				PrecastCount = p.ProjectPrecast.Count(),
 			}).FirstOrDefaultAsync();
 
-			if (model == null)
-			{
-				throw new ArgumentException();
-			}
-
-			bool isReinforce = await IsReinforcedProjectPrecastAsync(id);
-
-			if (isReinforce)
-			{
-				throw new DeleteActionException(DeleteProjectErrorMessage);
-			}
-
-			return model;
 		}
 
 		public async Task DeleteProjectAsync(int id)
 		{
 			var project = await repository.GetByIdAsync<Project>(id);
-
-			if (project == null)
-			{
-				throw new ArgumentException();
-
-			}
-
 
 			bool isReinforce = await IsReinforcedProjectPrecastAsync(id);
 
@@ -156,22 +154,25 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<ProjectDetailsViewModel> GetProjectDetails(int id)
+		public async Task<ProjectDetailsViewModel?> GetProjectDetails(int id)
 		{
-			var model = await repository.AllReadonly<Project>(p => p.Id == id)
+			return await repository.AllReadonly<Project>(p => p.Id == id)
 				 .Select(p => new ProjectDetailsViewModel()
 				 {
 					 Id = p.Id,
 					 Name = p.Name,
 					 ProdNumber = p.ProdNumber,
+					 Precast = p.ProjectPrecast.Select(precast => new PrecastInfoViewModel()
+					 {
+						 Id = precast.Id,
+						 PrecastType = precast.PrecastType.Name,
+						 Name = precast.Name,
+						 Count = precast.Count,
+						 Reinforced = precast.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
+						 Produced = precast.DepartmentPrecast.Sum(dp => dp.Count),
+					 }).ToArray()
 				 }).FirstOrDefaultAsync();
 
-			if (model == null)
-			{
-				throw new ArgumentException();
-			}
-
-			return model;
 		}
 
 		public async Task<bool> IsReinforcedProjectPrecastAsync(int id)
@@ -182,8 +183,10 @@
 
 		public async Task<bool> IsProjectExistAsync(int id)
 		{
-			 return await repository.AllReadonly<Project>()
-				.AnyAsync(p => p.Id == id);
+			return await repository.AllReadonly<Project>()
+			   .AnyAsync(p => p.Id == id);
 		}
+
+
 	}
 }

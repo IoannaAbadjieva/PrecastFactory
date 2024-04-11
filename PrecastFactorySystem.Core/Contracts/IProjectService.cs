@@ -5,6 +5,7 @@
 
 	using Models.Project;
 
+	using PrecastFactorySystem.Core.Enumeration;
 	using PrecastFactorySystem.Core.Models.Precast;
 
 	public interface IProjectService
@@ -17,15 +18,18 @@
 
 		Task EditProjectAsync(int id, ProjectFormViewModel model);
 
-		Task<IEnumerable<ProjectInfoViewModel>> GetAllProjectsAsync();
+		Task<ProjectQueryModel> GetAllProjectsAsync(string? searchTerm = null,
+			ProjectSorting sorting = ProjectSorting.Newest,
+			int currentPage = 1,
+			int projectsPerPage = 4);
 
 		Task<ProjectFormViewModel> GetProjectByIdAsync(int id);
 
-		Task<ProjectDetailsViewModel> GetProjectDetails(int id);
+		Task<ProjectDetailsViewModel?> GetProjectDetails(int id);
 
 		Task<bool>IsReinforcedProjectPrecastAsync(int id);
 
-		Task<ProjectInfoViewModel> GetProjectToDeleteByIdAsync(int id);
+		Task<ProjectInfoViewModel?> GetProjectToDeleteByIdAsync(int id);
 
 		Task<bool> IsProjectExistAsync(int id);
 	}
