@@ -72,7 +72,7 @@
 					catch (DeleteActionException dae)
 			{
 
-				return View("DeleteError", new DeleteErrorViewModel()
+				return View("CustomError", new CustomErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -90,7 +90,7 @@
 			catch (DeleteActionException dae)
 			{
 
-				return View("DeleteError", new DeleteErrorViewModel()
+				return View("CustomError", new CustomErrorViewModel()
 				{
 					Message = dae.Message
 				});
