@@ -14,7 +14,6 @@
 			int? departmentId = null,
 			DateTime? fromDate = null,
 			DateTime? toDate = null,
-			OrderSorting sorting = OrderSorting.ByDeliverDate,
 			int currentPage = 1,
 			int ordersPerPage = 12);
 
