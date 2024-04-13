@@ -12,15 +12,15 @@
 
 }
 
-<h3 class="text-center">@Model.Name</h3>
-<p class="text-center">@Model.ProdNumber</p>
-<hr />
+	<h3 class="text-center">@Model.Name</h3>
+	<p class="text-center">@Model.ProdNumber</p>
+	<hr />
 
-@foreach (var result in query)
-{
+	@foreach (var result in query)
+	{
 
-	<div class="overflow-auto accordion" id="accordion">
-		
+		<div class="accordion" id="accordion">
+
 			<div class="accordion-item  bg-dark text-light">
 				<h2 class="accordion-header">
 					<button class="accordion-button collapsed  bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target=@($"#collapse{accordionCounter}") aria-expanded="true" aria-controls=@($"collapse{accordionCounter}")>
@@ -29,16 +29,18 @@
 				</h2>
 
 				<div id=@($"collapse{accordionCounter}") class="accordion-collapse collapse" data-bs-parent="#accordion">
-				<div class="overflow-auto accordion-body">
+					<div class="overflow-auto accordion-body">
 						<partial name="_ProjectPrecastPartial" model="result.precast" />
 					</div>
 				</div>
 			</div>
 
 		</div>
-	
-	accordionCounter++;
-}
+
+		accordionCounter++;
+	}
+
+
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 }
