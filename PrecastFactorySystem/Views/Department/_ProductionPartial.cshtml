@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ProductionInfoViewModel>
+
+<table class="table table-hover table-borderless">
+	<thead>
+		<tr>
+			<th scope="col">ProjectName</th>
+			<th scope="col">PrecastType</th>
+			<th scope="col">PrecastName</th>
+			<th scope="col">Count</th>
+			<th scope="col">Department</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
+
+
+		@foreach (var precast in Model)
+		{
+			<tr>
+				<td>@precast.ProjectName</td>
+				<td>@precast.PrecastType</td>
+				<td>@precast.PrecastName</td>
+				<td>@precast.Count</td>
+				<td>@precast.Department</td>
+
+				@if (User?.Identity?.IsAuthenticated ?? false)
+				{
+					<td><a asp-controller="Department" asp-action="Details" asp-route-id="@precast.PrecastId" class="card-link">Details</a></td>
+				}
+			</tr>
+		}
+	</tbody>
+</table>

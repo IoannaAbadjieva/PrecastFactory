@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProductionInfoViewModel>
+
+@{
+	ViewBag.Title = "Today Production";
+	var query = Model.GroupBy(m => m.Department, (key, group) => new
+	{
+		department = key,
+		projects = group.ToArray()
+						.GroupBy(m => m.ProjectName, (key, group) => new
+						{
+							projectName = key,
+							precast = group.ToArray()
+						})
+	});
+}
+
+<h4 class="text-center">@ViewBag.Title</h4>
+<hr />
+
+<div class="d-flex flex-column justify-content-between overflow-y-scroll">
+
+	<div class="d-flex flex-row justify-content-between">
+		@foreach (var result in query)
+		{
+			<div>
+				<h4>@result.department</h4>
+				<hr />
+				@foreach (var project in result.projects)
+				{
+					<div>
+						<h5>@project.projectName</h5>
+						<div class="d-flex flex-row justify-content-between">
+							@foreach (var precast in project.precast)
+							{
+								<p>@precast.PrecastType</p>
+								<p>@precast.PrecastName</p>
+								<p>@precast.Count</p>
+							}
+						</div>
+					</div>
+				}
+			</div>
+		}
+	</div>
+
+	<a asp-controller="Department" asp-action="All" class="btn btn-secondary mb-2  p-3 fw-bold text-center">Back to all</a>
+
+</div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ProductionDetailsViewModel>
+
+@{
+	ViewBag.Title = $"{Model.ElementAt(0).PrecastName} - {Model.ElementAt(0).ProjectName}";
+	var query = Model.GroupBy(m => m.Department, (key, group) => new
+	{
+		department = key,
+		precast = group.ToArray()
+	});
+
+}
+<h4 class="text-center">@ViewBag.Title</h4>
+
+<hr />
+<div class="overflow-y-scroll">
+	@foreach (var result in query)
+	{
+		<h5>@result.department</h5>
+		<hr />
+		@foreach (var precast in result.precast)
+		{
+			<partial name="_ProductionDetailsPartial" model="precast" />
+		}
+		<p></p>
+	}
+	<a asp-controller="Department" asp-action="All" class="btn btn-secondary mb-2  p-3 fw-bold">Back to all</a>
+</div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+

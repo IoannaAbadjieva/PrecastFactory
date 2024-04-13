@@ -21,6 +21,7 @@
 			services.AddScoped<IOrderService, OrderService>();
 			services.AddScoped<IExportService, ExportService>();
 			services.AddScoped<IEmailService, EmailService>();
+			services.AddScoped<IDepartmentService, DepartmentService>();
 			return services;
 		}
 
