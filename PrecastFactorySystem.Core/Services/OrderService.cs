@@ -8,7 +8,6 @@
 	using Microsoft.EntityFrameworkCore;
 
 	using PrecastFactorySystem.Core.Contracts;
-	using PrecastFactorySystem.Core.Enumeration;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models.Order;
 	using PrecastFactorySystem.Core.Models.Reinforce;
@@ -122,7 +121,6 @@
 			int? departmentId = null,
 			DateTime? fromDate = null,
 			DateTime? toDate = null,
-			OrderSorting sorting = OrderSorting.ByDeliverDate,
 			int currentPage = 1,
 			int ordersPerPage = 12)
 		{
@@ -161,14 +159,6 @@
 								|| pro.ReinforceOrder.Department.Name.ToLower().Contains(search));
 			}
 
-			query = sorting switch
-			{
-				OrderSorting.Newest => query.OrderByDescending(pro => pro.ReinforceOrder.Id),
-				OrderSorting.ByProject => query.OrderBy(pro => pro.Precast.Project.Name),
-				OrderSorting.ByDeliverer => query.OrderBy(pro => pro.ReinforceOrder.Deliverer.Name),
-				OrderSorting.ByDepartment => query.OrderBy(pro => pro.ReinforceOrder.Department.Name),
-				_ => query.OrderByDescending(pro => pro.ReinforceOrder.DeliverDate)
-			};
 
 			var totalOrders = await query.CountAsync();
 

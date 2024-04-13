@@ -32,7 +32,6 @@
 				model.DepartmentId,
 				model.FromDate,
 				model.ToDate,
-				model.Sorting,
 				model.CurrentPage,
 				AllOrdersQueryModel.OrdersPerPage);
 

@@ -59,6 +59,16 @@
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Deliverer" asp-action="All">All Deliverers</a></li>
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Deliverer" asp-action="Add">Add New</a></li>
 								</ul>
+							</li>	
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle link-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Departments
+								</a>
+								<ul class="dropdown-menu bg-dark">
+									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Department" asp-action="All">Production</a></li>
+									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Department" asp-action="Daily">For today</a></li>
+									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Department" asp-action="Monthly">Reports</a></li>
+								</ul>
 							</li>
 							
 
@@ -69,14 +79,14 @@
 			</div>
 		</nav>
 	</header>
-	<div class="container">
-		<main role="main">
+	<div  class="container">
+		<main role="main" class="overflow-y-scroll">
 			@RenderBody()
 		</main>
 	</div>
 
-	<footer class="border-top footer text-muted ">
-		<div class="container ">
+	<footer height="10vh"class="border-top footer text-muted ">
+		<div class="container">
 			&copy; @DateTime.UtcNow.Year - PrecastFactorySystem
 		</div>
 	</footer>

@@ -26,9 +26,6 @@
 
 		public string? SearchTerm { get; set; } = string.Empty;
 
-		public OrderSorting Sorting { get; set; }
-
-
 		public int TotalOrders { get; set; }
 
 		public IEnumerable<ReinforceOrderInfoViewModel> Orders { get; set; } = Array.Empty<ReinforceOrderInfoViewModel>();
