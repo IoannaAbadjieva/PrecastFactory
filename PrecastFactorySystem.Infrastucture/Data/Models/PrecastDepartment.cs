@@ -24,10 +24,6 @@
 		public int Count { get; set; }
 
 		[Required]
-		[Column(TypeName = "decimal(18,2)")]
-		public decimal ConcreteAmount { get; set; }
-
-		[Required]
 		public DateTime Date { get; set; }
 	}
 }

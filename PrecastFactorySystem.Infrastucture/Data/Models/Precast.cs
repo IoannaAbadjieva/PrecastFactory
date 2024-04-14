@@ -24,8 +24,8 @@
 
 		[Required]
 		public int Count { get; set; }
-
-		[Required]
+       
+        [Required]
 		public DateTime AddedOn { get; set; }
 
 		[Required]
@@ -44,24 +44,15 @@
 		[Column(TypeName = "decimal(18,2)")]
 		public decimal ConcreteProjectAmount { get; set; }
 
-		[NotMapped]
-		public decimal ConcreteActualAmount
-			=> this.DepartmentPrecast.Count > 0 ?
-				this.DepartmentPrecast.Average(dp => dp.ConcreteAmount)
-				: default;
+		[Column(TypeName = "decimal(18,2)")]
+		public decimal? ConcreteActualAmount { get; set; }
 
 
 		[Required]
 		[Column(TypeName = "decimal(18,2)")]
 		public decimal ReinforceProjectWeight { get; set; }
 
-		[NotMapped]
-		public decimal ReinforceActualWeight
-			=> this.PrecastReinforceOrders.Count > 0 ?
-				this.PrecastReinforceOrders.Average(pro => pro.ReinforceOrder.PrecastWeight)
-				: default;
-
-
+		
 		public ICollection<PrecastReinforce> PrecastReinforce { get; set; } = new HashSet<PrecastReinforce>();
 
 		public ICollection<PrecastReinforceOrder> PrecastReinforceOrders { get; set; } = new HashSet<PrecastReinforceOrder>();
