@@ -7,6 +7,7 @@
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models;
 	using PrecastFactorySystem.Core.Models.Order;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	using static PrecastFactorySystem.Core.Constants.MessageConstants;
 
@@ -35,8 +36,8 @@
 				model.CurrentPage,
 				AllOrdersQueryModel.OrdersPerPage);
 
-			model.Projects = await baseService.GetProjectsAsync();
-			model.Departments = await baseService.GetDepartmentsAsync();
+			model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
+			model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
 			model.Orders = orders.Orders;
 			model.TotalOrders = orders.TotalOrders;
 
@@ -64,8 +65,8 @@
 
 			if (!ModelState.IsValid)
 			{
-				model.Deliverers = await baseService.GetDeliverersAsync();
-				model.Departments = await baseService.GetDepartmentsAsync();
+				model.Deliverers = await baseService.GetBaseEntityDataAsync<Deliverer>();
+				model.Departments =  await baseService.GetBaseEntityDataAsync<Department>();
 				return View(model);
 			}
 

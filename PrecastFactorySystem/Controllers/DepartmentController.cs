@@ -6,6 +6,7 @@
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Models.Department;
 	using PrecastFactorySystem.Core.Models.Order;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	public class DepartmentController : BaseController
 	{
@@ -31,9 +32,9 @@
 				model.CurrentPage,
 				AllProductionQueryModel.PrecastPerPage);
 
-			model.Projects = await baseService.GetProjectsAsync();
-			model.PrecastTypes = await baseService.GetPrecastTypesAsync();
-			model.Departments = await baseService.GetDepartmentsAsync();
+			model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
+			model.PrecastTypes = await baseService.GetBaseEntityDataAsync<PrecastType>();
+			model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
 			model.Precast = precast.Precast;
 			model.TotalPrecast = precast.TotalProduced;
 
@@ -57,8 +58,8 @@
 				AllReportQueryModel.PrecastPerPage);
 
 			model.Precast = precast.Precast;
-			model.Projects = await baseService.GetProjectsAsync();
-			model.Departments = await baseService.GetDepartmentsAsync();
+			model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
+			model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
 
 			return View(model);
 		}

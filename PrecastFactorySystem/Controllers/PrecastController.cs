@@ -11,6 +11,7 @@
 	using Core.Models.Reinforce;
 
 	using static Core.Constants.MessageConstants;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	public class PrecastController : BaseController
 	{
@@ -26,7 +27,7 @@
 			baseService = _baseService;
 			reinforceService = _reinforceService;
 		}
-		public async Task<IActionResult> All([FromQuery]AllPrecastQueryModel model)
+		public async Task<IActionResult> All([FromQuery] AllPrecastQueryModel model)
 		{
 			var precasts = await precastService.GetAllPrecastAsync(
 				model.SearchTerm,
@@ -36,8 +37,8 @@
 				model.CurrentPage,
 				AllPrecastQueryModel.PrecastsPerPage);
 
-			model.Projects = await baseService.GetProjectsAsync();
-			model.PrecastTypes = await baseService.GetPrecastTypesAsync();
+			model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
+			model.PrecastTypes = await baseService.GetBaseEntityDataAsync<PrecastType>();
 			model.Precast = precasts.Precasts;
 			model.TotalPrecast = precasts.TotalPrecast;
 
@@ -48,9 +49,9 @@
 		{
 			PrecastFormViewModel model = new PrecastFormViewModel()
 			{
-				Projects = await baseService.GetProjectsAsync(),
-				Types = await baseService.GetPrecastTypesAsync(),
-				Concrete = await baseService.GetConcreteClassesAsync()
+				Projects = await baseService.GetBaseEntityDataAsync<Project>(),
+				Types = await baseService.GetBaseEntityDataAsync<PrecastType>(),
+				Concrete = await baseService.GetBaseEntityDataAsync<ConcreteClass>()
 			};
 
 			return View(model);
@@ -61,9 +62,9 @@
 		{
 			if (!ModelState.IsValid)
 			{
-				model.Projects = await baseService.GetProjectsAsync();
-				model.Types = await baseService.GetPrecastTypesAsync();
-				model.Concrete = await baseService.GetConcreteClassesAsync();
+				model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
+				model.Types = await baseService.GetBaseEntityDataAsync<PrecastType>();
+				model.Concrete = await baseService.GetBaseEntityDataAsync<ConcreteClass>();
 
 				return View(model);
 			}
@@ -94,9 +95,9 @@
 
 			if (!ModelState.IsValid)
 			{
-				model.Projects = await baseService.GetProjectsAsync();
-				model.Types = await baseService.GetPrecastTypesAsync();
-				model.Concrete = await baseService.GetConcreteClassesAsync();
+				model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
+				model.Types = await baseService.GetBaseEntityDataAsync<PrecastType>();
+				model.Concrete = await baseService.GetBaseEntityDataAsync<ConcreteClass>();
 
 				return View(model);
 			}
@@ -229,7 +230,7 @@
 
 			if (!ModelState.IsValid)
 			{
-				model.Departments = await baseService.GetDepartmentsAsync();
+				model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
 				return View(model);
 			}
 

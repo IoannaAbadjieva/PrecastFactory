@@ -9,6 +9,7 @@
 	using Core.Models.Project;
 	using Core.Exceptions;
 	using Core.Models;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	public class ProjectController : BaseController
 	{
@@ -73,8 +74,8 @@
 			PrecastFormViewModel model = new PrecastFormViewModel()
 			{
 				ProjectId = id,
-				Concrete = await baseService.GetConcreteClassesAsync(),
-				Types = await baseService.GetPrecastTypesAsync(),
+				Concrete = await baseService.GetBaseEntityDataAsync<ConcreteClass>(),
+				Types = await baseService.GetBaseEntityDataAsync<PrecastType>(),
 			};
 
 			return View(model);
@@ -87,8 +88,8 @@
 			if (!ModelState.IsValid)
 			{
 				model.ProjectId = id;
-				model.Concrete = await baseService.GetConcreteClassesAsync();
-				model.Types = await baseService.GetPrecastTypesAsync();
+				model.Concrete = await baseService.GetBaseEntityDataAsync<ConcreteClass>();
+				model.Types = await baseService.GetBaseEntityDataAsync<PrecastType>();
 
 				return View(model);
 			}
