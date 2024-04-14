@@ -28,4 +28,11 @@
     <_ContentIncludedByDefault Remove="Views\Project\All.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Project\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
