@@ -6,6 +6,7 @@
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Models.Department;
 	using PrecastFactorySystem.Core.Models.Order;
+	using PrecastFactorySystem.Infrastructure.Data.Enums;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	public class DepartmentController : BaseController
@@ -34,7 +35,8 @@
 
 			model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
 			model.PrecastTypes = await baseService.GetBaseEntityDataAsync<PrecastType>();
-			model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
+			model.Departments = await baseService.GetBaseEntityDataAsync<Department>
+				(d => d.DepartmentType == DepartmentType.PrecastProduction); ;
 			model.Precast = precast.Precast;
 			model.TotalPrecast = precast.TotalProduced;
 
@@ -59,7 +61,11 @@
 
 			model.Precast = precast.Precast;
 			model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
-			model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
+			model.Departments = await baseService.GetBaseEntityDataAsync<Department>
+								(d => d.DepartmentType == DepartmentType.PrecastProduction);
+			model.TotalPrecast = precast.TotalPrecast;
+			model.TotalReinforceWeight = precast.Precast.Sum(p => p.Reinforcement);
+			model.TotalConcreteAmount = precast.Precast.Sum(p => p.ConcreteAmount);
 
 			return View(model);
 		}

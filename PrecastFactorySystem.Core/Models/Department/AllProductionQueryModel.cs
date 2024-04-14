@@ -9,7 +9,7 @@
 
 	public class AllProductionQueryModel
 	{
-		public const int PrecastPerPage = 12;
+		public const int PrecastPerPage = 9;
 
 		public int CurrentPage { get; set; } = 1;
 

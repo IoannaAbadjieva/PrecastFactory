@@ -33,7 +33,7 @@
 					PrecastId = dp.PrecastId,
 					PrecastName = dp.Precast.Name,
 					Count = dp.Count,
-					Department = dp.Department.Name
+					Department = dp.Department.Name,
 				})
 				.OrderBy(dp => dp.ProjectName)
 				.ThenBy(dp => dp.PrecastTypeId)
@@ -80,6 +80,10 @@
 				query = query.Where(dp => dp.DepartmentId == departmentId);
 			}
 
+			query = query.OrderBy(dp => dp.Precast.Project.Name)
+			   .ThenBy(dp => dp.Precast.PrecastTypeId)
+			   .ThenBy(dp => dp.Precast.Name);
+
 			var precast = await query
 				.Select(dp => new ReportInfoViewModel
 				{
@@ -90,14 +94,21 @@
 					Count = dp.Count,
 					Department = dp.Department.Name,
 					ReinforceWeight = dp.Precast.PrecastReinforceOrders.Average(pro => pro.ReinforceOrder.PrecastWeight),
-					ConcreteAmount = dp.ConcreteAmount
+					ConcreteAmount = dp.Precast.ConcreteActualAmount?? dp.Precast.ConcreteProjectAmount
 				})
-				.OrderBy(dp => dp.ProjectName)
-				.ThenBy(dp => dp.PrecastTypeId)
-				.ThenBy(dp => dp.PrecastName)
+
 				.ToArrayAsync();
 
-			precast = precast.GroupBy(dp => new { dp.ProjectName, dp.PrecastType, dp.PrecastId, dp.PrecastName, dp.Department })
+			precast = precast.GroupBy(dp => new
+			{
+				dp.ProjectName,
+				dp.PrecastType,
+				dp.PrecastId,
+				dp.PrecastName,
+				dp.Department,
+				dp.ConcreteAmount,
+				dp.ReinforceWeight
+			})
 				.Select(dp => new ReportInfoViewModel
 				{
 					ProjectName = dp.Key.ProjectName,
@@ -106,9 +117,9 @@
 					PrecastName = dp.Key.PrecastName,
 					Count = dp.Sum(p => p.Count),
 					Department = dp.Key.Department,
-					ReinforceWeight = dp.First().ReinforceWeight,
-					ConcreteAmount = dp.Average(p => p.ConcreteAmount),
+					ReinforceWeight = dp.Key.ReinforceWeight,
 					Reinforcement = dp.Sum(p => p.ReinforceWeight * p.Count),
+					ConcreteAmount = dp.Key.ConcreteAmount,
 					Concrete = dp.Sum(p => p.ConcreteAmount * p.Count)
 				}).ToArray();
 
@@ -116,8 +127,6 @@
 			{
 				Precast = precast,
 				TotalPrecast = precast.Count(),
-				TotalReinforceWeight = precast.Sum(p => p.Reinforcement),
-				TotalConcreteAmount = precast.Sum(p => p.Concrete)
 			};
 
 		}
@@ -208,7 +217,14 @@
 					Department = dp.Department.Name
 				}).ToArrayAsync();
 
-			precast = precast.GroupBy(dp => new { dp.ProjectName, dp.PrecastType, dp.PrecastId, dp.PrecastName, dp.Department })
+			precast = precast.GroupBy(dp => new
+			{
+				dp.ProjectName,
+				dp.PrecastType,
+				dp.PrecastId,
+				dp.PrecastName,
+				dp.Department
+			})
 				.Select(dp => new ProductionInfoViewModel
 				{
 					ProjectName = dp.Key.ProjectName,
