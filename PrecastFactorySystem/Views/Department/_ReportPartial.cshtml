@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ReportInfoViewModel>
+
+<table class="table table-hover table-borderless">
+	<thead>
+		<tr>
+			<th scope="col">Precast</th>
+			<th scope="col">Count</th>
+			<th scope="col">ReinforceWeight</th>
+			<th scope="col">Total kg</th>
+			<th scope="col">ConcreteAmount</th>
+			<th scope="col">Total m3</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
+
+
+		@foreach (var precast in Model)
+		{
+			<tr>
+				<td>@precast.PrecastName</td>
+				<td>@precast.Count</td>
+				<td>@precast.ReinforceWeight.ToString("f2")</td>
+				<td>@precast.Reinforcement.ToString("f2")</td>
+				<td>@precast.ConcreteAmount.ToString("f2")</td>
+				<td>@precast.Concrete.ToString("f2")</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
