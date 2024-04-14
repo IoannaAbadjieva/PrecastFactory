@@ -7,6 +7,7 @@
 	using Core.Exceptions;
 	using Core.Models;
 	using Core.Models.Deliverer;
+	using PrecastFactorySystem.Core.Models.Project;
 
 	public class DelivererController : BaseController
 	{
@@ -16,9 +17,16 @@
 		{
 			delivererService = _delivererService;
 		}
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All([FromQuery] AllDeliverersQueryModel model)
 		{
-			IEnumerable<DelivererInfoViewModel> model = await delivererService.GetAllDeliverersAsync();
+			var deliverers = await delivererService.GetAllDeliverersAsync(
+				model.SearchTerm,
+				model.CurrentPage,
+				AllDeliverersQueryModel.DeliverersPerPage);
+
+			model.Deliverers = deliverers.Deliverers;
+			model.TotalDeliverers = deliverers.TotalDeliverers;
+
 			return View(model);
 		}
 
@@ -69,7 +77,7 @@
 				DelivererDeleteViewModel model = await delivererService.GetDelivererToDeleteByIdAsync(id);
 				return View(model);
 			}
-					catch (DeleteActionException dae)
+			catch (DeleteActionException dae)
 			{
 
 				return View("CustomError", new CustomErrorViewModel()

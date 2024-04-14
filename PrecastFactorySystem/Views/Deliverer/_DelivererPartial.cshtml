@@ -1,0 +1,10 @@
+﻿@model DelivererInfoViewModel
+
+<div class="card bg-transparent text-light " style="max-width:18rem">
+	<h5 class="card-title">@Model.Name</h5>
+	<h6 class="card-subtitle mb-2 text-body-secondary">@Model.Email</h6>
+	<p class="card-text"><span class="fw-bold">Orders: </span>@Model.OrdersCount</p>
+	<hr />
+	<div><a asp-controller="Deliverer" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
+	<div><a asp-controller="Deliverer" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+</div>

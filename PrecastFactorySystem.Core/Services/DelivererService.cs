@@ -25,9 +25,29 @@
 		}
 
 
-		public async Task<IEnumerable<DelivererInfoViewModel>> GetAllDeliverersAsync()
+		public async Task<DeliverersQueryModel> GetAllDeliverersAsync(
+			string? searchTerm = null,
+			int currentPage = 1,
+			int deliverersPerPage = 4)
+
 		{
-			return await repository.AllReadonly<Deliverer>()
+			var query = repository.AllReadonly<Deliverer>();
+
+			var search = searchTerm?.ToLower();
+
+			if (!string.IsNullOrWhiteSpace(search))
+			{
+				query = query.Where(d => d.Name.ToLower().Contains(search)
+				|| d.Email.ToLower().Contains(search));
+			}
+
+			query = query.OrderBy(d => d.Name);
+
+			var totalDeliverers = await query.CountAsync();
+
+			var deliverers = await query
+				.Skip((currentPage - 1) * deliverersPerPage)
+				.Take(deliverersPerPage)
 				.Select(d => new DelivererInfoViewModel()
 				{
 					Id = d.Id,
@@ -35,6 +55,12 @@
 					Email = d.Email,
 					OrdersCount = d.ReinforceOrders.Count(),
 				}).ToArrayAsync();
+
+			return new DeliverersQueryModel()
+			{
+				TotalDeliverers = totalDeliverers,
+				Deliverers = deliverers,
+			};
 		}
 
 		public async Task AddDelivererAsync(DelivererFormViewModel model)

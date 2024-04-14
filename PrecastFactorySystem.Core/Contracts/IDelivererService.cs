@@ -13,7 +13,10 @@
 
 		Task EditDelivererAsync(int id, DelivererFormViewModel model);
 
-		Task<IEnumerable<DelivererInfoViewModel>> GetAllDeliverersAsync();
+		Task<DeliverersQueryModel> GetAllDeliverersAsync(
+			string? searchTerm = null,
+				int currentPage = 1,
+				int deliverersPerPage = 4);
 
 		Task<DelivererFormViewModel> GetDelivererByIdAsync(int id);
 
