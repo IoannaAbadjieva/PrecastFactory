@@ -168,12 +168,12 @@
 				.Select(pro => new ReinforceOrderInfoViewModel()
 				{
 					OrderId = pro.ReinforceOrder.Id,
-					OrderDate = pro.ReinforceOrder.OrderDate,
+					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
 					Project = pro.Precast.Project.Name,
 					PrecastType = pro.Precast.PrecastType.Name,
 					Precast = pro.Precast.Name,
 					OrderedCount = pro.ReinforceOrder.Count,
-					DeliverDate = pro.ReinforceOrder.DeliverDate,
+					DeliverDate = pro.ReinforceOrder.DeliverDate.ToString(DateFormat),
 					Department = pro.ReinforceOrder.Department.Name,
 					Deliverer = pro.ReinforceOrder.Deliverer.Name
 				})
@@ -190,16 +190,16 @@
 		{
 			var entity = await CheckOrderDateAsync(id);
 
-			return await repository.AllReadonly<ReinforceOrder>(r => r.Id == id)
-				.Select(ro => new ReinforceOrderInfoViewModel()
+			return await repository.AllReadonly<PrecastReinforceOrder>(r => r.ReinforceOrderId == id)
+				.Select(pro => new ReinforceOrderInfoViewModel()
 				{
-					OrderId = ro.Id,
-					OrderDate = ro.OrderDate,
-					Project = ro.PrecastReinforceOrders.First().Precast.Project.Name,
-					PrecastType = ro.PrecastReinforceOrders.First().Precast.PrecastType.Name,
-					DeliverDate = ro.DeliverDate,
-					Department = ro.Department.Name,
-					Deliverer = ro.Deliverer.Name
+					OrderId = id,
+					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					Project = pro.Precast.Project.Name,
+					PrecastType = pro.Precast.PrecastType.Name,
+					DeliverDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					Department = pro.ReinforceOrder.Department.Name,
+					Deliverer = pro.ReinforceOrder.Deliverer.Name
 				})
 				.FirstAsync();
 		}

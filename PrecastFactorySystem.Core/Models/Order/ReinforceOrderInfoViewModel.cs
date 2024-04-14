@@ -8,7 +8,7 @@
         [Display(Name = "Order N")]
         public int OrderId { get; set; }
 
-        public DateTime OrderDate { get; set; } 
+        public string OrderDate { get; set; }  = string.Empty;
 
         public string Project { get; set; } = string.Empty;
 
@@ -18,7 +18,7 @@
 
         public int OrderedCount { get; set; }
 
-        public DateTime DeliverDate { get; set; }
+        public string DeliverDate { get; set; } = string.Empty;
 
         public string Department { get; set; } = string.Empty;
 
