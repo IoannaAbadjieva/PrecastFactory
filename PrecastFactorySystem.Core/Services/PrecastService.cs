@@ -106,6 +106,7 @@
 				ProjectId = model.ProjectId,
 				ConcreteClassId = model.ConcreteClassId,
 				ConcreteProjectAmount = model.ConcreteProjectAmount,
+				ConcreteActualAmount = model.ConcreteActualAmount,
 				ReinforceProjectWeight = model.ReinforceProjectAmount
 			};
 
@@ -258,7 +259,7 @@
 						Department = dp.Department.Name,
 						Date = dp.Date.ToString(DateFormat),
 						Count = dp.Count,
-						ConcreteAmont = dp.ConcreteAmount,
+						ConcreteAmont = dp.Precast.ConcreteActualAmount ?? dp.Precast.ConcreteProjectAmount,
 					}).ToArray()
 				}).FirstOrDefaultAsync();
 		}
@@ -292,7 +293,6 @@
 				Count = model.ProducedCount,
 				Date = model.Date,
 				DepartmentId = model.DepartmentId,
-				ConcreteAmount = model.ConcreteAmount
 			};
 
 			await repository.AddAsync<PrecastDepartment>(entity);

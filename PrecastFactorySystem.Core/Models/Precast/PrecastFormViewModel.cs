@@ -39,6 +39,11 @@
 		[Range(typeof(decimal), ConcreteAmountMinValue, ConcreteAmountMaxValue, 
 			ErrorMessage = NumberRangeErrorMessage)]
 		public decimal ConcreteProjectAmount { get; set; }
+	
+		
+		[Range(typeof(decimal), ConcreteAmountMinValue, ConcreteAmountMaxValue, 
+			ErrorMessage = NumberRangeErrorMessage)]
+		public decimal ConcreteActualAmount { get; set; }
 
 
 		[Required(ErrorMessage = RequiredErrorMessage)]

@@ -112,6 +112,7 @@
 				ProjectId = project.Id,
 				ConcreteClassId = model.ConcreteClassId,
 				ConcreteProjectAmount = model.ConcreteProjectAmount,
+				ConcreteActualAmount = model.ConcreteActualAmount,
 				ReinforceProjectWeight = model.ReinforceProjectAmount
 			});
 
