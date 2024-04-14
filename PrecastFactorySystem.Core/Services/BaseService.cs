@@ -1,7 +1,9 @@
 ﻿namespace PrecastFactorySystem.Core.Services
 {
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using System.Linq.Expressions;
 	using System.Threading.Tasks;
 
 	using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Models.Base;
 	using PrecastFactorySystem.Infrastructure.Data.Common;
+	using PrecastFactorySystem.Infrastructure.Data.Contracts;
 	using PrecastFactorySystem.Infrastructure.Data.Enums;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
 
@@ -22,36 +25,7 @@
 			repository = _repository;
 		}
 
-		public async Task<IEnumerable<BaseSelectorViewModel>> GetProjectsAsync()
-		{
-			return await repository.AllReadonly<Project>()
-				.Select(p => new BaseSelectorViewModel()
-				{
-					Id = p.Id,
-					Name = p.Name,
-				}).ToArrayAsync();
-		}
-
-		public async Task<IEnumerable<BaseSelectorViewModel>> GetPrecastTypesAsync()
-		{
-			return await repository.AllReadonly<PrecastType>()
-				.Select(p => new BaseSelectorViewModel()
-				{
-					Id = p.Id,
-					Name = p.Name,
-				}).ToArrayAsync();
-		}
-
-		public async Task<IEnumerable<BaseSelectorViewModel>> GetConcreteClassesAsync()
-		{
-			return await repository.AllReadonly<ConcreteClass>()
-				.Select(p => new BaseSelectorViewModel()
-				{
-					Id = p.Id,
-					Name = p.Name,
-				}).ToArrayAsync();
-		}
-
+		
 		public async Task<IEnumerable<BaseSelectorViewModel>> GetReinforceTypesAsync()
 		{
 			return await repository.AllReadonly<ReinforceType>()
@@ -62,25 +36,28 @@
 				}).ToArrayAsync();
 		}
 
-		public async Task<IEnumerable<BaseSelectorViewModel>> GetDeliverersAsync()
+		
+		public async Task<IEnumerable<BaseSelectorViewModel>> GetBaseEntityDataAsync<T>() where T : class, IBaseEntity
 		{
-			return await repository.AllReadonly<Deliverer>()
-				.Select(p => new BaseSelectorViewModel()
+			return await repository.AllReadonly<T>()
+				.Select(e => new BaseSelectorViewModel()
 				{
-					Id = p.Id,
-					Name = p.Name,
+					Id = e.Id,
+					Name = e.Name,
 				}).ToArrayAsync();
 		}
 
-		public async Task<IEnumerable<BaseSelectorViewModel>> GetDepartmentsAsync()
+		public async Task<IEnumerable<BaseSelectorViewModel>> GetBaseEntityDataAsync<T>(Expression<Func<T, bool>> clause)
+			where T : class, IBaseEntity
 		{
-			return await repository.AllReadonly<Department>(d => d.DepartmentType == DepartmentType.Production)
-				.Select(p => new BaseSelectorViewModel()
+			return await repository.AllReadonly(clause)
+				.Select(e => new BaseSelectorViewModel()
 				{
-					Id = p.Id,
-					Name = p.Name
+					Id = e.Id,
+					Name = e.Name,
 				}).ToArrayAsync();
 		}
 	}
-
 }
+
+

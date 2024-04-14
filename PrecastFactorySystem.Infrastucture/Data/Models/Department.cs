@@ -4,8 +4,11 @@
 
 	using Enums;
 
+	using PrecastFactorySystem.Infrastructure.Data.Contracts;
+
 	using static DataValidation.DataConstants;
-	public class Department
+
+	public class Department : IBaseEntity
 	{
 		[Key]
 		public int Id { get; set; }

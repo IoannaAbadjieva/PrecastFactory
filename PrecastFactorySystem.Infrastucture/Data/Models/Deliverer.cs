@@ -2,8 +2,10 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
+	using PrecastFactorySystem.Infrastructure.Data.Contracts;
+
 	using static DataValidation.DataConstants;
-	public class Deliverer
+	public class Deliverer: IBaseEntity
 	{
 		[Key]
 		public int Id { get; set; }

@@ -2,9 +2,11 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
+	using PrecastFactorySystem.Infrastructure.Data.Contracts;
+
 	using static DataValidation.DataConstants;
 
-	public class ConcreteClass
+	public class ConcreteClass: IBaseEntity
 	{
 		[Key]
 		public int Id { get; set; }

@@ -3,10 +3,12 @@
 	using System.ComponentModel.DataAnnotations;
 
 	using Enums;
-	
+
+	using PrecastFactorySystem.Infrastructure.Data.Contracts;
+
 	using static DataValidation.DataConstants;
 
-	public class PrecastType
+	public class PrecastType: IBaseEntity
 	{
 		[Key]
 		public int Id { get; set; }
