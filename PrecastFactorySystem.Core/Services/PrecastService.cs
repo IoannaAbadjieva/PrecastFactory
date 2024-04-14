@@ -121,12 +121,12 @@
 			{
 				Name = precast.Name,
 				PrecastTypeId = precast.PrecastTypeId,
-				Types = await baseServise.GetPrecastTypesAsync(),
+				Types = await baseServise.GetBaseEntityDataAsync<PrecastType>(),
 				Count = precast.Count,
 				ProjectId = precast.ProjectId,
-				Projects = await baseServise.GetProjectsAsync(),
+				Projects = await baseServise.GetBaseEntityDataAsync<Project>(),
 				ConcreteClassId = precast.ConcreteClassId,
-				Concrete = await baseServise.GetConcreteClassesAsync(),
+				Concrete = await baseServise.GetBaseEntityDataAsync<ConcreteClass>(),
 				ConcreteProjectAmount = precast.ConcreteProjectAmount,
 				ReinforceProjectAmount = precast.ReinforceProjectWeight,
 			};
@@ -274,7 +274,7 @@
 			{
 				Id = id,
 				ProducedCount = await GetPrecastToProduceCountAsync(id),
-				Departments = await baseServise.GetDepartmentsAsync()
+				Departments = await baseServise.GetBaseEntityDataAsync<Department>()
 			};
 
 		}

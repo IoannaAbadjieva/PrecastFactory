@@ -51,8 +51,8 @@
 			{
 				Id = id,
 				OrderedCount = await precastService.GetPrecastToReinforceCountAsync(id),
-				Departments = await baseServise.GetDepartmentsAsync(),
-				Deliverers = await baseServise.GetDeliverersAsync()
+				Departments = await baseServise.GetBaseEntityDataAsync<Department>(),
+				Deliverers = await baseServise.GetBaseEntityDataAsync<Deliverer>()
 			};
 		}
 
