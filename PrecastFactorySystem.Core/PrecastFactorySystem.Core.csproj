@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="itext7" Version="8.0.3" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
+    <PackageReference Include="itext7.bouncy-castle-fips-adapter" Version="8.0.3" />
     <PackageReference Include="SendGrid" Version="9.29.3" />
   </ItemGroup>
 

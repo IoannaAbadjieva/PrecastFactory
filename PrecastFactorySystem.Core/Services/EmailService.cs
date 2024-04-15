@@ -25,14 +25,14 @@
 			var client = new SendGridClient(apiKey);
 			var from = configuration.GetSection("EmailSettings")["From"];
 			
-			var fromAddress = new EmailAddress(from, "Yoanna");
+			var fromAddress = new EmailAddress(from, "reinforce department");
 			var toAddress = new EmailAddress(email, "Me");
 			var subject = fileName;
 			var body = "Your order is ready for download";
 			var msg = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, body, "");
 
-			var currentDirectory = Directory.GetCurrentDirectory();
-			var directory = Directory.GetParent(currentDirectory) + "\\Orders";
+			
+			var directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Orders";
 			var attachmentPath = directory + "\\" + fileName + ".pdf";
 
 			var attachment = new Attachment() 

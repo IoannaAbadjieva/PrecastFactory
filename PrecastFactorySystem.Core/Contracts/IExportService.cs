@@ -4,6 +4,6 @@
 
     public interface IExportService
 	{
-		void ExportToPdf(OrderViewModel data, string fileName);
+		void ExportOrderToPdf(OrderViewModel data, string fileName);
 	}
 }
