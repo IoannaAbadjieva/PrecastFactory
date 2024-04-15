@@ -13,7 +13,7 @@
 
 		Task<int> DeleteReinforceAsync(int id);
 
-		Task<ReinforceFormViewModel> GetReinforceByIdAsync(int id);
+		Task<ReinforceFormViewModel?> GetReinforceByIdAsync(int id);
 
 		Task<bool> IsReinforceExist(int id);
 		

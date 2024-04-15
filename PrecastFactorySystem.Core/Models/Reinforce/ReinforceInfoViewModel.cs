@@ -2,7 +2,11 @@
 {
 	public class ReinforceInfoViewModel
 	{
-		public string Position { get; set; } = string.Empty;
+        public int Id { get; set; }
+
+        public int PrecastId { get; set; }
+
+        public string Position { get; set; } = string.Empty;
 
 		public int Count { get; set; }
 

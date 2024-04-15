@@ -6,6 +6,6 @@
 
 	public class PrecastReinforceViewModel : PrecastInfoViewModel
 	{
-		public IEnumerable<ReinforceFullInfoViewModel> Reinforce = Array.Empty<ReinforceFullInfoViewModel>();
+		public IEnumerable<ReinforceInfoViewModel> Reinforce = Array.Empty<ReinforceInfoViewModel>();
 	}
 }
