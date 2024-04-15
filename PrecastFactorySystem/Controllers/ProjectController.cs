@@ -4,11 +4,11 @@
 
 	using PrecastFactorySystem.Attributes;
 
-	using Core.Contracts;
-	using Core.Models.Precast;
-	using Core.Models.Project;
-	using Core.Exceptions;
-	using Core.Models;
+	using PrecastFactorySystem.Core.Contracts;
+	using PrecastFactorySystem.Core.Models.Precast;
+	using PrecastFactorySystem.Core.Models.Project;
+	using PrecastFactorySystem.Core.Exceptions;
+	using PrecastFactorySystem.Core.Models;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	public class ProjectController : BaseController
@@ -96,7 +96,7 @@
 
 
 			await projectService.AddPrecastToProjectAsync(model, id);
-			return RedirectToAction(nameof(Details), new { id = id });
+			return RedirectToAction(nameof(All));
 
 		}
 
@@ -130,7 +130,7 @@
 			}
 			catch (DeleteActionException dae)
 			{
-				return View("CustomError", new CustomErrorViewModel()
+				return View("DeleteError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -150,7 +150,7 @@
 			catch (DeleteActionException dae)
 			{
 
-				return View("CustomError", new CustomErrorViewModel()
+				return View("DeleteError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});

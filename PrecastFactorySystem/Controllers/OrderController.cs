@@ -47,31 +47,56 @@
 		[PrecastExist]
 		public async Task<IActionResult> Order(int id)
 		{
-			OrderPrecastReinforceViewModel model = await orderService.GetOrderPrecastReinforceViewModel(id);
-			return View(model);
+			try
+			{
+				OrderPrecastReinforceViewModel model = await orderService.GetOrderPrecastReinforceViewModel(id);
+				return View(model);
+			}
+			catch (OrderActionException oae)
+			{
+				return View("OrderError", new BaseErrorViewModel()
+				{
+					Message = oae.Message
+				});
+			}
+
 		}
 
 		[HttpPost]
 		[PrecastExist]
 		public async Task<IActionResult> Order(int id, OrderPrecastReinforceViewModel model)
 		{
-			int maxCount = await precastService.GetPrecastToReinforceCountAsync(id);
-
-			if (model.OrderedCount > maxCount)
+			try
 			{
-				ModelState.AddModelError(nameof(model.OrderedCount),
-					string.Format(InvalidOrderCountErrorMessage, maxCount));
+				int maxCountToBeOrdered = await precastService.GetPrecastToReinforceCountAsync(id);
+
+				if (model.OrderedCount > maxCountToBeOrdered)
+				{
+					ModelState.AddModelError(nameof(model.OrderedCount),
+						string.Format(InvalidOrderCountErrorMessage, maxCountToBeOrdered));
+				}
+
+				if (!ModelState.IsValid)
+				{
+					model.Deliverers = await baseService.GetBaseEntityDataAsync<Deliverer>();
+					model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
+					return View(model);
+				}
+
+				await orderService.OrderPrecastAsync(id, model);
+				return RedirectToAction("Reinforce", "Precast", new { id });
+			}
+			catch (OrderActionException oae)
+			{
+
+				return View("OrderError", new BaseErrorViewModel()
+				{
+					Message = oae.Message
+				});
 			}
 
-			if (!ModelState.IsValid)
-			{
-				model.Deliverers = await baseService.GetBaseEntityDataAsync<Deliverer>();
-				model.Departments =  await baseService.GetBaseEntityDataAsync<Department>();
-				return View(model);
-			}
 
-			await orderService.OrderPrecastAsync(id, model);
-			return RedirectToAction("Reinforce", "Precast", new { id });
+
 		}
 
 		[OrderExist]
@@ -84,7 +109,7 @@
 			}
 			catch (DeleteActionException dae)
 			{
-				return View("CustomError", new CustomErrorViewModel()
+				return View("DeleteError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -104,13 +129,26 @@
 			catch (DeleteActionException dae)
 			{
 
-				return View("CustomError", new CustomErrorViewModel()
+				return View("DeleteError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});
 			}
+		}
 
+		[PrecastExist]
+		public async Task<IActionResult> ForPrecast(int id, [FromQuery] AllPrecastOrdersQueryModel model)
+		{
+			var orders = await orderService.GetReinforceOrdersByPrecastAsync(
+				id,
+				model.CurrentPage,
+				AllPrecastOrdersQueryModel.OrdersPerPage);
 
+			model.Orders = orders.Orders;
+			model.TotalOrders = orders.TotalOrders;
+
+			ViewBag.PrecastId = id;
+			return View(model);
 		}
 	}
 }

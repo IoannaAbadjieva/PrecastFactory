@@ -124,7 +124,7 @@
 			}
 			catch (DeleteActionException dae)
 			{
-				return View("CustomError", new CustomErrorViewModel()
+				return View("DeleteError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -143,7 +143,7 @@
 			catch (DeleteActionException dae)
 			{
 
-				return View("CustomError", new CustomErrorViewModel()
+				return View("DeleteError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -156,10 +156,8 @@
 		[PrecastExist]
 		public async Task<IActionResult> Reinforce(int id)
 		{
-
 			PrecastReinforceViewModel? model = await precastService.GetPrecastReinforceAsync(id);
 			return View(model);
-
 		}
 
 
@@ -207,7 +205,7 @@
 			catch (ProduceActionException pae)
 			{
 
-				return View("CustomError", new CustomErrorViewModel()
+				return View("ProduceError", new BaseErrorViewModel()
 				{
 					Message = pae.Message
 				});
@@ -219,23 +217,34 @@
 		[PrecastExist]
 		public async Task<IActionResult> Produce(int id, PrecastProductionFormViewModel model)
 		{
-
-			int maxCount = await precastService.GetPrecastToProduceCountAsync(id);
-
-			if (model.ProducedCount > maxCount)
+			try
 			{
-				ModelState.AddModelError(nameof(model.ProducedCount),
-					string.Format(InvalidProduceCountErrorMessage, maxCount));
-			}
+				int maxCount = await precastService.GetPrecastToProduceCountAsync(id);
 
-			if (!ModelState.IsValid)
+				if (model.ProducedCount > maxCount)
+				{
+					ModelState.AddModelError(nameof(model.ProducedCount),
+						string.Format(InvalidProduceCountErrorMessage, maxCount));
+				}
+
+				if (!ModelState.IsValid)
+				{
+					model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
+					return View(model);
+				}
+
+				await precastService.ProducePrecastAsync(id, model);
+				return RedirectToAction(nameof(Production), new { id });
+			}
+			catch (ProduceActionException pae)
 			{
-				model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
-				return View(model);
-			}
 
-			await precastService.ProducePrecastAsync(id, model);
-			return RedirectToAction(nameof(Production), new { id });
+				return View("ProduceError", new BaseErrorViewModel()
+				{
+					Message = pae.Message
+				});
+			}
+			
 		}
 
 	}

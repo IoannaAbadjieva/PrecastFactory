@@ -1,6 +1,6 @@
 ﻿namespace PrecastFactorySystem.Core.Models
 {
-	public class CustomErrorViewModel 
+	public class BaseErrorViewModel 
 	{
 		public string Message { get; set; } = string.Empty;
 	}

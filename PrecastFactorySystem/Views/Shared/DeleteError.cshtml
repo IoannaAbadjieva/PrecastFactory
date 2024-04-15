@@ -1,4 +1,4 @@
-﻿@model CustomErrorViewModel
+﻿@model BaseErrorViewModel
 @{
 	ViewData["Title"] = "Error";
 }
@@ -15,7 +15,7 @@
 				<div class="h4">
 					<p>@Model.Message</p>
 				</div>
-				<div class="h4">  Go back to <a asp-controller="Home" asp-action="Index">Home</a> Page</div>
+				<div class="h4">  Go back to <a asp-controller="Precast" asp-action="All">All precast</a> Page</div>
 			</div>
 		</div>
 	</div>
