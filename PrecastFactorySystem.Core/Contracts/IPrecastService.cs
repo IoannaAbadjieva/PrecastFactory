@@ -5,7 +5,10 @@
 
 	using Models.Precast;
 	using Models.Reinforce;
+
 	using PrecastFactorySystem.Core.Enumeration;
+
+	using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 	public interface IPrecastService
 	{
@@ -25,14 +28,20 @@
 		Task<PrecastDetailsViewModel?> GetPrecastDetailsAsync(int id);
 
 		Task<PrecastDeleteViewModel?> GetPrecastToDeleteByIdAsync(int id);
-
 		Task DeletePrecastAsync(int id);
 
-		Task<PrecastReinforceViewModel?> GetPrecastReinforceAsync(int id);
+		Task<PrecastReinforceQueryModel> GetPrecastReinforceAsync(
+				int id,
+				int currentPage = 1,
+				int reinforcePerPage = 7
+			);
 
 		Task AddReinforceAsync(int id, ReinforceFormViewModel model);
 
-		Task<PrecastProductionViewModel?> GetPrecastProductionAsync(int id);
+		Task<PrecastProductionQueryModel> GetPrecastProductionAsync(
+			int id,
+			int currentPage = 1,
+			int precastPerPage = 7);
 
 		Task<PrecastProductionFormViewModel?> GetPrecastProductionFormAsync(int id);
 

@@ -154,9 +154,23 @@
 		}
 
 		[PrecastExist]
-		public async Task<IActionResult> Reinforce(int id)
+		public async Task<IActionResult> Reinforce(int id, [FromQuery]AllPrecastReinforceQueryModel model)
 		{
-			PrecastReinforceViewModel? model = await precastService.GetPrecastReinforceAsync(id);
+			PrecastReinforceQueryModel precastReinforce = await precastService.GetPrecastReinforceAsync(
+				id, 
+				model.CurrentPage, 
+				AllPrecastReinforceQueryModel.ReinforcePerPage);
+
+			model.Id = id;
+			model.Name = precastReinforce.Name;
+			model.Count = precastReinforce.Count;
+			model.PrecastType = precastReinforce.PrecastType;
+			model.Project = precastReinforce.Project;
+			model.Reinforced = precastReinforce.Reinforced;
+			model.Produced = precastReinforce.Produced;
+			model.Reinforce = precastReinforce.Reinforce;
+			model.TotalReinforce = precastReinforce.TotalReinforce;
+		
 			return View(model);
 		}
 
@@ -188,10 +202,25 @@
 
 
 		[PrecastExist]
-		public async Task<IActionResult> Production(int id)
+		public async Task<IActionResult> Production(int id, [FromQuery] AllPrecastProductionQueryModel model)
 		{
-			PrecastProductionViewModel? model = await precastService.GetPrecastProductionAsync(id);
+			PrecastProductionQueryModel precastProduction = await precastService.GetPrecastProductionAsync(
+				id,
+				model.CurrentPage,
+				AllPrecastProductionQueryModel.PrecastPerPage);
+
+			model.Id = id;
+			model.Name = precastProduction.Name;
+			model.Count = precastProduction.Count;
+			model.PrecastType = precastProduction.PrecastType;
+			model.Project = precastProduction.Project;
+			model.Reinforced = precastProduction.Reinforced;
+			model.Produced = precastProduction.Produced;
+			model.Precast = precastProduction.Precast;
+			model.TotalPrecast = precastProduction.TotalPrecast;
+
 			return View(model);
+			
 		}
 
 		[PrecastExist]

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<PrecastProductionViewModel>
+
+<table class="table table-hover table-borderless">
+	<thead>
+		<tr>
+			<th  scope="col">Id</th>
+			<th  scope="col">PrecastId</th>
+			<th scope="col">Department</th>
+			<th scope="col">Count</th>
+			<th scope="col">Date</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
+
+		@foreach (var pd in Model)
+		{
+			<tr>
+				<td disabled>@pd.Id</td>
+				<td disabled>@pd.PrecastId</td>
+				<td>@pd.Department</td>
+				<td>@pd.Count</td>
+				<td>@pd.Date</td>
+				<td><a asp-controller="Department" asp-action="Edit" asp-route-id="@pd.Id" class="card-link">Edit</a></td>
+				<td>
+					<a asp-controller="Department" asp-action="Delete" asp-route-id="@pd.Id" class="card-link"
+					   onclick="return confirm('Are you sure you want to delete this production mark?')">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>

@@ -1,10 +1,15 @@
 ﻿namespace PrecastFactorySystem.Core.Models.Precast
 {
-	using System;
-	using System.Collections.Generic;
-
-	public class PrecastProductionViewModel: PrecastInfoViewModel
+	public class PrecastProductionViewModel
 	{
-		public IEnumerable<PrecastByDepartmentsViewModel> ByDepartments { get; set; } = Array.Empty<PrecastByDepartmentsViewModel>();
+		public int Id { get; set; }
+
+		public int PrecastId { get; set; }
+
+		public string Department { get; set; } = string.Empty;
+
+		public int Count { get; set; }
+
+		public string Date { get; set; } = string.Empty;
 	}
 }

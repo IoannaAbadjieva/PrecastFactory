@@ -37,7 +37,7 @@
 			int? precastTypeId = null,
 			PrecastSorting sorting = PrecastSorting.Newest,
 			int currentPage = 1,
-			int projectsPerPage = 12)
+			int precastPerPage = 12)
 		{
 			var query = repository.AllReadonly<Precast>();
 
@@ -75,8 +75,8 @@
 			var totalPrecasts = await query.CountAsync();
 
 			var precast = await query
-				.Skip((currentPage - 1) * projectsPerPage)
-				.Take(projectsPerPage)
+				.Skip((currentPage - 1) * precastPerPage)
+				.Take(precastPerPage)
 				.Select(p => new PrecastInfoViewModel()
 				{
 					Id = p.Id,
@@ -203,28 +203,54 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<PrecastReinforceViewModel?> GetPrecastReinforceAsync(int id)
+		public async Task<PrecastReinforceQueryModel> GetPrecastReinforceAsync(
+			int id,
+			int currentPage = 1,
+			int reinforcePerPage = 7)
 		{
-			return await repository.AllReadonly<Precast>(p => p.Id == id)
-				.Select(p => new PrecastReinforceViewModel()
+			var query = repository.AllReadonly<PrecastReinforce>(pr => pr.PrecastId == id);
+
+			var totalReinforces = await query.CountAsync();
+
+			var reinforces = await query
+				.Skip((currentPage - 1) * reinforcePerPage)
+				.Take(reinforcePerPage)
+				.Select(pr => new ReinforceInfoViewModel()
+				{
+					Id = pr.Id,
+					PrecastId = pr.PrecastId,
+					Position = pr.Position,
+					ReinforceType = $"{pr.ReinforceType.ReinforceClass.ToString()} {pr.ReinforceType.Diameter}",
+					Count = pr.Count,
+					Length = pr.Length
+				}).ToArrayAsync();
+
+			var precast = await repository.AllReadonly<Precast>(p => p.Id == id)
+				.Select(p => new
 				{
 					Id = p.Id,
-					PrecastType = p.PrecastType.Name,
 					Name = p.Name,
-					Count = p.Count,
+					PrecastType = p.PrecastType.Name,
 					Project = p.Project.Name,
+					Count = p.Count,
 					Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
 					Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
-					Reinforce = p.PrecastReinforce.Select(pr => new ReinforceFullInfoViewModel()
-					{
-						Id = pr.Id,
-						PrecastId = pr.PrecastId,
-						Position = pr.Position,
-						ReinforceType = $"{pr.ReinforceType.ReinforceClass.ToString()} {pr.ReinforceType.Diameter}",
-						Count = pr.Count,
-						Length = pr.Length
-					}).ToArray()
-				}).FirstOrDefaultAsync();
+				}).FirstAsync();
+
+
+			return new PrecastReinforceQueryModel()
+			{
+				Id = precast.Id,
+				Name = precast.Name,
+				PrecastType = precast.PrecastType,
+				Project = precast.Project,
+				Count = precast.Count,
+				Produced = precast.Produced,
+				Reinforced = precast.Reinforced,
+				TotalReinforce = totalReinforces,
+				Reinforce = reinforces
+
+			};
 		}
 
 		public async Task AddReinforceAsync(int id, ReinforceFormViewModel model)
@@ -243,25 +269,52 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<PrecastProductionViewModel?> GetPrecastProductionAsync(int id)
+		public async Task<PrecastProductionQueryModel> GetPrecastProductionAsync(
+			int id,
+			int currentPage = 1,
+			int precastPerPage = 7)
 		{
-			return await repository.AllReadonly<Precast>(p => p.Id == id)
-				.Select(p => new PrecastProductionViewModel()
+			var query = repository.AllReadonly<PrecastDepartment>(pr => pr.PrecastId == id);
+
+			var totalPrecast = await query.CountAsync();
+
+			var precastProduction = await query
+				.Skip((currentPage - 1) * precastPerPage)
+				.Take(precastPerPage)
+				.Select(pr => new PrecastProductionViewModel()
+				{
+					Id = pr.Id,
+					PrecastId = pr.PrecastId,
+					Department = pr.Department.Name,
+					Count = pr.Count,
+					Date = pr.Date.ToString(DateFormat),
+				}).ToArrayAsync();
+
+			var precast = await repository.AllReadonly<Precast>(p => p.Id == id)
+				.Select(p => new
 				{
 					Id = p.Id,
 					Name = p.Name,
+					PrecastType = p.PrecastType.Name,
 					Project = p.Project.Name,
 					Count = p.Count,
-					Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
 					Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
-					ByDepartments = p.DepartmentPrecast.Select(dp => new PrecastByDepartmentsViewModel()
-					{
-						Department = dp.Department.Name,
-						Date = dp.Date.ToString(DateFormat),
-						Count = dp.Count,
-						ConcreteAmont = dp.Precast.ConcreteActualAmount ?? dp.Precast.ConcreteProjectAmount,
-					}).ToArray()
-				}).FirstOrDefaultAsync();
+					Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
+				}).FirstAsync();
+
+
+			return new PrecastProductionQueryModel()
+			{
+				Id = precast.Id,
+				Name = precast.Name,
+				PrecastType = precast.PrecastType,
+				Project = precast.Project,
+				Count = precast.Count,
+				Produced = precast.Produced,
+				Reinforced = precast.Reinforced,
+				TotalPrecast = totalPrecast,
+				Precast = precastProduction
+			};
 		}
 
 		public async Task<PrecastProductionFormViewModel?> GetPrecastProductionFormAsync(int id)

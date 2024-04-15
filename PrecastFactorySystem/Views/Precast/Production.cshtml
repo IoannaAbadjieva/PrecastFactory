@@ -1,4 +1,4 @@
-﻿@model PrecastProductionViewModel
+﻿@model AllPrecastProductionQueryModel
 
 @{
 	ViewBag.Title = "Precast production by Departments";
@@ -26,38 +26,42 @@
 </div>
 
 <hr />
-<table class="table table-hover table-borderless">
-	<thead>
-		<tr>
-			<th hidden scope="col">Id</th>
-			<th hidden scope="col">PrecastId</th>
-			<th scope="col">Department</th>
-			<th scope="col">Count</th>
-			<th scope="col">Date</th>
-			<th scope="col">ConcreteAmont m3</th>
-		</tr>
-	</thead>
-	<tbody class="table-group-divider overflow-scroll">
+@{
+	var previousPage = Model.CurrentPage - 1;
+	if (previousPage < 1)
+	{
+		previousPage = 1;
+	}
 
-		@foreach (var pd in Model.ByDepartments)
-		{
-			<tr>
-				<td hidden>@pd.Id</td>
-				<td hidden>@pd.PrecastId</td>
-				<td>@pd.Department</td>
-				<td>@pd.Count</td>
-				<td>@pd.Date</td>
-				<td>@pd.ConcreteAmont</td>
-				<td><a asp-controller="Reinforce" asp-action="Edit" asp-route-id="@pd.Id" class="card-link">Edit</a></td>
-				<td>
-					<a asp-controller="Reinforce" asp-action="Delete" asp-route-id="@pd.Id" class="card-link"
-					   onclick="return confirm('Are you sure you want to delete this reinforce?')">Delete</a>
-				</td>
-			</tr>
-		}
-	</tbody>
+	var maxPage = Math.Ceiling((double)Model.TotalPrecast /
+		AllPrecastReinforceQueryModel.ReinforcePerPage);
+}
 
-</table>
+<div class="row mb-5">
+	<div class="col-sm-6 d-grid gap-2 d-sm-flex justify-content-sm-start">
+		<a class="btn btn-secondary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+		   asp-controller="Precast"
+		   asp-action="Production"
+		   asp-route-id="@Model.Id"
+		   asp-route-currentPage="@previousPage"><<</a>
+	</div>
+
+	@{
+		var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+		!Model.Precast.Any();
+	}
+
+	<div class="col-sm-6 d-grid gap-2 d-sm-flex justify-content-sm-end">
+		<a class="btn btn-secondary
+           @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+		   asp-controller="Precast"
+		   asp-action="Production"
+		   asp-route-id="@Model.Id"
+		   asp-route-currentPage="@(Model.CurrentPage + 1)">>></a>
+	</div>
+</div>
+
+<partial name="_PrecastProductionPartial" model="@Model.Precast" />
 
 
 @section Scripts {
