@@ -47,6 +47,18 @@
 
 		public async Task<OrderPrecastReinforceViewModel> GetOrderPrecastReinforceViewModel(int id)
 		{
+			int maxCountToBeOrdered = await precastService.GetPrecastToReinforceCountAsync(id);
+
+			if (maxCountToBeOrdered == 0)
+			{
+				throw new OrderActionException(PrecastOrderedErrorMessage);
+			}
+
+			if (!await repository.AllReadonly<PrecastReinforce>().AnyAsync(pr => pr.PrecastId == id))
+			{
+				throw new OrderActionException(NoReinforceToOrderErrorMessage);
+			}
+
 			return new OrderPrecastReinforceViewModel()
 			{
 				Id = id,
@@ -58,6 +70,11 @@
 
 		public async Task OrderPrecastAsync(int id, OrderPrecastReinforceViewModel model)
 		{
+			if (!await repository.AllReadonly<PrecastReinforce>().AnyAsync(pr => pr.PrecastId == id))
+			{
+				throw new OrderActionException(NoReinforceToOrderErrorMessage);
+			}
+
 			var order = new ReinforceOrder()
 			{
 				Count = model.OrderedCount,
@@ -110,7 +127,7 @@
 
 			string fileName = $"Order {precastOrder.OrderNum} - {precastOrder.Precast}  {precastOrder.Project}";
 
-			exportService.ExportToPdf(precastOrder, fileName);
+			exportService.ExportOrderToPdf(precastOrder, fileName);
 
 			await emailService.SendEmailAsync(email, fileName);
 
@@ -229,6 +246,34 @@
 			}
 
 			return entity;
+		}
+
+		public async Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(int id, int currentPage = 1, int ordersPerPage = 12)
+		{
+			var query = repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id);
+
+			var orders = await query
+				.Skip((currentPage - 1) * ordersPerPage)
+				.Take(ordersPerPage)
+				.Select(pro => new ReinforceOrderInfoViewModel()
+				{
+					OrderId = pro.ReinforceOrder.Id,
+					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					Project = pro.Precast.Project.Name,
+					PrecastType = pro.Precast.PrecastType.Name,
+					Precast = pro.Precast.Name,
+					OrderedCount = pro.ReinforceOrder.Count,
+					DeliverDate = pro.ReinforceOrder.DeliverDate.ToString(DateFormat),
+					Department = pro.ReinforceOrder.Department.Name,
+					Deliverer = pro.ReinforceOrder.Deliverer.Name
+				})
+				.ToArrayAsync();
+
+			return new OrdersQueryModel()
+			{
+				TotalOrders = await query.CountAsync(),
+				Orders = orders
+			};
 		}
 	}
 

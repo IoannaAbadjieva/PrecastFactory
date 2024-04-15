@@ -28,5 +28,7 @@
 		Task GetOrderDetailsAndEmailAsync(int orderId, int precastId, string email);
 
 		Task<bool> IsOrderExistAsync(int id);
+
+		Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(int id, int currentPage = 1, int ordersPerPage = 12);
 	}
 }
