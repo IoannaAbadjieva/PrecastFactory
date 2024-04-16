@@ -10,7 +10,7 @@
 		{
 			var model = (OrderPrecastReinforceViewModel)validationContext.ObjectInstance;
 
-			if (model.DeliverDate < DateTime.Now)
+			if (model.DeliverDate.Date < DateTime.Now.Date)
 			{
 				return new ValidationResult("Deliver date cannot be in the past.");
 			}
