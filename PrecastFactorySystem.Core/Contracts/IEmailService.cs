@@ -1,13 +1,11 @@
 ﻿namespace PrecastFactorySystem.Core.Contracts
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
 	using System.Threading.Tasks;
 
 	public interface IEmailService
 	{
-		Task SendEmailAsync(string email, string fileName);
+		Task SendOrderEmailAsync(string email, string fileName, byte[] bytes);
+
+		Task SendCancelOrderEmailAsync(string email, string subject, string body);
 	}
 }

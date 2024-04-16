@@ -2,6 +2,7 @@
 {
 	using iText.Kernel.Pdf;
 	using iText.Layout;
+	using iText.Layout.Borders;
 	using iText.Layout.Element;
 	using iText.Layout.Properties;
 
@@ -10,10 +11,10 @@
 
 	public class ExportService : IExportService
 	{
-		public void ExportOrderToPdf(OrderViewModel data, string fileName)
+		public byte[] ExportOrderToPdf(OrderViewModel data, string fileName)
 		{
-			var directory = GetOrdersDirectory();
-			PdfWriter writer = new PdfWriter(directory + "\\" + fileName + ".pdf");
+			MemoryStream stream = new MemoryStream();
+			PdfWriter writer = new PdfWriter(stream);
 			PdfDocument pdf = new PdfDocument(writer);
 			Document document = new Document(pdf);
 
@@ -26,11 +27,13 @@
 			document.Add(new Paragraph(new Text("\n")));
 
 
-			Table table = new Table(4, false);
-			table.AddCell("Position");
-			table.AddCell("Count");
-			table.AddCell("ReinforceType");
-			table.AddCell("Length");
+			Table table = new Table(4, false)
+				.UseAllAvailableWidth()
+				.SetBorder(Border.NO_BORDER);
+			table.AddCell("Position").SetBold();
+			table.AddCell("Count").SetBold();
+			table.AddCell("ReinforceType").SetBold();
+			table.AddCell("Length").SetBold();
 
 			foreach (var reinforce in data.Reinforce)
 			{
@@ -57,38 +60,8 @@
 
 
 			document.Close();
-			writer.Close();
-
+			byte[] bytes = stream.ToArray();
+			return bytes;
 		}
-
-		private string GetOrdersDirectory()
-		{
-			var currentDirectory = Directory.GetCurrentDirectory();
-
-			string dirPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Orders";
-
-			if (!Directory.Exists(dirPath))
-			{
-				Directory.CreateDirectory(dirPath);
-			}
-
-			return dirPath;
-		}
-
-		private string GetReportsDirectory()
-		{
-			var currentDirectory = Directory.GetCurrentDirectory();
-
-			string dirPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Reports";
-
-			if (!Directory.Exists(dirPath))
-			{
-				Directory.CreateDirectory(dirPath);
-			}
-
-			return dirPath;
-		}
-
 	}
-
 }

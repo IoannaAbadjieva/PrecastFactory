@@ -14,42 +14,51 @@
 
 		private readonly IConfiguration configuration;
 
+		private readonly string apiKey;
+
 		public EmailService(IConfiguration _configuration)
 		{
 			configuration = _configuration;
+			apiKey = configuration.GetSection("EmailSettings")["Sendgrid_API_Key"];
 		}
-		public async Task SendEmailAsync(string email, string fileName)
-		{
-			var apiKey = configuration.GetSection("EmailSettings")["Sendgrid_API_Key"];
 
+		public async Task SendCancelOrderEmailAsync(string email, string subject, string body)
+		{
 			var client = new SendGridClient(apiKey);
 			var from = configuration.GetSection("EmailSettings")["From"];
-			
+
+			var fromAddress = new EmailAddress(from, "reinforce department");
+			var toAddress = new EmailAddress(email, "Me");
+			var msg = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, body, "");
+
+			var response = await client.SendEmailAsync(msg);
+		}
+
+		public async Task SendOrderEmailAsync(string email, string fileName, byte[] bytes)
+		{
+			var client = new SendGridClient(apiKey);
+			var from = configuration.GetSection("EmailSettings")["From"];
+
 			var fromAddress = new EmailAddress(from, "reinforce department");
 			var toAddress = new EmailAddress(email, "Me");
 			var subject = fileName;
 			var body = "Your order is ready for download";
 			var msg = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, body, "");
 
-			
-			var directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Orders";
-			var attachmentPath = directory + "\\" + fileName + ".pdf";
 
-			var attachment = new Attachment() 
+			var attachment = new Attachment()
 			{
 				ContentId = "Attachment",
-				Content = Convert.ToBase64String(File.ReadAllBytes(attachmentPath)),
+				Content = Convert.ToBase64String(bytes),
 				Filename = fileName + ".pdf",
 				Type = "application/pdf",
 				Disposition = "attachment"
 			};
-			
+
 			msg.AddAttachment(attachment);
-	
+
 
 			var response = await client.SendEmailAsync(msg);
-			
-		
 		}
 	}
 
