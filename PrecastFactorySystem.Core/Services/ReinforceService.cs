@@ -22,38 +22,6 @@
 			baseServise = _baseServise;
 		}
 
-
-		public async Task<int> DeleteReinforceAsync(int id)
-		{
-			var entity = await repository.GetByIdAsync<PrecastReinforce>(id);
-
-			if (entity == null)
-			{
-				throw new ArgumentException();
-			}
-
-			int precastId = entity.PrecastId;
-
-			repository.Delete(entity);
-			await repository.SaveChangesAsync();
-
-			return precastId;
-		}
-
-		public async Task<int> EditReinforceAsync(int id, ReinforceFormViewModel model)
-		{
-			var entity = await repository.GetByIdAsync<PrecastReinforce>(id);
-
-			entity.Count = model.Count;
-			entity.Position = model.Position;
-			entity.Length = model.Length;
-			entity.ReinforceTypeId = model.ReinforceTypeId;
-
-			await repository.SaveChangesAsync();
-
-			return entity.PrecastId;
-		}
-
 		public async Task<ReinforceFormViewModel?> GetReinforceByIdAsync(int id)
 		{
 			var model = await repository.All<PrecastReinforce>(pr => pr.Id == id)
@@ -71,6 +39,36 @@
 			return model;
 		}
 
+		public async Task<int> EditReinforceAsync(int id, ReinforceFormViewModel model)
+		{
+			var entity = await repository.GetByIdAsync<PrecastReinforce>(id);
+
+			entity.Count = model.Count;
+			entity.Position = model.Position;
+			entity.Length = model.Length;
+			entity.ReinforceTypeId = model.ReinforceTypeId;
+
+			await repository.SaveChangesAsync();
+
+			return entity.PrecastId;
+		}
+
+		public async Task<int> DeleteReinforceAsync(int id)
+		{
+			var entity = await repository.GetByIdAsync<PrecastReinforce>(id);
+
+			if (entity == null)
+			{
+				throw new ArgumentException();
+			}
+
+			int precastId = entity.PrecastId;
+
+			repository.Delete(entity);
+			await repository.SaveChangesAsync();
+
+			return precastId;
+		}
 
 		public async Task<bool> IsReinforceExist(int id)
 		{

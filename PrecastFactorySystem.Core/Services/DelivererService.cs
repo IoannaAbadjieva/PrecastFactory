@@ -131,12 +131,6 @@
 				.AnyAsync(d => d.Id == id && d.ReinforceOrders.Count > 0);
 		}
 
-		public async Task<bool> IsDelivererExistAsync(int id)
-		{
-			return await repository.AllReadonly<Deliverer>()
-				.AnyAsync(d => d.Id == id);
-		}
-
 		public Task<string?> GetDelivererEmailAsync(int id)
 		{
 			return repository.AllReadonly<Deliverer>()
@@ -144,5 +138,12 @@
 				.Select(d => d.Email)
 				.FirstOrDefaultAsync();
 		}
+
+		public async Task<bool> IsDelivererExistAsync(int id)
+		{
+			return await repository.AllReadonly<Deliverer>()
+				.AnyAsync(d => d.Id == id);
+		}
+
 	}
 }

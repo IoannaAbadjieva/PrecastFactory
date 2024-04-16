@@ -127,9 +127,9 @@
 
 			string fileName = $"Order {precastOrder.OrderNum} - {precastOrder.Precast}  {precastOrder.Project}";
 
-			exportService.ExportOrderToPdf(precastOrder, fileName);
+			byte[] bytes = exportService.ExportOrderToPdf(precastOrder, fileName);
 
-			await emailService.SendEmailAsync(email, fileName);
+			await emailService.SendOrderEmailAsync(email, fileName, bytes);
 
 		}
 
@@ -203,51 +203,6 @@
 			};
 		}
 
-		public async Task<ReinforceOrderInfoViewModel> GetOrderToDeleteByIdAsync(int id)
-		{
-			var entity = await CheckOrderDateAsync(id);
-
-			return await repository.AllReadonly<PrecastReinforceOrder>(r => r.ReinforceOrderId == id)
-				.Select(pro => new ReinforceOrderInfoViewModel()
-				{
-					OrderId = id,
-					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
-					Project = pro.Precast.Project.Name,
-					PrecastType = pro.Precast.PrecastType.Name,
-					DeliverDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
-					Department = pro.ReinforceOrder.Department.Name,
-					Deliverer = pro.ReinforceOrder.Deliverer.Name
-				})
-				.FirstAsync();
-		}
-
-		public async Task DeleteOrderAsync(int id)
-		{
-			var entity = await CheckOrderDateAsync(id);
-
-			repository.Delete(entity);
-			await repository.SaveChangesAsync();
-		}
-
-		public async Task<bool> IsOrderExistAsync(int id)
-		{
-			return await repository.AllReadonly<ReinforceOrder>()
-				.AnyAsync(ro => ro.Id == id);
-		}
-
-		private async Task<ReinforceOrder> CheckOrderDateAsync(int id)
-		{
-			var currentDate = DateTime.Now;
-			var entity = await repository.GetByIdAsync<ReinforceOrder>(id);
-
-			if ((entity.DeliverDate.Date - currentDate.Date).Days < DaysLeftToDeliverDate)
-			{
-				throw new DeleteActionException(DeleteOrderErrorMessage);
-			}
-
-			return entity;
-		}
-
 		public async Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(int id, int currentPage = 1, int ordersPerPage = 12)
 		{
 			var query = repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id);
@@ -275,6 +230,58 @@
 				Orders = orders
 			};
 		}
+
+		public async Task<ReinforceOrderInfoViewModel> GetOrderToDeleteByIdAsync(int id)
+		{
+			var entity = await CheckOrderDateAsync(id);
+
+			return await repository.AllReadonly<PrecastReinforceOrder>(r => r.ReinforceOrderId == id)
+				.Select(pro => new ReinforceOrderInfoViewModel()
+				{
+					OrderId = id,
+					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					Project = pro.Precast.Project.Name,
+					PrecastType = pro.Precast.PrecastType.Name,
+					DeliverDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					Department = pro.ReinforceOrder.Department.Name,
+					Deliverer = pro.ReinforceOrder.Deliverer.Name
+				})
+				.FirstAsync();
+		}
+
+		public async Task DeleteOrderAsync(int id)
+		{
+			var entity = await CheckOrderDateAsync(id);
+
+			repository.Delete(entity);
+			await repository.SaveChangesAsync();
+
+			var email = await delivererService.GetDelivererEmailAsync(entity.DelivererId);
+			var subject = $"Order N: {entity.Id}";
+			var body = $"Order N: {entity.Id} has been canceled.";
+
+			await emailService.SendCancelOrderEmailAsync(email ?? string.Empty, subject, body);
+		}
+
+		public async Task<bool> IsOrderExistAsync(int id)
+		{
+			return await repository.AllReadonly<ReinforceOrder>()
+				.AnyAsync(ro => ro.Id == id);
+		}
+
+		private async Task<ReinforceOrder> CheckOrderDateAsync(int id)
+		{
+			var currentDate = DateTime.Now;
+			var entity = await repository.GetByIdAsync<ReinforceOrder>(id);
+
+			if ((entity.DeliverDate.Date - currentDate.Date).Days < DaysLeftToDeliverDate)
+			{
+				throw new DeleteActionException(DeleteOrderErrorMessage);
+			}
+
+			return entity;
+		}
+
 	}
 
 }
