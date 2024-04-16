@@ -1,0 +1,57 @@
+﻿@model PrecastProductionFormViewModel
+
+@{
+	ViewBag.Title = "Edit Production Record";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row ">
+	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 ">
+		<form asp-action="EditProduction" method="post" class="bg-dark text-light">
+			<div hidden class="mb-3">
+				<label asp-for="@Model.Id" class="form-label-add-edit">Record N</label>
+				<input asp-for="@Model.Id" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.Id" class="text-danger"></span>
+			</div>
+			<div hidden class="mb-3">
+				<label asp-for="@Model.PrecastId" class="form-label-add-edit">Precast N</label>
+				<input asp-for="@Model.PrecastId" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.PrecastId" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="@Model.ProducedCount" class="form-label-add-edit">Produced count</label>
+				<input asp-for="@Model.ProducedCount" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.ProducedCount" class="text-danger"></span>
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="@Model.Date" class="form-label-add-edit">Date</label>
+				<input asp-for="@Model.Date" class="form-control" aria-required="true" />
+				<span asp-validation-for="@Model.Date" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="@Model.DepartmentId" class="form-label-add-edit">Select Department</label>
+				<select class="bg-dark text-light" asp-for="@Model.DepartmentId" class="form-control" aria-required="true">
+					<option disabled selected value="">Select Department...</option>
+					@foreach (var department in Model.Departments)
+					{
+						<option value="@department.Id">@department.Name</option>
+					}
+				</select>
+				<span asp-validation-for="@Model.DepartmentId" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<input class="btn btn-secondary mb-2 w-100 p-3 fw-bold" type="submit" value="Edit" />
+			</div>
+		</form>
+	</div>
+</div>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
+

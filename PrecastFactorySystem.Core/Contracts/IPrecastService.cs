@@ -47,16 +47,23 @@
 
 		Task ProducePrecastAsync(int id, PrecastProductionFormViewModel model);
 
+		Task<bool> IsProductionRecordExist(int id);
+
 		Task<int> GetReinforcedPrecastCountAsync(int id);
 
 		Task<int> GetPrecastToReinforceCountAsync(int id);
 
-		Task<int> GetPrecastToProduceCountAsync(int id);
+		Task<int> GetPrecastToProduceCountAsync(int id, int? recordId);
 
-		Task<int> GetProducedPrecastCountAsync(int id);
+		Task<int> GetProducedPrecastCountAsync(int id, int? recordId);
 
 		Task<decimal> GetPrecastActualWeightAsync(int id);
 
 		Task<bool> IsPrecastExist(int id);
+		Task<PrecastProductionFormViewModel?> GetPrecastProductionRecordByIdAsync(int id);
+
+		Task EditPrecastProductionRecordAsync(int id, PrecastProductionFormViewModel model);
+
+		Task DeletePrecastProductionRecordAsync(int id);
 	}
 }

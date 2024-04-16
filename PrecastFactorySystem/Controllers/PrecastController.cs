@@ -154,11 +154,11 @@
 		}
 
 		[PrecastExist]
-		public async Task<IActionResult> Reinforce(int id, [FromQuery]AllPrecastReinforceQueryModel model)
+		public async Task<IActionResult> Reinforce(int id, [FromQuery] AllPrecastReinforceQueryModel model)
 		{
 			PrecastReinforceQueryModel precastReinforce = await precastService.GetPrecastReinforceAsync(
-				id, 
-				model.CurrentPage, 
+				id,
+				model.CurrentPage,
 				AllPrecastReinforceQueryModel.ReinforcePerPage);
 
 			model.Id = id;
@@ -170,7 +170,7 @@
 			model.Produced = precastReinforce.Produced;
 			model.Reinforce = precastReinforce.Reinforce;
 			model.TotalReinforce = precastReinforce.TotalReinforce;
-		
+
 			return View(model);
 		}
 
@@ -220,7 +220,7 @@
 			model.TotalPrecast = precastProduction.TotalPrecast;
 
 			return View(model);
-			
+
 		}
 
 		[PrecastExist]
@@ -248,7 +248,7 @@
 		{
 			try
 			{
-				int maxCount = await precastService.GetPrecastToProduceCountAsync(id);
+				int maxCount = await precastService.GetPrecastToProduceCountAsync(id, null);
 
 				if (model.ProducedCount > maxCount)
 				{
@@ -273,8 +273,59 @@
 					Message = pae.Message
 				});
 			}
-			
+
 		}
 
+		[ProductionRecordExist]
+		public async Task<IActionResult> EditProduction(int id)
+		{
+			PrecastProductionFormViewModel? model = await precastService.GetPrecastProductionRecordByIdAsync(id);
+			return View(model);
+		}
+
+
+		[HttpPost]
+		[ProductionRecordExist]
+		public async Task<IActionResult> EditProduction(int id, PrecastProductionFormViewModel model)
+		{
+			try
+			{
+				int precastId = model.PrecastId;
+
+				int maxCount = await precastService.GetPrecastToProduceCountAsync(precastId, id);
+
+				if (model.ProducedCount > maxCount)
+				{
+					ModelState.AddModelError(nameof(model.ProducedCount),
+												string.Format(InvalidProduceCountErrorMessage, maxCount));
+				}
+
+				if (!ModelState.IsValid)
+				{
+					model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
+					return View(model);
+				}
+
+				await precastService.EditPrecastProductionRecordAsync(id, model);
+				return RedirectToAction(nameof(Production), new {id = precastId });
+			}
+			catch (ProduceActionException pae)
+			{
+
+				return View("ProduceError", new BaseErrorViewModel()
+				{
+					Message = pae.Message
+				});
+			}
+
+		}
+
+		[ProductionRecordExist]
+		public async Task<IActionResult> DeleteProduction(int id, int precastId)
+		{
+			await precastService.DeletePrecastProductionRecordAsync(id);
+			return RedirectToAction(nameof(Production),new {id = precastId});
+		}
 	}
+
 }

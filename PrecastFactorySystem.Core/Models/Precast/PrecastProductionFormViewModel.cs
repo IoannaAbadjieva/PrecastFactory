@@ -14,6 +14,9 @@
 		[Required]
 		public int Id { get; set; }
 
+		[Required]
+		public int PrecastId { get; set; }
+
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		[Range(PrecastCountMinValue, PrecastCountMaxValue,
 			ErrorMessage = NumberRangeErrorMessage)]
@@ -22,11 +25,6 @@
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public DateTime Date { get; set; }
-
-		[Required(ErrorMessage = RequiredErrorMessage)]
-		[Range(typeof(decimal), ConcreteAmountMinValue, ConcreteAmountMaxValue,
-						ErrorMessage = NumberRangeErrorMessage)]
-		public decimal ConcreteAmount { get; set; }
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public int DepartmentId { get; set; }
