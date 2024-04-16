@@ -4,6 +4,8 @@
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
 
+	using iText.Layout;
+
 	using Microsoft.EntityFrameworkCore;
 
 	using PrecastFactorySystem.Core.Contracts;
@@ -16,11 +18,17 @@
 	public class DepartmentService : IDepartmentService
 	{
 		private readonly IRepository repository;
+		private readonly IPrecastService precastService;
+		private readonly IBaseServise baseServise;
 
-		public DepartmentService(IRepository _repository)
+		public DepartmentService(
+			IRepository _repository,
+			IPrecastService _precastService,
+			IBaseServise _baseServise)
 		{
 			repository = _repository;
-
+			precastService = _precastService;
+			baseServise = _baseServise;
 		}
 
 		public async Task<IEnumerable<ProductionInfoViewModel>> GetDailyProductionAsync()
@@ -94,7 +102,7 @@
 					Count = dp.Count,
 					Department = dp.Department.Name,
 					ReinforceWeight = dp.Precast.PrecastReinforceOrders.Average(pro => pro.ReinforceOrder.PrecastWeight),
-					ConcreteAmount = dp.Precast.ConcreteActualAmount?? dp.Precast.ConcreteProjectAmount
+					ConcreteAmount = dp.Precast.ConcreteActualAmount ?? dp.Precast.ConcreteProjectAmount
 				})
 
 				.ToArrayAsync();
@@ -131,19 +139,49 @@
 
 		}
 
-		public async Task<IEnumerable<ProductionDetailsViewModel>> GetPrecastProductionDetailsAsync(int id)
+			public async Task<ProductionDetailsQueryModel> GetPrecastProductionDetailsAsync(
+			int id,
+			int currentPage = 1,
+			int recordsPerPage = 12)
 		{
-			return await repository.AllReadonly<PrecastDepartment>(dp => dp.PrecastId == id)
-					.Select(dp => new ProductionDetailsViewModel
-					{
-						ProjectName = dp.Precast.Project.Name,
-						Department = dp.Department.Name,
-						PrecastType = dp.Precast.PrecastType.Name,
-						PrecastName = dp.Precast.Name,
-						Count = dp.Count,
-						Date = dp.Date,
-					}).ToArrayAsync();
+			var precast = await repository.AllReadonly<Precast>(p => p.Id == id)
+				.Select(p => new
+				{
+					PrecastId = p.Id,
+					PrecastName = p.Name,
+					PrecastType = p.PrecastType.Name,
+					ProjectName = p.Project.Name
+				}).FirstAsync();
+
+			var query = repository.AllReadonly<PrecastDepartment>(dp => dp.PrecastId == id);
+
+			var totalRecords = query.Count();
+
+			var precastProduction = await query
+				.Skip((currentPage - 1) * recordsPerPage)
+				.Take(recordsPerPage)
+				.Select(dp => new ProductionDetailsViewModel
+				{
+					PrecastType = precast.PrecastType,
+					PrecastName = precast.PrecastName,
+					Date = dp.Date,
+					Count = dp.Count,
+					Department = dp.Department.Name
+				}).ToArrayAsync();
+
+			return new ProductionDetailsQueryModel()
+			{
+				ProjectName = precast.ProjectName,
+				PrecastId = precast.PrecastId,
+				PrecastName = precast.PrecastName,
+				PrecastType = precast.PrecastType,
+				TotalRecords = totalRecords,
+				Precast = precastProduction
+			};
+
 		}
+
+		
 
 		public async Task<ProductionQueryModel> GetProductionAsync(int? projectId = null,
 			int? precastTypeId = null,
@@ -241,5 +279,8 @@
 				TotalProduced = totalPrecast
 			};
 		}
+
+	
+
 	}
 }

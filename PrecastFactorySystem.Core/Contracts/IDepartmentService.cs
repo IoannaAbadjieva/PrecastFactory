@@ -18,7 +18,11 @@
 			int currentPage = 1,
 			int precastPerPage = 12);
 
-		Task<IEnumerable<ProductionDetailsViewModel>> GetPrecastProductionDetailsAsync(int id);
+		Task<ProductionDetailsQueryModel> GetPrecastProductionDetailsAsync(
+			int id,
+			int currentPage = 1,
+			int recordsPerPage = 12);
+
 		Task<ProductionQueryModel> GetProductionAsync(int? projectId = null,
 			int? precastTypeId = null,
 			int? departmentId = null,

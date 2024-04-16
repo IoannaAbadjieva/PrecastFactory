@@ -16,6 +16,9 @@
 						})
 					})
 	});
+
+	string month = Model.Month.HasValue ? Model.Month.Value.ToString("MMММ yyyy"): DateTime.Now.ToString("MMMM yyyy") ;
+	
 }
 
 <h4 class="text-center">@ViewBag.Title</h4>
@@ -73,25 +76,35 @@
 		AllOrdersQueryModel.OrdersPerPage);
 }
 
-<div class="row mb-5">
-	<div class="col-sm-6 d-grid gap-2 d-sm-flex justify-content-sm-start">
+<div class=" col-sm-12 d-grid gap-2 d-sm-flex justify-content-sm-between">
+	<div class="col-sm-3 d-grid gap-2 d-sm-flex justify-content-sm-start">
 		<a class="btn btn-secondary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
 		   asp-controller="Department"
 		   asp-action="Monthly"
-		   asp-route-currentPage="@previousPage"><<</a>
+		   asp-route-currentPage="@previousPage">
+			<<
+		</a>
 	</div>
 
 	@{
 		var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
-		!Model.Projects.Any();
+		!Model.Precast
+		.Any();
 	}
 
-	<div class="col-sm-6 d-grid gap-2 d-sm-flex justify-content-sm-end">
+	<form asp-action="Download" asp-controller="Department" method="post">
+		<input type="hidden" name="ReportHtml" />
+		<input class="btn btn-secondary" type="submit" id="btnSubmit" value="Download Report" />
+	</form>
+
+	<div class="col-sm-3 d-grid gap-2 d-sm-flex justify-content-sm-end">
 		<a class="btn btn-secondary
            @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
 		   asp-controller="Department"
 		   asp-action="Monthly"
-		   asp-route-currentPage="@(Model.CurrentPage + 1)">>></a>
+		   asp-route-currentPage="@(Model.CurrentPage + 1)">
+			>>
+		</a>
 	</div>
 </div>
 
@@ -100,9 +113,10 @@
 	<h2 class="text-center">No precast found by the given criteria!</h2>
 }
 
-<div class="d-flex flex-column justify-content-between overflow-y-scroll">
+<div id="Report" class="d-flex flex-column justify-content-between">
 
 	<div class="d-flex flex-column justify-content-between">
+		<h4> Precast production  for @month </h4>
 		@foreach (var result in query)
 		{
 			<div>
@@ -129,7 +143,16 @@
 	<p class="mb-0"><span class="fw-bold">Reinforce kg: </span>@Model.TotalReinforceWeight.ToString("f2")</p>
 
 </div>
+
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$("#btnSubmit").click(function () {
+				$("input[name='ReportHtml']").val($("#Report").html());
+			});
+		});
+	</script>
 }
 

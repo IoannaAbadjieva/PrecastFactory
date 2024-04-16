@@ -2,12 +2,17 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
+	using iText.Html2pdf;
+
 	using PrecastFactorySystem.Attributes;
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Models.Department;
 	using PrecastFactorySystem.Core.Models.Order;
 	using PrecastFactorySystem.Infrastructure.Data.Enums;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
+	using PrecastFactorySystem.Core.Models;
+
+	using static PrecastFactorySystem.Core.Constants.MessageConstants;
 
 	public class DepartmentController : BaseController
 	{
@@ -71,10 +76,41 @@
 		}
 
 		[PrecastExist]
-		public async Task<IActionResult> Details(int id)
+		public async Task<IActionResult> Details(int id, [FromQuery] AllProductionDetailsQueryModel model)
 		{
-			IEnumerable<ProductionDetailsViewModel> model = await departmentService.GetPrecastProductionDetailsAsync(id);
+			ProductionDetailsQueryModel precast = await departmentService.GetPrecastProductionDetailsAsync(
+				id,
+				model.CurrentPage,
+				AllProductionDetailsQueryModel.RecordsPerPage);
+
+			model.ProjectName = precast.ProjectName;
+			model.PrecastType = precast.PrecastType;
+			model.PrecastId = id;
+			model.PrecastName = precast.PrecastName;
+			model.Precast = precast.Precast;
+			model.TotalRecords = precast.TotalRecords;
+
 			return View(model);
 		}
+
+		[HttpPost]
+		public IActionResult Download(string ReportHtml)
+		{
+			if (string.IsNullOrWhiteSpace(ReportHtml))
+			{
+				return View("ReportError", new BaseErrorViewModel()
+				{
+					Message = DownloadReportErrorMessage
+				});
+			}
+
+			using (MemoryStream stream = new MemoryStream())
+			{
+				HtmlConverter.ConvertToPdf(ReportHtml, stream);
+				return File(stream.ToArray(), "application/pdf", "Report.pdf");
+			}
+		}
+
+
 	}
 }
