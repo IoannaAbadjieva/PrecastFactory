@@ -21,5 +21,7 @@
 		public const string NoReinforceToOrderErrorMessage = "You can not order any amount of this precast, there is no reinforce added yet.";
 	
 		public const string PrecastOrderedErrorMessage = "You can not order any amount of this precast, it is already ordered.";
+	
+		public const string DownloadReportErrorMessage = "There is no data to download.";
 	}
 }
