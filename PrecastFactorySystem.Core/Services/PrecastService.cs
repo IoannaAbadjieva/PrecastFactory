@@ -506,5 +506,11 @@
 			await repository.SaveChangesAsync();
 		}
 
+		public async Task<DateTime> GetFirstOrderDeliveryDate(int id)
+		{
+			return await repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id)
+				.MinAsync(pro => pro.ReinforceOrder.DeliverDate);
+		}
+
 	}
 }

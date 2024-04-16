@@ -65,5 +65,7 @@
 		Task EditPrecastProductionRecordAsync(int id, PrecastProductionFormViewModel model);
 
 		Task DeletePrecastProductionRecordAsync(int id);
+
+		Task<DateTime> GetFirstOrderDeliveryDate(int id);
 	}
 }
