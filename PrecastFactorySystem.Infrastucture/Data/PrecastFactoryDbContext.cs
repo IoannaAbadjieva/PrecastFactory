@@ -4,9 +4,11 @@
 	using Microsoft.EntityFrameworkCore;
 
 	using Configurations;
-	using Models;
 
-	public class PrecastFactoryDbContext : IdentityDbContext
+	using Models;
+	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
+
+	public class PrecastFactoryDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 	{
 		public PrecastFactoryDbContext(DbContextOptions<PrecastFactoryDbContext> options)
 			: base(options)
@@ -19,8 +21,6 @@
 		public DbSet<Deliverer> Deliverers { get; set; } = null!;
 
 		public DbSet<Department> Departments { get; set; } = null!;
-
-		public DbSet<DepartmentEmployee> DepartmentsEmployees { get; set; } = null!;
 
 		public DbSet<Precast> Precast { get; set; } = null!;
 
@@ -41,13 +41,18 @@
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
+	
 			builder.ApplyConfiguration(new ConcreteClassConfiguration());
-
-			builder.ApplyConfiguration(new DepartmentConfiguration());
-			builder.ApplyConfiguration(new DepartmentEmployeeConfiguration());
-			builder.ApplyConfiguration(new PrecastReinforceOrderConfiguration());
-			builder.ApplyConfiguration(new PrecastTypeConfiguration());
 			builder.ApplyConfiguration(new ReinforceTypeConfiguration());
+			builder.ApplyConfiguration(new PrecastTypeConfiguration());
+			builder.ApplyConfiguration(new DepartmentConfiguration());
+			builder.ApplyConfiguration(new DlivererConfiguration());
+			builder.ApplyConfiguration(new ProjectConfiguration());
+			builder.ApplyConfiguration(new PrecastConfiguration());
+			builder.ApplyConfiguration(new PrecastReinforceConfiguration());
+			builder.ApplyConfiguration(new ReinforceOrderConfiguration());
+			builder.ApplyConfiguration(new PrecastReinforceOrderConfiguration());
+			builder.ApplyConfiguration(new DepartmentPrecastConfiguration());
 
 			base.OnModelCreating(builder);
 		}

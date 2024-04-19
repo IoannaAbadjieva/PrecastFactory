@@ -9,11 +9,11 @@ using PrecastFactorySystem.Infrastructure.Data;
 
 #nullable disable
 
-namespace PrecastFactorySystem.Data.Migrations
+namespace PrecastFactorySystem.Infrastructure.Migrations
 {
     [DbContext(typeof(PrecastFactoryDbContext))]
-    [Migration("20240414104202_ActualConcreteAmountMoved")]
-    partial class ActualConcreteAmountMoved
+    [Migration("20240418194409_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,34 +24,7 @@ namespace PrecastFactorySystem.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,9 +38,8 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -76,72 +48,7 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,9 +62,8 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -166,7 +72,7 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -179,9 +85,8 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -190,13 +95,13 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -205,10 +110,10 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -230,21 +135,26 @@ namespace PrecastFactorySystem.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CompressiveStrengthRequired")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Якост на натиск на бетона");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Име");
 
                     b.HasKey("Id");
 
                     b.ToTable("ConcreteClasses");
+
+                    b.HasComment("Клас по якост на натиск на бетона");
 
                     b.HasData(
                         new
@@ -337,7 +247,8 @@ namespace PrecastFactorySystem.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -349,135 +260,254 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("Име");
 
                     b.HasKey("Id");
 
                     b.ToTable("Deliverers");
+
+                    b.HasComment("Доставчик на армировъчна стомана");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "ioannaabadjieva@gmail.com",
+                            Name = "TestDeliverer"
+                        });
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("DepartmentType")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Тип на отдела");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Име");
 
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
 
+                    b.HasComment("Отдел/Цех");
+
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            DepartmentType = 0,
+                            DepartmentType = 1,
                             Name = "1-st Precast"
                         },
                         new
                         {
                             Id = 2,
-                            DepartmentType = 0,
+                            DepartmentType = 1,
                             Name = "2-nd Precast"
                         },
                         new
                         {
                             Id = 3,
-                            DepartmentType = 0,
+                            DepartmentType = 1,
                             Name = "3-rd Precast"
                         },
                         new
                         {
                             Id = 4,
-                            DepartmentType = 0,
+                            DepartmentType = 1,
                             Name = "Reinforce"
                         },
                         new
                         {
                             Id = 5,
-                            DepartmentType = 0,
+                            DepartmentType = 1,
                             Name = "Mould"
                         },
                         new
                         {
                             Id = 6,
-                            DepartmentType = 0,
+                            DepartmentType = 1,
                             Name = "EmbeddedParts"
                         },
                         new
                         {
                             Id = 7,
-                            DepartmentType = 1,
+                            DepartmentType = 2,
                             Name = "Management"
                         },
                         new
                         {
                             Id = 8,
-                            DepartmentType = 1,
+                            DepartmentType = 2,
                             Name = "ProjectTechnical"
                         });
                 });
 
-            modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.DepartmentEmployee", b =>
+            modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels.ApplicationRole", b =>
                 {
-                    b.Property<int>("DepartmentId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels.ApplicationUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("EmployeeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DepartmentId", "EmployeeId");
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.HasIndex("EmployeeId");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                    b.ToTable("DepartmentsEmployees");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.Precast", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("AddedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Дата на добавяне");
 
                     b.Property<decimal?>("ConcreteActualAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Реално количество бетон");
 
                     b.Property<int>("ConcreteClassId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Клас на бетона");
 
                     b.Property<decimal>("ConcreteProjectAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Проектно количество бетон");
 
                     b.Property<int>("Count")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Количество");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Изтрит");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("Име");
 
                     b.Property<int>("PrecastTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Тип на елемента");
 
                     b.Property<int>("ProjectId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Обект");
 
                     b.Property<decimal>("ReinforceProjectWeight")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Проектно тегло на армировка");
 
                     b.HasKey("Id");
 
@@ -488,27 +518,34 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Precast");
+
+                    b.HasComment("Сглобяем стоманобетонов елемент");
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.PrecastDepartment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Count")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Брой наляти елементи");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Дата");
 
                     b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Отдел/Цех");
 
                     b.Property<int>("PrecastId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Сглобяем стоманобетонов елемент");
 
                     b.HasKey("Id");
 
@@ -517,32 +554,44 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.HasIndex("PrecastId");
 
                     b.ToTable("DepartmentsPrecast");
+
+                    b.HasComment("Свързваща таблица между сглобяем стоманобетонов елемент и отдел/цех");
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.PrecastReinforce", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Count")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Брой");
 
                     b.Property<decimal>("Length")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Дължина на армировката");
 
                     b.Property<string>("Position")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Позиция на армировката");
 
                     b.Property<int>("PrecastId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор на елемент");
 
                     b.Property<int>("ReinforceTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Тип на армировката(клас стомана и диаметър)");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Тегло на армировката");
 
                     b.HasKey("Id");
 
@@ -551,42 +600,53 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.HasIndex("ReinforceTypeId");
 
                     b.ToTable("PrecastReinforce");
+
+                    b.HasComment("Армировка на елемент");
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.PrecastReinforceOrder", b =>
                 {
                     b.Property<int>("PrecastId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Сглобяем стоманотонов елемент");
 
                     b.Property<int>("ReinforceOrderId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Заявка за армировъчна стомана");
 
                     b.HasKey("PrecastId", "ReinforceOrderId");
 
                     b.HasIndex("ReinforceOrderId");
 
                     b.ToTable("PrecastReinforceOrders");
+
+                    b.HasComment("Свързваща таблица между сглобяем стоманобетонов елемент и Заявки за армировъчна стомана");
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.PrecastType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("Име");
 
                     b.Property<int>("PrecastReinforceType")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Начин на армиране");
 
                     b.HasKey("Id");
 
                     b.ToTable("PrecastTypes");
+
+                    b.HasComment("Тип на сглобяем стоманобетонов елемент");
 
                     b.HasData(
                         new
@@ -667,22 +727,30 @@ namespace PrecastFactorySystem.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор на обекта");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("AddedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Дата на добавяне");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Изтрит");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Име на обекта");
 
                     b.Property<string>("ProdNumber")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(10)")
+                        .HasComment("Административен номер на обекта");
 
                     b.HasKey("Id");
 
@@ -690,33 +758,42 @@ namespace PrecastFactorySystem.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Projects");
+
+                    b.HasComment("Обект");
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.ReinforceOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор на заявка");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Count")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Заявен брой от елемента");
 
                     b.Property<DateTime>("DeliverDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Дата на доставка");
 
                     b.Property<int>("DelivererId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Доставчик");
 
                     b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Цех за доставка");
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Дата на заявка");
 
                     b.Property<decimal>("PrecastWeight")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Тегло на заявения елемент");
 
                     b.HasKey("Id");
 
@@ -725,265 +802,285 @@ namespace PrecastFactorySystem.Data.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("ReinforceOrders");
+
+                    b.HasComment("Заявки за армировъчна стомана");
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.ReinforceType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Идентификатор");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Diameter")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Диаметър на стоманата");
 
                     b.Property<int>("ReinforceClass")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Клас на стоманата");
+
+                    b.Property<decimal>("SpecificMass")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Относително тегло на стоманата");
 
                     b.HasKey("Id");
 
                     b.ToTable("ReinforceTypes");
+
+                    b.HasComment("Тип армировъчна стомана");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Diameter = 6,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 0.222m
                         },
                         new
                         {
                             Id = 2,
                             Diameter = 8,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 0.395m
                         },
                         new
                         {
                             Id = 3,
                             Diameter = 10,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 0.617m
                         },
                         new
                         {
                             Id = 4,
                             Diameter = 12,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 0.888m
                         },
                         new
                         {
                             Id = 5,
                             Diameter = 14,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 1.21m
                         },
                         new
                         {
                             Id = 6,
                             Diameter = 16,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 1.58m
                         },
                         new
                         {
                             Id = 7,
                             Diameter = 18,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 2.00m
                         },
                         new
                         {
                             Id = 8,
                             Diameter = 20,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 2.47m
                         },
                         new
                         {
                             Id = 9,
                             Diameter = 22,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 2.98m
                         },
                         new
                         {
                             Id = 10,
                             Diameter = 25,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 3.85m
                         },
                         new
                         {
                             Id = 11,
                             Diameter = 28,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 4.83m
                         },
                         new
                         {
                             Id = 12,
                             Diameter = 32,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 6.31m
                         },
                         new
                         {
                             Id = 13,
                             Diameter = 36,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 7.99m
                         },
                         new
                         {
                             Id = 14,
                             Diameter = 40,
-                            ReinforceClass = 0
+                            ReinforceClass = 0,
+                            SpecificMass = 9.87m
                         },
                         new
                         {
                             Id = 15,
                             Diameter = 6,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 0.222m
                         },
                         new
                         {
                             Id = 16,
                             Diameter = 8,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 0.395m
                         },
                         new
                         {
                             Id = 17,
                             Diameter = 10,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 0.617m
                         },
                         new
                         {
                             Id = 18,
                             Diameter = 12,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 0.888m
                         },
                         new
                         {
                             Id = 19,
                             Diameter = 14,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 1.21m
                         },
                         new
                         {
                             Id = 20,
                             Diameter = 16,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 1.58m
                         },
                         new
                         {
                             Id = 21,
                             Diameter = 18,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 2.00m
                         },
                         new
                         {
                             Id = 22,
                             Diameter = 20,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 2.47m
                         },
                         new
                         {
                             Id = 23,
                             Diameter = 22,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 2.98m
                         },
                         new
                         {
                             Id = 24,
                             Diameter = 25,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 3.85m
                         },
                         new
                         {
                             Id = 25,
                             Diameter = 28,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 4.83m
                         },
                         new
                         {
                             Id = 26,
                             Diameter = 32,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 6.31m
                         },
                         new
                         {
                             Id = 27,
                             Diameter = 36,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 7.99m
                         },
                         new
                         {
                             Id = 28,
                             Diameter = 40,
-                            ReinforceClass = 1
+                            ReinforceClass = 1,
+                            SpecificMass = 9.87m
                         });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.DepartmentEmployee", b =>
-                {
-                    b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.Department", "Department")
-                        .WithMany("DepartmentEmployees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.Precast", b =>
@@ -1101,8 +1198,6 @@ namespace PrecastFactorySystem.Data.Migrations
 
             modelBuilder.Entity("PrecastFactorySystem.Infrastructure.Data.Models.Department", b =>
                 {
-                    b.Navigation("DepartmentEmployees");
-
                     b.Navigation("DepartmentPrecast");
 
                     b.Navigation("ReinforceOrders");
