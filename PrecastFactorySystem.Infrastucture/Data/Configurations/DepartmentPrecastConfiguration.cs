@@ -80,7 +80,7 @@
 				{
 					Id = 8,
 					PrecastId = 7,
-					DepartmentId = 7,
+					DepartmentId = 1,
 					Count = 1,
 					Date = DateTime.Now.AddDays(-4),
 				},
@@ -120,7 +120,7 @@
 				{
 					Id = 13,
 					PrecastId = 7,
-					DepartmentId = 7,
+					DepartmentId = 3,
 					Count = 1,
 					Date = DateTime.Now.AddDays(-3),
 				},
@@ -176,7 +176,7 @@
 				{
 					Id = 20,
 					PrecastId = 7,
-					DepartmentId = 7,
+					DepartmentId = 1,
 					Count = 1,
 					Date = DateTime.Now.AddDays(-2),
 				},

@@ -4,9 +4,9 @@
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-	internal class UserClaimsConfiguration : IEntityTypeConfiguration<IdentityUserClaim<string>>
+	internal class UserClaimsConfiguration : IEntityTypeConfiguration<IdentityUserClaim<Guid>>
 	{
-		public void Configure(EntityTypeBuilder<IdentityUserClaim<string>> builder)
+		public void Configure(EntityTypeBuilder<IdentityUserClaim<Guid>> builder)
 		{
 			var userClaimsData = new SeedUserData();
 

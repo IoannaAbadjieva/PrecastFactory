@@ -22,15 +22,15 @@
         public ApplicationUser OrdinaryUser { get; set; } = null!;
 
 
-        public IdentityUserClaim<string> AdminUserClaim { get; set; } = null!;
+        public IdentityUserClaim<Guid> AdminUserClaim { get; set; } = null!;
 
-        public IdentityUserClaim<string> ManagerUserClaim { get; set; } = null!;
+        public IdentityUserClaim<Guid> ManagerUserClaim { get; set; } = null!;
 
-        public IdentityUserClaim<string> ReinforceManagerUserClaim { get; set; } = null!;
+        public IdentityUserClaim<Guid> ReinforceManagerUserClaim { get; set; } = null!;
 
-        public IdentityUserClaim<string> ProductionManagerUserClaim { get; set; } = null!;
+        public IdentityUserClaim<Guid> ProductionManagerUserClaim { get; set; } = null!;
 
-        public IdentityUserClaim<string> UserClaim { get; set; } = null!;
+        public IdentityUserClaim<Guid> UserClaim { get; set; } = null!;
 
         public SeedUserData()
         {
@@ -43,7 +43,7 @@
 
             AdminUser = new ApplicationUser
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("13a26afc-8c31-4777-b202-89966774aaa5"),
                 UserName = "admin",
                 NormalizedUserName = "ADMIN",
                 Email = "admin@mail.com",
@@ -56,17 +56,17 @@
 
             AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "admin1427");
 
-            AdminUserClaim = new IdentityUserClaim<string>
+            AdminUserClaim = new IdentityUserClaim<Guid>
             {
                 Id = 1,
-                UserId = AdminUser.Id.ToString(),
+                UserId = Guid.Parse("13a26afc-8c31-4777-b202-89966774aaa5"),
                 ClaimType = UserFullName,
                 ClaimValue = "Chief Admin"
             };
 
             ManagerUser = new ApplicationUser
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("344ef066-7d16-480d-b1d3-6face05c7c62"),
                 UserName = "manager",
                 NormalizedUserName = "MANAGER",
                 Email = "manager@mail.com",
@@ -79,17 +79,17 @@
 
             ManagerUser.PasswordHash = hasher.HashPassword(ManagerUser, "manager247");
 
-            ManagerUserClaim = new IdentityUserClaim<string>
+            ManagerUserClaim = new IdentityUserClaim<Guid>
             {
                 Id = 2,
-                UserId = ManagerUser.Id.ToString(),
+                UserId = Guid.Parse("344ef066-7d16-480d-b1d3-6face05c7c62"),
                 ClaimType = UserFullName,
                 ClaimValue = "General Manager"
             };
 
             ReinforceManagerUser = new ApplicationUser
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("af7811c7-760b-42c4-b3ed-42cd794e5153"),
                 UserName = "reinforce_manager",
                 NormalizedUserName = "REINFORCE_MANAGER",
                 Email = "reinforce@mail.com",
@@ -102,17 +102,17 @@
 
             ReinforceManagerUser.PasswordHash = hasher.HashPassword(ReinforceManagerUser, "managerRD");
 
-            ReinforceManagerUserClaim = new IdentityUserClaim<string>
+            ReinforceManagerUserClaim = new IdentityUserClaim<Guid>
             {
                 Id = 3,
-                UserId = ReinforceManagerUser.Id.ToString(),
+                UserId = Guid.Parse("af7811c7-760b-42c4-b3ed-42cd794e5153"),
                 ClaimType = UserFullName,
                 ClaimValue = "Reinforce Manager"
             };
 
             ProductionManagerUser = new ApplicationUser
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("ed91d639-dfe6-4d7f-9a19-bc8a1f3a1fbe"),
                 UserName = "production_manager",
                 NormalizedUserName = "PRODUCTION_MANAGER",
                 Email = "production@mail.com",
@@ -125,17 +125,17 @@
 
             ProductionManagerUser.PasswordHash = hasher.HashPassword(ProductionManagerUser, "managerPD");
 
-            ProductionManagerUserClaim = new IdentityUserClaim<string>
+            ProductionManagerUserClaim = new IdentityUserClaim<Guid>
             {
                 Id = 4,
-                UserId = ProductionManagerUser.Id.ToString(),
+                UserId = Guid.Parse("ed91d639-dfe6-4d7f-9a19-bc8a1f3a1fbe"),
                 ClaimType = UserFullName,
                 ClaimValue = "Production Manager"
             };
 
             OrdinaryUser = new ApplicationUser
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("f8927215-501c-43ab-92da-972bf9934a93"),
                 UserName = "user",
                 NormalizedUserName = "USER",
                 Email = "user@mail.com",
@@ -148,10 +148,10 @@
 
             OrdinaryUser.PasswordHash = hasher.HashPassword(OrdinaryUser, "user427");
 
-            UserClaim = new IdentityUserClaim<string>
+            UserClaim = new IdentityUserClaim<Guid>
             {
                 Id = 5,
-                UserId = OrdinaryUser.Id.ToString(),
+                UserId = Guid.Parse("f8927215-501c-43ab-92da-972bf9934a93"),
                 ClaimType = UserFullName,
                 ClaimValue = "Ordinary User"
             };
