@@ -1,12 +1,12 @@
 ﻿namespace Microsoft.Extensions.DependencyInjection
 {
-	using AspNetCore.Identity;
 	using EntityFrameworkCore;
 
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Services;
 	using PrecastFactorySystem.Infrastructure.Data;
 	using PrecastFactorySystem.Infrastructure.Data.Common;
+	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
 
 	public static class ServiceCollectionExtension
 	{
@@ -40,8 +40,27 @@
 		public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration configuration)
 		{
 			services
-				.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+				.AddDefaultIdentity<ApplicationUser>(options =>
+				{
+					options.SignIn.RequireConfirmedAccount = configuration
+					.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+
+					options.Password.RequireDigit = configuration
+					.GetValue<bool>("Identity:Password:RequireDigit");
+
+					options.Password.RequireNonAlphanumeric = configuration
+					.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+
+					options.Password.RequireUppercase = configuration
+					.GetValue<bool>("Identity:Password:RequireUppercase");
+				})
+				.AddRoles<ApplicationRole>()
 				.AddEntityFrameworkStores<PrecastFactoryDbContext>();
+			services.ConfigureApplicationCookie(options =>
+			{
+				options.LoginPath = "/User/Login";
+				options.LogoutPath = "/User/Logout";
+			});
 
 			return services;
 		}
