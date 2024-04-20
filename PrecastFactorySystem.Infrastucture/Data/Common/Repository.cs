@@ -7,7 +7,7 @@
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-	using PrecastFactorySystem.Data;
+	using PrecastFactorySystem.Infrastructure.Data;
 
 	/// <summary>
 	/// Implementation of repository access methods
