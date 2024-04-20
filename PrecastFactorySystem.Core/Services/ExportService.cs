@@ -33,14 +33,18 @@
 			table.AddCell("Position").SetBold();
 			table.AddCell("Count").SetBold();
 			table.AddCell("ReinforceType").SetBold();
+			table.AddCell("SpecificMass").SetBold();
 			table.AddCell("Length").SetBold();
+			table.AddCell("Weight").SetBold();
 
 			foreach (var reinforce in data.Reinforce)
 			{
 				table.AddCell(reinforce.Position);
 				table.AddCell(reinforce.Count.ToString());
 				table.AddCell(reinforce.ReinforceType);
+				table.AddCell(reinforce.SpecificMass.ToString("f2"));
 				table.AddCell(reinforce.Length.ToString("f2"));
+				table.AddCell(reinforce.Weight.ToString("f2"));
 			}
 
 			document.Add(table);

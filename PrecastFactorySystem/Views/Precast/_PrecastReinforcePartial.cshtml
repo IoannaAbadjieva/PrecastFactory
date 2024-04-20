@@ -8,7 +8,9 @@
 			<th scope="col">Position</th>
 			<th scope="col">Count</th>
 			<th scope="col">ReinforceType</th>
+			<th scope="col">Specific Mass</th>
 			<th scope="col">Length</th>
+			<th scope="col">Weight</th>
 		</tr>
 	</thead>
 	<tbody class="table-group-divider">
@@ -21,7 +23,9 @@
 				<td>@reinforce.Position</td>
 				<td>@reinforce.Count</td>
 				<td>@reinforce.ReinforceType</td>
+				<td>@reinforce.SpecificMass</td>
 				<td>@reinforce.Length</td>
+				<td>@reinforce.Weight</td>
 				<td><a asp-controller="Reinforce" asp-action="Edit" asp-route-id="@reinforce.Id" class="card-link">Edit</a></td>
 				<td>
 					<a asp-controller="Reinforce" asp-action="Delete" asp-route-id="@reinforce.Id" class="card-link"

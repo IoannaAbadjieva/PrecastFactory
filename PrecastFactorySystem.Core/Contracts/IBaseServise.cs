@@ -14,7 +14,7 @@
 		Task<IEnumerable<BaseSelectorViewModel>> GetBaseEntityDataAsync<T>(Expression<Func<T, bool>> clause)
 			where T : class, IBaseEntity;
 
-		Task<IEnumerable<BaseSelectorViewModel>> GetReinforceTypesAsync();
+		Task<IEnumerable<ReinforceTypeSelectorViewModel>> GetReinforceTypesAsync();
 	}
 
 }

@@ -222,8 +222,10 @@
 					PrecastId = pr.PrecastId,
 					Position = pr.Position,
 					ReinforceType = $"{pr.ReinforceType.ReinforceClass.ToString()} {pr.ReinforceType.Diameter}",
+					SpecificMass = pr.ReinforceType.SpecificMass,
 					Count = pr.Count,
-					Length = pr.Length
+					Length = pr.Length,
+					Weight = pr.Weight,
 				}).ToArrayAsync();
 
 			var precast = await repository.AllReadonly<Precast>(p => p.Id == id)
@@ -375,7 +377,8 @@
 				Count = model.Count,
 				Position = model.Position,
 				Length = model.Length,
-				ReinforceTypeId = model.ReinforceTypeId
+				ReinforceTypeId = model.ReinforceTypeId,
+				Weight = model.Count * model.Length * model.SpecificMass
 			};
 
 			await repository.AddAsync<PrecastReinforce>(reinforce);
@@ -425,9 +428,7 @@
 		public async Task<decimal> GetPrecastActualWeightAsync(int id)
 		{
 			return await repository.AllReadonly<PrecastReinforce>(pr => pr.PrecastId == id)
-				.SumAsync(pr => pr.Count *
-								pr.Length *
-								(decimal)(Math.PI * Math.Pow(pr.ReinforceType.Diameter / 2.0, 2) / 4.0));
+				.SumAsync(pr => pr.Weight);
 		}
 
 		public async Task<bool> IsPrecastExist(int id)

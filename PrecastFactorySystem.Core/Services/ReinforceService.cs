@@ -47,6 +47,7 @@
 			entity.Position = model.Position;
 			entity.Length = model.Length;
 			entity.ReinforceTypeId = model.ReinforceTypeId;
+			entity.Weight = model.Count * model.Length * model.SpecificMass;
 
 			await repository.SaveChangesAsync();
 

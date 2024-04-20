@@ -1,7 +1,6 @@
 ﻿@model ReinforceFormViewModel
 @{
 	ViewBag.Title = "Add reinforce to precast";
-
 }
 
 <h4 class="text-center">@ViewBag.Title</h4>
@@ -28,9 +27,15 @@
 						@foreach (var type in Model.ReinforceTypes)
 						{
 							<option value="@type.Id">@type.Name</option>
+							@(Model.SpecificMass = type.SpecificMass);
 						}
 					</select>
 					<span asp-validation-for="@Model.ReinforceTypeId" class="text-danger"></span>
+				</div>
+				<div hidden class="bg-dark text-light">
+					<label asp-for="@Model.SpecificMass" class="form-label-add-edit">Length m</label>
+					<input asp-for="@Model.SpecificMass" class="form-control" aria-required="true" />
+					<span asp-validation-for="@Model.SpecificMass" class="text-danger"></span>
 				</div>
 				<div class="bg-dark text-light">
 					<label asp-for="@Model.Length" class="form-label-add-edit">Length m</label>

@@ -1,7 +1,6 @@
 ﻿namespace PrecastFactorySystem.Core.Services
 {
 	using System;
-	using System.Globalization;
 	using System.Linq;
 	using System.Threading.Tasks;
 
@@ -112,15 +111,18 @@
 					Precast = pro.Precast.Name,
 					Project = pro.Precast.Project.Name,
 					Count = pro.ReinforceOrder.Count,
-					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat, CultureInfo.InvariantCulture),
-					DeliverDate = pro.ReinforceOrder.DeliverDate.ToString(DateFormat, CultureInfo.InvariantCulture),
+					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					DeliverDate = pro.ReinforceOrder.DeliverDate.ToString(DateFormat),
 					Department = pro.ReinforceOrder.Department.Name,
 					Reinforce = pro.Precast.PrecastReinforce.Select(pr => new ReinforceInfoViewModel()
 					{
 						Position = pr.Position,
 						ReinforceType = $"{pr.ReinforceType.ReinforceClass.ToString()} {pr.ReinforceType.Diameter}",
 						Count = pr.Count * pro.ReinforceOrder.Count,
-						Length = pr.Length
+						SpecificMass = pr.ReinforceType.SpecificMass,
+						Length = pr.Length,
+						Weight = pr.Weight * pro.ReinforceOrder.Count
+
 					}).ToArray()
 				}).FirstAsync();
 

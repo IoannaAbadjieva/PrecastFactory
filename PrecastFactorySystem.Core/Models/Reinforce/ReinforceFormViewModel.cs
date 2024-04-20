@@ -27,7 +27,9 @@
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public int ReinforceTypeId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> ReinforceTypes { get; set; } = Array.Empty<BaseSelectorViewModel>();
+		public decimal SpecificMass { get; set; }
+
+		public IEnumerable<ReinforceTypeSelectorViewModel> ReinforceTypes { get; set; } = Array.Empty<ReinforceTypeSelectorViewModel>();
 
 
 		[Required(ErrorMessage = RequiredErrorMessage)]

@@ -26,13 +26,14 @@
 		}
 
 		
-		public async Task<IEnumerable<BaseSelectorViewModel>> GetReinforceTypesAsync()
+		public async Task<IEnumerable<ReinforceTypeSelectorViewModel>> GetReinforceTypesAsync()
 		{
 			return await repository.AllReadonly<ReinforceType>()
-				.Select(rt => new BaseSelectorViewModel()
+				.Select(rt => new ReinforceTypeSelectorViewModel()
 				{
 					Id = rt.Id,
-					Name = $"{rt.ReinforceClass}  {rt.Diameter}"
+					Name = $"{rt.ReinforceClass}  {rt.Diameter}",
+					SpecificMass = rt.SpecificMass,
 				}).ToArrayAsync();
 		}
 
