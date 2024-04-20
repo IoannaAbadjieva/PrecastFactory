@@ -30,11 +30,7 @@
 		[Required]
 		public DateTime AddedOn { get; set; }
 
-
-		[Comment("Изтрит")]
-		[Required]
-		public bool IsDeleted { get; set; }
-
+		
 		public ICollection<Precast> ProjectPrecast { get; set; } = new HashSet<Precast>();
 	}
 }

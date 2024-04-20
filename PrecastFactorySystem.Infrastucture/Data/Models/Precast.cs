@@ -70,9 +70,6 @@
 		[Column(TypeName = "decimal(18,2)")]
 		public decimal ReinforceProjectWeight { get; set; }
 
-		[Comment("Изтрит")]
-		[Required]
-		public bool IsDeleted { get; set; }
 	
 		public ICollection<PrecastReinforce> PrecastReinforce { get; set; } = new HashSet<PrecastReinforce>();
 
