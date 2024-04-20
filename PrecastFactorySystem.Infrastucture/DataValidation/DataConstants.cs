@@ -72,5 +72,10 @@
         public const int CountMinValue = 0;
 
         public const string DateFormat = "dd.MM.yyyy";
+
+        //User
+        public const int UserNameMinLength = 3;
+
+        public const int UserNameMaxLength = 20;
     }
 }
