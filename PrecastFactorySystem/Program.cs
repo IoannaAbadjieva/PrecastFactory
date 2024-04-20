@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 
 using PrecastFactorySystem.ModelBinders;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using PrecastFactorySystem.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +13,6 @@ builder.Services.AddApplicationIdentity(builder.Configuration);
 builder.Services.AddControllersWithViews(options =>
 {
 	options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
-	options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
 
 builder.Services.AddApplicationServices();
@@ -38,9 +40,18 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllerRoute(
+				name: "areas",
+						pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+	endpoints.MapControllerRoute(
+				name: "default",
+						pattern: "{controller=Home}/{action=Index}/{id?}");
+	endpoints.MapRazorPages();
+});
+
+await app.CreateRolesAsync();
+
+await app.RunAsync();
