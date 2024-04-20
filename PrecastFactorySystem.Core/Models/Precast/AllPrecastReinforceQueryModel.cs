@@ -7,7 +7,7 @@
 
 	public class AllPrecastReinforceQueryModel: PrecastInfoViewModel
 	{
-		public const int ReinforcePerPage = 9;
+		public const int ReinforcePerPage = 7;
 
 		public int CurrentPage { get; set; } = 1;
 
