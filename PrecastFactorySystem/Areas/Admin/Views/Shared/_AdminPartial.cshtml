@@ -1,0 +1,39 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+	string userName = string.Empty;
+
+	if (SignInManager.IsSignedIn(User))
+	{
+		userName = User.FindFirstValue(PrecastFactorySystem.Infrastructure.DataValidation.CustomClaims.UserFullName) ?? string.Empty;
+	}
+}
+<ul class="navbar-nav">
+	@if (SignInManager.IsSignedIn(User))
+	{
+		<li class="nav-item">
+			<a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" title="Back">Public Interface</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Register">Register new user</a>
+		</li>
+		<li class="nav-item">
+			<form class="form-inline" asp-controller="User" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+				<button type="submit" class="nav-link btn btn-link text-light">Logout</button>
+			</form>
+		</li>
+	}
+	else
+	{
+		<li class="nav-item">
+			<a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+		</li>
+	}
+</ul>
