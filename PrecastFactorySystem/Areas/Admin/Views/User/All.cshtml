@@ -1,0 +1,46 @@
+﻿@model IEnumerable<UserInfoViewModel>
+
+@{
+	ViewBag.Title = "All Users";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<table>
+	<thead>
+		<tr>
+			<th ><label>Full Name</label></th>
+			<th ><label>Email</label></th>
+			<th ><label>UserName</label></th>
+			<th ><label>Phone Number</label></th>
+			<th ><label>Role</label></th>
+
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var user in Model)
+		{
+			<tr>
+				<td>
+					@if (user.FullName != string.Empty)
+					{
+						<label>✔</label>
+					}
+					else
+					{
+						<label class="text-center">❌</label>
+					}
+				</td>
+				<td ><label>@user.FullName</label></td>
+				<td ><label>@user.UserName</label></td>
+				<td ><label>@user.Email</label></td>
+				<td ><label>@user.Role</label></td>
+
+			</tr>
+		}
+	</tbody>
+</table>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
