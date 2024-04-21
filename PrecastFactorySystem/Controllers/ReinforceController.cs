@@ -19,7 +19,7 @@
 			baseService = _baseService;
 		}
 
-		[ReinforceExist]
+		[ReinforceExists]
 		public async Task<IActionResult> Edit(int id)
 		{
 			ReinforceFormViewModel? model = await reinforceService.GetReinforceByIdAsync(id);
@@ -27,7 +27,7 @@
 		}
 
 		[HttpPost]
-		[ReinforceExist]
+		[ReinforceExists]
 		public async Task<IActionResult> Edit(int id, ReinforceFormViewModel model)
 		{
 			if (!ModelState.IsValid)
@@ -42,7 +42,7 @@
 		}
 
 		[HttpPost]
-		[ReinforceExist]
+		[ReinforceExists]
 		public async Task<IActionResult> Delete(int id)
 		{
 			int precastId = await reinforceService.DeleteReinforceAsync(id);

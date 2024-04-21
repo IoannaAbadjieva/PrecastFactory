@@ -61,14 +61,14 @@
 			return RedirectToAction(nameof(All));
 		}
 
-		[ProjectExist]
+		[ProjectExists]
 		public async Task<IActionResult> Details(int id)
 		{
 			ProjectDetailsViewModel? model = await projectService.GetProjectDetails(id);
 			return View(model);
 		}
 
-		[ProjectExist]
+		[ProjectExists]
 		public async Task<IActionResult> AddPrecast(int id)
 		{
 			PrecastFormViewModel model = new PrecastFormViewModel()
@@ -82,7 +82,7 @@
 		}
 
 		[HttpPost]
-		[ProjectExist]
+		[ProjectExists]
 		public async Task<IActionResult> AddPrecast(PrecastFormViewModel model, int id)
 		{
 			if (!ModelState.IsValid)
@@ -100,7 +100,7 @@
 
 		}
 
-		[ProjectExist]
+		[ProjectExists]
 		public async Task<IActionResult> Edit(int id)
 		{
 			ProjectFormViewModel model = await projectService.GetProjectByIdAsync(id);
@@ -108,7 +108,7 @@
 		}
 
 		[HttpPost]
-		[ProjectExist]
+		[ProjectExists]
 		public async Task<IActionResult> Edit(ProjectFormViewModel model, int id)
 		{
 			if (!ModelState.IsValid)
@@ -120,7 +120,7 @@
 			return RedirectToAction(nameof(All));
 		}
 
-		[ProjectExist]
+		[ProjectExists]
 		public async Task<IActionResult> Delete(int id)
 		{
 			try
@@ -139,7 +139,7 @@
 		}
 
 		[HttpPost]
-		[ProjectExist]
+		[ProjectExists]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try

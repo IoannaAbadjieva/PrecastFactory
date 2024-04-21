@@ -21,60 +21,7 @@
 			signInManager = _signInManager;
 		}
 
-		[HttpGet]
-		[Authorize(Roles = "Administrator")]
-		public IActionResult Register()
-		{
-			if (User?.Identity?.IsAuthenticated ?? false)
-			{
-				return RedirectToAction("Index", "Home");
-			}
 
-			var model = new RegisterViewModel();
-
-			return View(model);
-		}
-
-		[HttpPost]
-		[Authorize(Roles = "Administrator")]
-		public async Task<IActionResult> Register(RegisterViewModel model)
-		{
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
-
-			var user = new ApplicationUser()
-			{
-				FirstName = model.FirstName,
-				LastName = model.LastName,
-				Email = model.Email,
-				UserName = model.UserName
-			};
-
-			var result = await userManager.CreateAsync(user, model.Password);
-
-			if (result.Succeeded)
-			{
-				if (!string.IsNullOrEmpty(model.Role))
-				{
-					await userManager.AddToRoleAsync(user, model.Role);
-				}
-				else
-				{
-					await userManager.AddToRoleAsync(user, "User");
-				}
-
-				return RedirectToAction("Login", "User");
-			}
-
-			foreach (var item in result.Errors)
-			{
-				ModelState.AddModelError("", item.Description);
-			}
-
-			return View(model);
-		}
 
 		[HttpGet]
 		[AllowAnonymous]

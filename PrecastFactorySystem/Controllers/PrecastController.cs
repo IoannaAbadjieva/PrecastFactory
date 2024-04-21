@@ -74,7 +74,7 @@
 			return RedirectToAction(nameof(All));
 		}
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Edit(int id)
 		{
 			PrecastFormViewModel model = await precastService.GetPrecastByIdAsync(id);
@@ -82,7 +82,7 @@
 		}
 
 		[HttpPost]
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Edit(PrecastFormViewModel model, int id)
 		{
 			int reinforced = await precastService.GetReinforcedPrecastCountAsync(id);
@@ -107,14 +107,14 @@
 		}
 
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Details(int id)
 		{
 			PrecastDetailsViewModel? model = await precastService.GetPrecastDetailsAsync(id);
 			return View(model);
 		}
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Delete(int id)
 		{
 			try
@@ -133,7 +133,7 @@
 		}
 
 		[HttpPost]
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try
@@ -153,7 +153,7 @@
 
 		}
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Reinforce(int id, [FromQuery] AllPrecastReinforceQueryModel model)
 		{
 			PrecastReinforceQueryModel precastReinforce = await precastService.GetPrecastReinforceAsync(
@@ -175,7 +175,7 @@
 		}
 
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> AddReinforce(int id)
 		{
 			ReinforceFormViewModel model = new ReinforceFormViewModel()
@@ -187,7 +187,7 @@
 		}
 
 		[HttpPost]
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> AddReinforce(int id, ReinforceFormViewModel model)
 		{
 			if (!ModelState.IsValid)
@@ -201,7 +201,7 @@
 		}
 
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Production(int id, [FromQuery] AllPrecastProductionQueryModel model)
 		{
 			PrecastProductionQueryModel precastProduction = await precastService.GetPrecastProductionAsync(
@@ -223,7 +223,7 @@
 
 		}
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Produce(int id)
 		{
 			try
@@ -243,7 +243,7 @@
 		}
 
 		[HttpPost]
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Produce(int id, PrecastProductionFormViewModel model)
 		{
 			try
@@ -276,7 +276,7 @@
 
 		}
 
-		[ProductionRecordExist]
+		[ProductionRecordExists]
 		public async Task<IActionResult> EditProduction(int id)
 		{
 			PrecastProductionFormViewModel? model = await precastService.GetPrecastProductionRecordByIdAsync(id);
@@ -285,7 +285,7 @@
 
 
 		[HttpPost]
-		[ProductionRecordExist]
+		[ProductionRecordExists]
 		public async Task<IActionResult> EditProduction(int id, PrecastProductionFormViewModel model)
 		{
 			try
@@ -320,7 +320,7 @@
 
 		}
 
-		[ProductionRecordExist]
+		[ProductionRecordExists]
 		public async Task<IActionResult> DeleteProduction(int id, int precastId)
 		{
 			await precastService.DeletePrecastProductionRecordAsync(id);

@@ -44,7 +44,7 @@
 			return View(model);
 		}
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Order(int id)
 		{
 			try
@@ -63,7 +63,7 @@
 		}
 
 		[HttpPost]
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Order(int id, OrderPrecastReinforceViewModel model)
 		{
 			try
@@ -99,7 +99,7 @@
 
 		}
 
-		[OrderExist]
+		[OrderExists]
 		public async Task<IActionResult> Delete(int id)
 		{
 			try
@@ -118,7 +118,7 @@
 		}
 
 		[HttpPost]
-		[OrderExist]
+		[OrderExists]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try
@@ -136,7 +136,7 @@
 			}
 		}
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> ForPrecast(int id, [FromQuery] AllPrecastOrdersQueryModel model)
 		{
 			var orders = await orderService.GetReinforceOrdersByPrecastAsync(

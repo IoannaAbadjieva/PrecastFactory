@@ -50,7 +50,7 @@
 			return RedirectToAction(nameof(All));
 		}
 
-		[DelivererExist]
+		[DelivererExists]
 		public async Task<IActionResult> Edit(int id)
 		{
 
@@ -60,7 +60,7 @@
 		}
 
 		[HttpPost]
-		[DelivererExist]
+		[DelivererExists]
 		public async Task<IActionResult> Edit(int id, DelivererFormViewModel model)
 		{
 
@@ -69,7 +69,7 @@
 
 		}
 
-		[DelivererExist]
+		[DelivererExists]
 		public async Task<IActionResult> Delete(int id)
 		{
 			try
@@ -88,7 +88,7 @@
 		}
 
 		[HttpPost]
-		[DelivererExist]
+		[DelivererExists]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try

@@ -75,7 +75,7 @@
 			return View(model);
 		}
 
-		[PrecastExist]
+		[PrecastExists]
 		public async Task<IActionResult> Details(int id, [FromQuery] AllProductionDetailsQueryModel model)
 		{
 			ProductionDetailsQueryModel precast = await departmentService.GetPrecastProductionDetailsAsync(
