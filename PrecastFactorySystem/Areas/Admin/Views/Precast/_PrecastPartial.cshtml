@@ -1,0 +1,36 @@
+﻿@using System.Security.Claims
+@model IEnumerable<PrecastInfoViewModel>
+
+<table class="table table-hover table-borderless">
+	<thead>
+		<tr>
+			<th scope="col">Project</th>
+
+			<th class="text-dark" scope="col">Type</th>
+			<th class="text-dark" scope="col">Name</th>
+			<th class="text-dark" scope="col">Count</th>
+			<th class="text-dark" scope="col">Reinforced</th>
+			<th class="text-dark" s scope="col">Produced</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
+
+
+		@foreach (var precast in Model)
+		{
+			<tr>
+				<td class="text-dark">@precast.Project</td>
+				<td class="text-dark">@precast.PrecastType</td>
+				<td class="text-dark">@precast.Name</td>
+				<td class="text-dark">@precast.Count</td>
+				<td class="text-dark">@precast.Reinforced</td>
+				<td class="text-dark">@precast.Produced</td>
+				@if (User?.Identity?.IsAuthenticated ?? false && User.IsAdmin())
+				{
+					<td><a asp-controller="Precast" asp-action="Delete" asp-route-id="@precast.Id" class="card-link link-secondary">Delete</a></td>
+				}
+			</tr>
+
+		}
+	</tbody>
+</table>
