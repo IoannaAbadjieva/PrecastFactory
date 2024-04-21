@@ -5,7 +5,7 @@
 
 	using PrecastFactorySystem.Core.Contracts;
 
-	public class DelivererExistAttribute : ActionFilterAttribute
+	public class DelivererExistsAttribute : ActionFilterAttribute
 	{
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{

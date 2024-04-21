@@ -5,27 +5,26 @@
 
 	using PrecastFactorySystem.Core.Contracts;
 
-	public class ProductionRecordExistAttribute : ActionFilterAttribute
+	public class ReinforceExistsAttribute : ActionFilterAttribute
 	{
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
 			base.OnActionExecuting(context);
 
-			IPrecastService? precastService =
-				context.HttpContext.RequestServices.GetService<IPrecastService>();
+			IReinforceService? reinforceService =
+				context.HttpContext.RequestServices.GetService<IReinforceService>();
 
-			if (precastService == null)
+			if (reinforceService == null)
 			{
 				context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
 			}
 
-
-
-			if (precastService != null
-				&& !precastService.IsProductionRecordExist((int)(context.ActionArguments["id"] ?? 0)).Result)
+			if (reinforceService != null
+				&& !reinforceService.IsReinforceExist((int)(context.ActionArguments["id"] ?? 0)).Result)
 			{
 				context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
 			}
 		}
 	}
+
 }

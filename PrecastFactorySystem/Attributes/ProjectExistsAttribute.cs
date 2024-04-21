@@ -5,26 +5,26 @@
 
 	using PrecastFactorySystem.Core.Contracts;
 
-	public class PrecastExistAttribute : ActionFilterAttribute
+	public class ProjectExistsAttribute:ActionFilterAttribute
 	{
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
 			base.OnActionExecuting(context);
 
-			IPrecastService? precastService =
-				context.HttpContext.RequestServices.GetService<IPrecastService>();
+			IProjectService? projectService =
+				context.HttpContext.RequestServices.GetService<IProjectService>();
 
-			if (precastService == null)
+			if (projectService == null)
 			{
 				context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
 			}
 
-			if (precastService != null && 
-				precastService.IsPrecastExist((int)(context.ActionArguments["id"] ?? 0)).Result == false)
+			if (projectService != null
+				&& !projectService.IsProjectExistAsync((int)(context.ActionArguments["id"] ?? 0)).Result)
 			{
 				context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
 			}
 		}
 	}
-
+	
 }

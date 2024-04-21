@@ -5,7 +5,7 @@
 
 	using PrecastFactorySystem.Core.Contracts;
 
-	public class OrderExistAttribute : ActionFilterAttribute
+	public class OrderExistsAttribute : ActionFilterAttribute
 	{
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
