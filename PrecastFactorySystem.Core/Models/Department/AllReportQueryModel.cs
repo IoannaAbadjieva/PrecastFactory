@@ -7,7 +7,7 @@
 
 	public class AllReportQueryModel
 	{
-		public const int PrecastPerPage = 6;
+		public const int PrecastPerPage = 4;
 
 		public int CurrentPage { get; set; } = 1;
 

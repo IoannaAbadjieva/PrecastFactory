@@ -5,8 +5,13 @@
 
 	public class ReportQueryModel
 	{
+
 		public int TotalPrecast { get; set; }
 
 		public IEnumerable<ReportInfoViewModel> Precast { get; set; } = Array.Empty<ReportInfoViewModel>();
+
+		public decimal TotalReinforceWeight { get; set; }
+
+		public decimal TotalConcreteAmount { get; set; }
 	}
 }

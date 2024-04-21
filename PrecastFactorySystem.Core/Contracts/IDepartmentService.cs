@@ -16,7 +16,7 @@
 			int? projectId, 
 			int? departmentId,
 			int currentPage = 1,
-			int precastPerPage = 6);
+			int precastPerPage = 4);
 
 		Task<ProductionDetailsQueryModel> GetPrecastProductionDetailsAsync(
 			int id,

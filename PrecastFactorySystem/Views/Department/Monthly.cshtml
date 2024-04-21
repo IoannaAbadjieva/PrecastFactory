@@ -1,27 +1,10 @@
 ﻿@model AllReportQueryModel
 @{
 	ViewBag.Title = "Monthly Report";
-	var query = Model.Precast.GroupBy(m => m.Department, (key, group) => new
-	{
-		department = key,
-		projects = group.ToArray()
-					.GroupBy(m => m.ProjectName, (key, group) => new
-					{
-						projectName = key,
-						types = group.ToArray()
-						.GroupBy(m => m.PrecastType, (key, group) => new
-						{
-							type = key,
-							precast = group.ToArray()
-						})
-					})
-	});
-
-	string month = Model.Month.HasValue ? Model.Month.Value.ToString("MMММ yyyy"): DateTime.Now.ToString("MMMM yyyy") ;
-	
+	string month = Model.Month.HasValue ? Model.Month.Value.ToString("MMММ yyyy") : DateTime.Now.ToString("MMMM yyyy");
 }
 
-<h4 class="text-center">@ViewBag.Title</h4>
+<h4 class="text-center">@ViewBag.Title  @month</h4>
 
 <hr />
 
@@ -73,7 +56,7 @@
 	}
 
 	var maxPage = Math.Ceiling((double)Model.TotalPrecast /
-		AllOrdersQueryModel.OrdersPerPage);
+		AllReportQueryModel.PrecastPerPage);
 }
 
 <div class=" col-sm-12 d-grid gap-2 d-sm-flex justify-content-sm-between">
@@ -88,8 +71,7 @@
 
 	@{
 		var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
-		!Model.Precast
-		.Any();
+		!Model.Precast.Any();
 	}
 
 	<form asp-action="Download" asp-controller="Department" method="post">
@@ -112,39 +94,20 @@
 {
 	<h2 class="text-center">No precast found by the given criteria!</h2>
 }
-
-<div id="Report" class="d-flex flex-column justify-content-between">
-
-	<div class="d-flex flex-column justify-content-between">
-		<h4> Precast production  for @month </h4>
-		@foreach (var result in query)
+@if (Model.Precast.Any())
+{
+	<div id="Report" class="d-flex flex-column justify-content-between">
+		<partial name="_ReportPartial" model=Model.Precast />
+		@if (Model.CurrentPage == maxPage)
 		{
-			<div>
-				<h5>@result.department</h5>
-				<hr />
-				@foreach (var project in result.projects)
-				{
-					<div>
-						<h6>@project.projectName</h6>
-						@foreach (var type in project.types)
-						{
-							<div>
-								<h6>@type.type</h6>
-								<partial name="_ReportPartial" model=type.precast />
-							</div>
-						}
-					</div>
-				}
-			</div>
+			<p class="mb-0"><span class="fw-bold">Concrete m3: </span>@Model.TotalConcreteAmount.ToString("f2")</p>
+			<p class="mb-0"><span class="fw-bold">Reinforce kg: </span>@Model.TotalReinforceWeight.ToString("f2")</p>
 		}
 	</div>
+}
 
-	<p class="mb-0"><span class="fw-bold">Concrete m3: </span>@Model.TotalConcreteAmount.ToString("f2")</p>
-	<p class="mb-0"><span class="fw-bold">Reinforce kg: </span>@Model.TotalReinforceWeight.ToString("f2")</p>
 
-</div>
-
-@section Scripts {
+	@section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript">
@@ -154,5 +117,5 @@
 			});
 		});
 	</script>
-}
+	}
 

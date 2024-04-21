@@ -69,8 +69,8 @@
 			model.Departments = await baseService.GetBaseEntityDataAsync<Department>
 								(d => d.DepartmentType == DepartmentType.PrecastProduction);
 			model.TotalPrecast = precast.TotalPrecast;
-			model.TotalReinforceWeight = precast.Precast.Sum(p => p.Reinforcement);
-			model.TotalConcreteAmount = precast.Precast.Sum(p => p.ConcreteAmount);
+			model.TotalReinforceWeight = precast.TotalReinforceWeight;
+			model.TotalConcreteAmount = precast.TotalConcreteAmount;
 
 			return View(model);
 		}

@@ -66,7 +66,7 @@
 			int? projectId,
 			int? departmentId,
 			int currentPage = 1,
-			int precastPerPage = 6)
+			int precastPerPage = 4)
 		{
 			var query = repository.AllReadonly<PrecastDepartment>();
 
@@ -105,9 +105,7 @@
 					Department = dp.Department.Name,
 					ReinforceWeight = dp.Precast.PrecastReinforceOrders.Average(pro => pro.ReinforceOrder.PrecastWeight),
 					ConcreteAmount = dp.Precast.ConcreteActualAmount ?? dp.Precast.ConcreteProjectAmount
-				})
-
-				.ToArrayAsync();
+				}).ToArrayAsync();
 
 			precast = precast.GroupBy(dp => new
 			{
@@ -133,10 +131,20 @@
 					Concrete = dp.Sum(p => p.ConcreteAmount * p.Count)
 				}).ToArray();
 
+			var totalPrecast = precast.Count();
+			var totalReinforceWeight = precast.Sum(p => p.Reinforcement);
+			var totalConcreteAmount = precast.Sum(p => p.Concrete);
+
+			precast = precast.Skip((currentPage - 1) * precastPerPage)
+				.Take(precastPerPage)
+				.ToArray();
+
 			return new ReportQueryModel()
 			{
 				Precast = precast,
-				TotalPrecast = precast.Count(),
+				TotalPrecast = totalPrecast,
+				TotalReinforceWeight = totalReinforceWeight,
+				TotalConcreteAmount = totalConcreteAmount
 			};
 
 		}
