@@ -37,22 +37,23 @@
 				.Select(dp => new ProductionInfoViewModel
 				{
 					ProjectName = dp.Precast.Project.Name,
-					PrecastType = dp.Precast.PrecastType.Name,
+					PrecastTypeId = dp.Precast.PrecastTypeId,
 					PrecastId = dp.PrecastId,
 					PrecastName = dp.Precast.Name,
 					Count = dp.Count,
 					Department = dp.Department.Name,
 				})
-				.OrderBy(dp => dp.ProjectName)
+				.OrderBy(dp => dp.Department)
+				.ThenBy(dp => dp.ProjectName)
 				.ThenBy(dp => dp.PrecastTypeId)
 				.ThenBy(dp => dp.PrecastName)
 				.ToArrayAsync();
 
-			return precast.GroupBy(dp => new { dp.ProjectName, dp.PrecastType, dp.PrecastId, dp.PrecastName, dp.Department })
+			return precast.GroupBy(dp => new { dp.ProjectName, dp.PrecastTypeId, dp.PrecastId, dp.PrecastName, dp.Department })
 				.Select(dp => new ProductionInfoViewModel
 				{
 					ProjectName = dp.Key.ProjectName,
-					PrecastType = dp.Key.PrecastType,
+					PrecastTypeId = dp.Key.PrecastTypeId,
 					PrecastId = dp.Key.PrecastId,
 					PrecastName = dp.Key.PrecastName,
 					Count = dp.Sum(p => p.Count),
@@ -65,7 +66,7 @@
 			int? projectId,
 			int? departmentId,
 			int currentPage = 1,
-			int precastPerPage = 12)
+			int precastPerPage = 6)
 		{
 			var query = repository.AllReadonly<PrecastDepartment>();
 
@@ -88,7 +89,8 @@
 				query = query.Where(dp => dp.DepartmentId == departmentId);
 			}
 
-			query = query.OrderBy(dp => dp.Precast.Project.Name)
+			query = query.OrderBy(dp => dp.DepartmentId)
+				.ThenBy(dp => dp.Precast.Project.Name)
 			   .ThenBy(dp => dp.Precast.PrecastTypeId)
 			   .ThenBy(dp => dp.Precast.Name);
 
@@ -139,10 +141,10 @@
 
 		}
 
-			public async Task<ProductionDetailsQueryModel> GetPrecastProductionDetailsAsync(
-			int id,
-			int currentPage = 1,
-			int recordsPerPage = 12)
+		public async Task<ProductionDetailsQueryModel> GetPrecastProductionDetailsAsync(
+		int id,
+		int currentPage = 1,
+		int recordsPerPage = 12)
 		{
 			var precast = await repository.AllReadonly<Precast>(p => p.Id == id)
 				.Select(p => new
@@ -181,7 +183,7 @@
 
 		}
 
-		
+
 
 		public async Task<ProductionQueryModel> GetProductionAsync(int? projectId = null,
 			int? precastTypeId = null,
@@ -280,7 +282,7 @@
 			};
 		}
 
-	
+
 
 	}
 }

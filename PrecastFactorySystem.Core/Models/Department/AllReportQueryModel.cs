@@ -7,7 +7,7 @@
 
 	public class AllReportQueryModel
 	{
-		public const int PrecastPerPage = 12;
+		public const int PrecastPerPage = 6;
 
 		public int CurrentPage { get; set; } = 1;
 
@@ -16,11 +16,11 @@
 
 		public int? ProjectId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> Projects { get; set; } = Array.Empty<BaseSelectorViewModel>();
+		public IEnumerable<BaseInfoViewModel> Projects { get; set; } = Array.Empty<BaseInfoViewModel>();
 
 		public int? DepartmentId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> Departments { get; set; } = Array.Empty<BaseSelectorViewModel>();
+		public IEnumerable<BaseInfoViewModel> Departments { get; set; } = Array.Empty<BaseInfoViewModel>();
 				
 		public int TotalPrecast { get; set; }
 

@@ -18,11 +18,11 @@
 
 		public int? ProjectId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> Projects { get; set; } = Array.Empty<BaseSelectorViewModel>();
+		public IEnumerable<BaseInfoViewModel> Projects { get; set; } = Array.Empty<BaseInfoViewModel>();
 
 		public int? DepartmentId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> Departments { get; set; } = Array.Empty<BaseSelectorViewModel>();
+		public IEnumerable<BaseInfoViewModel> Departments { get; set; } = Array.Empty<BaseInfoViewModel>();
 
 		public string? SearchTerm { get; set; } = string.Empty;
 

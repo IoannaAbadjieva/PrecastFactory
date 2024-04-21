@@ -6,8 +6,8 @@
 
         public int PrecastTypeId { get; set; }
 
-        public string PrecastType { get; set; } = string.Empty;
-
+		public string PrecastType { get; set; } = string.Empty;
+		       
         public int PrecastId { get; set; }
 
         public string PrecastName { get; set; } = string.Empty;

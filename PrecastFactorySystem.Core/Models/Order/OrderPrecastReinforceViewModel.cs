@@ -24,7 +24,7 @@
         [Required(ErrorMessage = RequiredErrorMessage)]
         public int DelivererId { get; set; }
 
-        public IEnumerable<BaseSelectorViewModel> Deliverers { get; set; } = Array.Empty<BaseSelectorViewModel>();
+        public IEnumerable<BaseInfoViewModel> Deliverers { get; set; } = Array.Empty<BaseInfoViewModel>();
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [DeliverDateValidation]
@@ -33,7 +33,7 @@
         [Required(ErrorMessage = RequiredErrorMessage)]
         public int DepartmentId { get; set; }
 
-        public IEnumerable<BaseSelectorViewModel> Departments { get; set; } = Array.Empty<BaseSelectorViewModel>();
+        public IEnumerable<BaseInfoViewModel> Departments { get; set; } = Array.Empty<BaseInfoViewModel>();
 
     }
 }

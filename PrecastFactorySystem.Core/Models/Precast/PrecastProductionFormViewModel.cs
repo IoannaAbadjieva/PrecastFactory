@@ -29,7 +29,7 @@
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public int DepartmentId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> Departments { get; set; } = Array.Empty<BaseSelectorViewModel>();
+		public IEnumerable<BaseInfoViewModel> Departments { get; set; } = Array.Empty<BaseInfoViewModel>();
 
 
 	}

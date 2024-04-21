@@ -17,7 +17,7 @@
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public int PrecastTypeId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> Types = Array.Empty<BaseSelectorViewModel>();
+		public IEnumerable<BaseInfoViewModel> Types = Array.Empty<BaseInfoViewModel>();
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		[Range(PrecastCountMinValue, PrecastCountMaxValue, 
@@ -28,12 +28,12 @@
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public int ProjectId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> Projects = Array.Empty<BaseSelectorViewModel>();
+		public IEnumerable<BaseInfoViewModel> Projects = Array.Empty<BaseInfoViewModel>();
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public int ConcreteClassId { get; set; }
 
-		public IEnumerable<BaseSelectorViewModel> Concrete = Array.Empty<BaseSelectorViewModel>();
+		public IEnumerable<BaseInfoViewModel> Concrete = Array.Empty<BaseInfoViewModel>();
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		[Range(typeof(decimal), ConcreteAmountMinValue, ConcreteAmountMaxValue, 

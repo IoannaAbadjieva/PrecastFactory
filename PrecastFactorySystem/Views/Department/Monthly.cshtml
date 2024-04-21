@@ -120,12 +120,12 @@
 		@foreach (var result in query)
 		{
 			<div>
-				<h4>@result.department</h4>
+				<h5>@result.department</h5>
 				<hr />
 				@foreach (var project in result.projects)
 				{
 					<div>
-						<h5>@project.projectName</h5>
+						<h6>@project.projectName</h6>
 						@foreach (var type in project.types)
 						{
 							<div>

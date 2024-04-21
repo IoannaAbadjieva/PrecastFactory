@@ -25,7 +25,7 @@
 			repository = _repository;
 		}
 
-		
+
 		public async Task<IEnumerable<ReinforceTypeSelectorViewModel>> GetReinforceTypesAsync()
 		{
 			return await repository.AllReadonly<ReinforceType>()
@@ -37,26 +37,44 @@
 				}).ToArrayAsync();
 		}
 
-		
-		public async Task<IEnumerable<BaseSelectorViewModel>> GetBaseEntityDataAsync<T>() where T : class, IBaseEntity
+
+		public async Task<IEnumerable<BaseInfoViewModel>> GetBaseEntityDataAsync<T>() where T : class, IBaseEntity
 		{
 			return await repository.AllReadonly<T>()
-				.Select(e => new BaseSelectorViewModel()
+				.Select(e => new BaseInfoViewModel()
 				{
 					Id = e.Id,
 					Name = e.Name,
 				}).ToArrayAsync();
 		}
 
-		public async Task<IEnumerable<BaseSelectorViewModel>> GetBaseEntityDataAsync<T>(Expression<Func<T, bool>> clause)
+		public async Task<IEnumerable<BaseInfoViewModel>> GetBaseEntityDataAsync<T>(Expression<Func<T, bool>> clause)
 			where T : class, IBaseEntity
 		{
 			return await repository.AllReadonly(clause)
-				.Select(e => new BaseSelectorViewModel()
+				.Select(e => new BaseInfoViewModel()
 				{
 					Id = e.Id,
 					Name = e.Name,
 				}).ToArrayAsync();
+		}
+
+		public async Task<BaseInfoViewModel> GetEntityBaseInfoAsync<T>(int id) where T : class, IBaseEntity
+		{
+			return await repository.AllReadonly<T>(e => e.Id == id)
+								.Select(e => new BaseInfoViewModel()
+								{
+									Id = e.Id,
+									Name = e.Name,
+								}).FirstAsync();
+		}
+
+		public async Task DeleteEntityAsync<T>(int id) where T : class, IBaseEntity
+		{
+			var entity = await repository.GetByIdAsync<T>(id);
+
+			repository.Delete(entity);
+			await repository.SaveChangesAsync();
 		}
 	}
 }
