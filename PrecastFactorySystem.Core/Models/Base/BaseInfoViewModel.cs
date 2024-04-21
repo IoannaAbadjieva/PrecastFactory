@@ -1,6 +1,6 @@
 ﻿namespace PrecastFactorySystem.Core.Models.Base
 {
-    public class BaseSelectorViewModel
+    public class BaseInfoViewModel
     {
         public int Id { get; set; }
 

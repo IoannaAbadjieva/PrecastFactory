@@ -9,12 +9,16 @@
 
 	public interface IBaseServise
 	{
-		Task<IEnumerable<BaseSelectorViewModel>> GetBaseEntityDataAsync<T>() where T : class, IBaseEntity;
+		Task<IEnumerable<BaseInfoViewModel>> GetBaseEntityDataAsync<T>() where T : class, IBaseEntity;
 
-		Task<IEnumerable<BaseSelectorViewModel>> GetBaseEntityDataAsync<T>(Expression<Func<T, bool>> clause)
+		Task<IEnumerable<BaseInfoViewModel>> GetBaseEntityDataAsync<T>(Expression<Func<T, bool>> clause)
 			where T : class, IBaseEntity;
 
 		Task<IEnumerable<ReinforceTypeSelectorViewModel>> GetReinforceTypesAsync();
+
+		Task<BaseInfoViewModel> GetEntityBaseInfoAsync<T>(int id) where T : class, IBaseEntity;
+
+		Task DeleteEntityAsync<T>(int id) where T : class, IBaseEntity;
 	}
 
 }

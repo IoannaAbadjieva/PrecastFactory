@@ -5,10 +5,12 @@
 
 	using Microsoft.EntityFrameworkCore;
 
+	using PrecastFactorySystem.Infrastructure.Data.Contracts;
+
 	using static DataValidation.DataConstants;
 
 	[Comment("Сглобяем стоманобетонов елемент")]
-	public class Precast
+	public class Precast : IBaseEntity
 	{
 		[Comment("Идентификатор")]
 		[Key]
@@ -35,7 +37,7 @@
 
 
 		[Comment("Дата на добавяне")]
-        [Required]
+		[Required]
 		public DateTime AddedOn { get; set; }
 
 
@@ -70,7 +72,7 @@
 		[Column(TypeName = "decimal(18,2)")]
 		public decimal ReinforceProjectWeight { get; set; }
 
-	
+
 		public ICollection<PrecastReinforce> PrecastReinforce { get; set; } = new HashSet<PrecastReinforce>();
 
 		public ICollection<PrecastReinforceOrder> PrecastReinforceOrders { get; set; } = new HashSet<PrecastReinforceOrder>();
