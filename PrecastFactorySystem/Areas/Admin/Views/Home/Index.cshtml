@@ -1,0 +1,16 @@
+﻿﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="mt-4 p-5 bg-light text-dark  text-center">
+    <h2 class="display-4 text-dark ">Hello, Admin!</h2>
+    <p class="lead mb-1 mt-3 text-dark ">
+        This is administrator area - you can <b class="text-dark ">delete</b>  <b class="text-dark ">projects</b>  and <b class="text-dark">precasts</b>.
+        <br />Keep in mind, that if you delete a project, all the project precast will be deleted too, with it's reinforce and all of the orders </p>
+    <p class="lead mt-1 text-dark "> You can also see all <b class="text-dark ">users</b> and <b class="text-dark ">roles</b> in the system. </p>
+    <hr class="my-4">
+    <a asp-area="Admin" asp-controller="Project" asp-action="All" class="btn btn-secondary btn-lg">Projects</a>
+    <a asp-area="Admin" asp-controller="Precast" asp-action="All" class="btn btn-secondary btn-lg">Precast</a>
+    <a asp-area="Admin" asp-controller="User" asp-action="All" class="btn btn-secondary btn-lg">Users</a>
+    <a asp-area="Admin" asp-controller="User" asp-action="Roles" class="btn btn-secondary btn-lg">Roles</a>
+</div>
