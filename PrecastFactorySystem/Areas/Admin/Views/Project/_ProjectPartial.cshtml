@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ProjectInfoViewModel>
+
+<table class="table table-hover table-borderless bg-light text-dark">
+	<thead>
+		<tr>
+			<th class="text-dark" scope="col">Id</th>
+			<th class="text-dark" scope="col">Name</th>
+			<th class="text-dark" scope="col">Production Number</th>
+			<th class="text-dark" scope="col">AddedOn</th>
+			<th class="text-dark" scope="col">Precast Count</th>
+			<th class="text-dark" scope="col">Precast Total Count</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider  bg-light text-dark">
+
+		@foreach (var project in Model)
+		{
+			<tr>
+				<td class ="text-dark">@project.Id</td>
+				<td class="text-dark">@project.Name</td>
+				<td class="text-dark">@project.ProdNumber</td>
+				<td class="text-dark">@project.AddedOn</td>
+				<td class="text-dark">@project.PrecastCount</td>
+				<td class="text-dark">@project.PrecastTotalCount</td>
+				<td class="card-link link-secondary"><a asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id">Delete</a></td>
+			</tr>
+		}
+	</tbody>
+</table>
