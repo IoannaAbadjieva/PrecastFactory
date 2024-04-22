@@ -6,7 +6,7 @@
     public class ReinforceOrderInfoViewModel
     {
         [Display(Name = "Order N")]
-        public int OrderId { get; set; }
+        public int Id { get; set; }
 
         public string OrderDate { get; set; }  = string.Empty;
 

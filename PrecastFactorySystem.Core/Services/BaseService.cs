@@ -51,7 +51,7 @@
 		public async Task<IEnumerable<BaseInfoViewModel>> GetBaseEntityDataAsync<T>(Expression<Func<T, bool>> clause)
 			where T : class, IBaseEntity
 		{
-			return await repository.AllReadonly(clause)
+			return await repository.AllReadonly<T>(clause)
 				.Select(e => new BaseInfoViewModel()
 				{
 					Id = e.Id,

@@ -83,6 +83,25 @@
 
 		}
 
+		public async Task<UserInfoViewModel> GetUserToDeleteAsync(string id)
+		{
+			var user = await userManager.FindByIdAsync(id);
+
+			if (await userManager.IsInRoleAsync(user, "Administrator"))
+			{
+				throw new DeleteActionException(DeleteAdminErrorMessage);
+			}
+
+			return new UserInfoViewModel()
+			{
+				Id = user.Id.ToString(),
+				FullName = $"{user.FirstName} {user.LastName}",
+				UserName = user.UserName,
+				Email = user.Email,
+				Role = userManager.GetRolesAsync(user).Result[0],
+			};
+		}
+
 		public async Task DeleteUserAsync(string id)
 		{
 			var user = await userManager.FindByIdAsync(id);
@@ -115,23 +134,5 @@
 			return model;
 		}
 
-		public async Task<UserInfoViewModel> GetUserToDeleteAsync(string id)
-		{
-			var user = await userManager.FindByIdAsync(id);
-
-			if (await userManager.IsInRoleAsync(user, "Administrator"))
-			{
-				throw new DeleteActionException(DeleteAdminErrorMessage);
-			}
-
-			return new UserInfoViewModel()
-			{
-				Id = user.Id.ToString(),
-				FullName = $"{user.FirstName} {user.LastName}",
-				UserName = user.UserName,
-				Email = user.Email,
-				Role = userManager.GetRolesAsync(user).Result[0],
-			};
-		}
 	}
 }

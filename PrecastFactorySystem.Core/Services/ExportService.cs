@@ -27,13 +27,17 @@
 			document.Add(new Paragraph(new Text("\n")));
 
 
-			Table table = new Table(4, false)
-				.UseAllAvailableWidth()
-				.SetBorder(Border.NO_BORDER);
+			Table table = new Table(5, false)
+				.SetWidth(UnitValue.CreatePercentValue(100))
+				.SetHorizontalAlignment(HorizontalAlignment.CENTER)
+				.SetBorderBottom(Border.NO_BORDER)
+				.SetBorderTop(Border.NO_BORDER)
+				.SetBorderLeft(Border.NO_BORDER)
+				.SetBorderRight(Border.NO_BORDER);
+
 			table.AddCell("Position").SetBold();
 			table.AddCell("Count").SetBold();
 			table.AddCell("ReinforceType").SetBold();
-			table.AddCell("SpecificMass").SetBold();
 			table.AddCell("Length").SetBold();
 			table.AddCell("Weight").SetBold();
 
@@ -42,7 +46,6 @@
 				table.AddCell(reinforce.Position);
 				table.AddCell(reinforce.Count.ToString());
 				table.AddCell(reinforce.ReinforceType);
-				table.AddCell(reinforce.SpecificMass.ToString("f2"));
 				table.AddCell(reinforce.Length.ToString("f2"));
 				table.AddCell(reinforce.Weight.ToString("f2"));
 			}

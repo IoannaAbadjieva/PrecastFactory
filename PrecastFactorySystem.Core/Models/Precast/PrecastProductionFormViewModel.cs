@@ -5,7 +5,7 @@
 	using System.ComponentModel.DataAnnotations;
 
 	using PrecastFactorySystem.Core.Models.Base;
-
+	using PrecastFactorySystem.Core.ValidationAttributes;
 	using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
 	using static PrecastFactorySystem.Infrastructure.DataValidation.ErrorMessages;
 
@@ -24,6 +24,7 @@
 
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
+		[ProductionDateValidation]
 		public DateTime Date { get; set; }
 
 		[Required(ErrorMessage = RequiredErrorMessage)]

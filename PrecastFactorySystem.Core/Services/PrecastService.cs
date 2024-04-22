@@ -323,121 +323,7 @@
 			await repository.AddAsync<PrecastDepartment>(entity);
 			await repository.SaveChangesAsync();
 		}
-
-		public async Task<PrecastProductionFormViewModel?> GetPrecastProductionByIdAsync(int id)
-		{
-			var model = await repository.AllReadonly<PrecastDepartment>(p => p.Id == id)
-				.Select(p => new PrecastProductionFormViewModel()
-				{
-					Date = p.Date,
-					ProducedCount = p.Count,
-					DepartmentId = p.DepartmentId,
-				}).FirstOrDefaultAsync();
-
-			if (model != null)
-			{
-				model.Departments = await baseServise.GetBaseEntityDataAsync<Department>();
-			}
-
-			return model;
-		}
-
-		public async Task EditProductionRecordAsync(int id, PrecastProductionFormViewModel model)
-		{
-			var entity = await repository.GetByIdAsync<PrecastDepartment>(id);
-
-			entity.Count = model.ProducedCount;
-			entity.Date = model.Date;
-			entity.DepartmentId = model.DepartmentId;
-
-			await repository.SaveChangesAsync();
-		}
-
-
-		public async Task DeleteProductionRecordAsync(int id)
-		{
-			var entity = await repository.GetByIdAsync<PrecastDepartment>(id);
-
-			repository.Delete(entity);
-			await repository.SaveChangesAsync();
-		}
-
-		public async Task<bool> IsProductionRecordExist(int id)
-		{
-			return await repository.AllReadonly<PrecastDepartment>()
-				.AnyAsync(p => p.Id == id);
-		}
-
-		public async Task AddReinforceAsync(int id, ReinforceFormViewModel model)
-		{
-
-			var reinforce = new PrecastReinforce()
-			{
-				PrecastId = id,
-				Count = model.Count,
-				Position = model.Position,
-				Length = model.Length,
-				ReinforceTypeId = model.ReinforceTypeId,
-				Weight = model.Count * model.Length * model.SpecificMass
-			};
-
-			await repository.AddAsync<PrecastReinforce>(reinforce);
-			await repository.SaveChangesAsync();
-		}
-
-		public async Task<int> GetReinforcedPrecastCountAsync(int id)
-		{
-			return await repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id)
-				.SumAsync(pro => pro.ReinforceOrder.Count);
-		}
-
-		public async Task<int> GetPrecastToReinforceCountAsync(int id)
-		{
-			var precast = await repository.GetByIdAsync<Precast>(id);
-
-			return precast.Count - await GetReinforcedPrecastCountAsync(id);
-		}
-
-		public async Task<int> GetProducedPrecastCountAsync(int id, int? recordId)
-		{
-			var produced = 0;
-
-			if (recordId.HasValue)
-			{
-				produced = await repository.AllReadonly<PrecastDepartment>(dp => dp.PrecastId == id && dp.Id != recordId)
-				   .SumAsync(dp => dp.Count);
-			}
-			else
-			{
-				produced = await repository.AllReadonly<PrecastDepartment>(dp => dp.PrecastId == id)
-				   .SumAsync(dp => dp.Count);
-			}
-
-			return produced;
-		}
-
-		public async Task<int> GetPrecastToProduceCountAsync(int id, int? recordId)
-		{
-			var reinforced = await repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id && pro.ReinforceOrder.DeliverDate <= DateTime.UtcNow)
-				.SumAsync(pro => pro.ReinforceOrder.Count);
-			var produced = await GetProducedPrecastCountAsync(id, recordId);
-
-			return reinforced - produced;
-		}
-
-		public async Task<decimal> GetPrecastActualWeightAsync(int id)
-		{
-			return await repository.AllReadonly<PrecastReinforce>(pr => pr.PrecastId == id)
-				.SumAsync(pr => pr.Weight);
-		}
-
-		public async Task<bool> IsPrecastExist(int id)
-		{
-			return await repository.AllReadonly<Precast>()
-				.AnyAsync(p => p.Id == id);
-
-		}
-
+		
 		public async Task<PrecastProductionFormViewModel?> GetPrecastProductionFormAsync(int id)
 		{
 			int maxCount = await GetPrecastToProduceCountAsync(id, null);
@@ -447,15 +333,17 @@
 				throw new ProduceActionException(NoPrecastToProduceErrorMessage);
 			}
 
-			return new PrecastProductionFormViewModel()
+			var model = new PrecastProductionFormViewModel()
 			{
 				Id = id,
 				PrecastId = id,
 				ProducedCount = maxCount,
 				Date = DateTime.Now,
-				Departments = await baseServise.GetBaseEntityDataAsync<Department>(
-					d => d.DepartmentType == DepartmentType.PrecastProduction)
+				
 			};
+			model.Departments = await baseServise.GetBaseEntityDataAsync<Department>(
+					d => d.DepartmentType == DepartmentType.PrecastProduction);
+			return model;
 		}
 
 		public async Task<PrecastProductionFormViewModel?> GetPrecastProductionRecordByIdAsync(int id)
@@ -506,6 +394,52 @@
 			repository.Delete(entity);
 			await repository.SaveChangesAsync();
 		}
+		
+		public async Task<int> GetReinforcedPrecastCountAsync(int id)
+		{
+			return await repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id)
+				.SumAsync(pro => pro.ReinforceOrder.Count);
+		}
+
+		public async Task<int> GetPrecastToReinforceCountAsync(int id)
+		{
+			var precast = await repository.GetByIdAsync<Precast>(id);
+
+			return precast.Count - await GetReinforcedPrecastCountAsync(id);
+		}
+
+		public async Task<int> GetProducedPrecastCountAsync(int id, int? recordId)
+		{
+			var produced = 0;
+
+			if (recordId.HasValue)
+			{
+				produced = await repository.AllReadonly<PrecastDepartment>(dp => dp.PrecastId == id && dp.Id != recordId)
+				   .SumAsync(dp => dp.Count);
+			}
+			else
+			{
+				produced = await repository.AllReadonly<PrecastDepartment>(dp => dp.PrecastId == id)
+				   .SumAsync(dp => dp.Count);
+			}
+
+			return produced;
+		}
+
+		public async Task<int> GetPrecastToProduceCountAsync(int id, int? recordId)
+		{
+			var reinforced = await repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id && pro.ReinforceOrder.DeliverDate <= DateTime.UtcNow)
+				.SumAsync(pro => pro.ReinforceOrder.Count);
+			var produced = await GetProducedPrecastCountAsync(id, recordId);
+
+			return reinforced - produced;
+		}
+
+		public async Task<decimal> GetPrecastActualWeightAsync(int id)
+		{
+			return await repository.AllReadonly<PrecastReinforce>(pr => pr.PrecastId == id)
+				.SumAsync(pr => pr.Weight);
+		}
 
 		public async Task<DateTime> GetFirstOrderDeliveryDate(int id)
 		{
@@ -513,5 +447,17 @@
 				.MinAsync(pro => pro.ReinforceOrder.DeliverDate);
 		}
 
+		public async Task<bool> IsPrecastExist(int id)
+		{
+			return await repository.AllReadonly<Precast>()
+				.AnyAsync(p => p.Id == id);
+
+		}
+
+		public async Task<bool> IsProductionRecordExist(int id)
+		{
+			return await repository.AllReadonly<PrecastDepartment>()
+				.AnyAsync(p => p.Id == id);
+		}
 	}
 }

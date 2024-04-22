@@ -186,7 +186,7 @@
 				.Take(ordersPerPage)
 				.Select(pro => new ReinforceOrderInfoViewModel()
 				{
-					OrderId = pro.ReinforceOrder.Id,
+					Id = pro.ReinforceOrder.Id,
 					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
 					Project = pro.Precast.Project.Name,
 					PrecastType = pro.Precast.PrecastType.Name,
@@ -214,7 +214,7 @@
 				.Take(ordersPerPage)
 				.Select(pro => new ReinforceOrderInfoViewModel()
 				{
-					OrderId = pro.ReinforceOrder.Id,
+					Id = pro.ReinforceOrder.Id,
 					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
 					Project = pro.Precast.Project.Name,
 					PrecastType = pro.Precast.PrecastType.Name,
@@ -240,7 +240,7 @@
 			return await repository.AllReadonly<PrecastReinforceOrder>(r => r.ReinforceOrderId == id)
 				.Select(pro => new ReinforceOrderInfoViewModel()
 				{
-					OrderId = id,
+					Id = id,
 					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
 					Project = pro.Precast.Project.Name,
 					PrecastType = pro.Precast.PrecastType.Name,

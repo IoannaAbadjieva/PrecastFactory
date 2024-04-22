@@ -22,6 +22,24 @@
 			baseServise = _baseServise;
 		}
 
+
+		public async Task AddReinforceAsync(int precastId, ReinforceFormViewModel model)
+		{
+
+			var reinforce = new PrecastReinforce()
+			{
+				PrecastId = precastId,
+				Count = model.Count,
+				Position = model.Position,
+				Length = model.Length,
+				ReinforceTypeId = model.ReinforceTypeId,
+				Weight = model.Count * model.Length * model.SpecificMass
+			};
+
+			await repository.AddAsync<PrecastReinforce>(reinforce);
+			await repository.SaveChangesAsync();
+		}
+
 		public async Task<ReinforceFormViewModel?> GetReinforceByIdAsync(int id)
 		{
 			var model = await repository.All<PrecastReinforce>(pr => pr.Id == id)
@@ -54,7 +72,7 @@
 			return entity.PrecastId;
 		}
 
-		public async Task<int> DeleteReinforceAsync(int id)
+		public async Task DeleteReinforceAsync(int id)
 		{
 			var entity = await repository.GetByIdAsync<PrecastReinforce>(id);
 
@@ -67,8 +85,7 @@
 
 			repository.Delete(entity);
 			await repository.SaveChangesAsync();
-
-			return precastId;
+			
 		}
 
 		public async Task<bool> IsReinforceExist(int id)

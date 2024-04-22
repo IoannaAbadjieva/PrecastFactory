@@ -28,6 +28,7 @@
 		Task<PrecastDetailsViewModel?> GetPrecastDetailsAsync(int id);
 
 		Task<PrecastDeleteViewModel?> GetPrecastToDeleteByIdAsync(int id);
+
 		Task DeletePrecastAsync(int id);
 
 		Task<PrecastReinforceQueryModel> GetPrecastReinforceAsync(
@@ -36,12 +37,10 @@
 				int reinforcePerPage = 7
 			);
 
-		Task AddReinforceAsync(int id, ReinforceFormViewModel model);
-
 		Task<PrecastProductionQueryModel> GetPrecastProductionAsync(
-			int id,
-			int currentPage = 1,
-			int precastPerPage = 7);
+				int id,
+				int currentPage = 1,
+				int precastPerPage = 7);
 
 		Task<PrecastProductionFormViewModel?> GetPrecastProductionFormAsync(int id);
 
