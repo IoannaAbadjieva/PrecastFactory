@@ -24,7 +24,7 @@
 <div class="text-center mt-4 p-5">
 	@if (User.IsAdmin() || User.IsReinforceManager())
 	{
-		<a asp-area="" asp-controller="Precast" asp-action="AddReinforce" asp-route-id="@Model.Id" class="btn btn-dark ">Add Reinforce</a>
+		<a asp-area="" asp-controller="Reinforce" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-dark ">Add Reinforce</a>
 		<a asp-area="" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-dark ">Order</a>
 		<a asp-area="" asp-controller="Order" asp-action="ForPrecast" asp-route-id="@Model.Id" class="btn btn-dark ">Precast Orders</a>
 		<a asp-area="" asp-controller="Precast" asp-action="All" class="btn btn-dark ">Back to all precast </a>

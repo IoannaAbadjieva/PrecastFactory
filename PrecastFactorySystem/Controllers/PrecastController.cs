@@ -135,7 +135,7 @@
 			}
 			catch (DeleteActionException dae)
 			{
-				return View("DeleteError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -155,7 +155,7 @@
 			catch (DeleteActionException dae)
 			{
 
-				return View("DeleteError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -186,34 +186,6 @@
 			model.TotalReinforce = precastReinforce.TotalReinforce;
 
 			return View(model);
-		}
-
-		[Authorize(Roles = "Administrator, ReinforceManager")]
-		[PrecastExists]
-		[HttpGet]
-		public async Task<IActionResult> AddReinforce(int id)
-		{
-			ReinforceFormViewModel model = new ReinforceFormViewModel()
-			{
-				PrecastId = id,
-				ReinforceTypes = await baseService.GetReinforceTypesAsync()
-			};
-			return View(model);
-		}
-
-		[Authorize(Roles = "Administrator, ReinforceManager")]
-		[PrecastExists]
-		[HttpPost]
-		public async Task<IActionResult> AddReinforce(int id, ReinforceFormViewModel model)
-		{
-			if (!ModelState.IsValid)
-			{
-				model.ReinforceTypes = await baseService.GetReinforceTypesAsync();
-				return View(model);
-			}
-
-			await precastService.AddReinforceAsync(id, model);
-			return RedirectToAction(nameof(Reinforce), new { id });
 		}
 
 		[PrecastExists]
@@ -252,7 +224,7 @@
 			catch (ProduceActionException pae)
 			{
 
-				return View("ProduceError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = pae.Message
 				});
@@ -287,7 +259,7 @@
 			catch (ProduceActionException pae)
 			{
 
-				return View("ProduceError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = pae.Message
 				});
@@ -327,12 +299,12 @@
 				}
 
 				await precastService.EditPrecastProductionRecordAsync(id, model);
-				return RedirectToAction(nameof(Production), new {id = precastId });
+				return RedirectToAction(nameof(Production), new { id = precastId });
 			}
 			catch (ProduceActionException pae)
 			{
 
-				return View("ProduceError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = pae.Message
 				});
@@ -340,13 +312,13 @@
 
 		}
 
+
 		[Authorize(Roles = "Administrator, PrecastProductionManager")]
 		[ProductionRecordExists]
-		[HttpPost]
 		public async Task<IActionResult> DeleteProduction(int id, int precastId)
 		{
 			await precastService.DeletePrecastProductionRecordAsync(id);
-			return RedirectToAction(nameof(Production),new {id = precastId});
+			return RedirectToAction(nameof(Production), new { id = precastId });
 		}
 	}
 

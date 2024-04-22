@@ -31,18 +31,21 @@
 				<hr />
 				@foreach (var project in result.projects)
 				{
-					<div class="d-flex flex-column justify-content-between">
-						<h5>@project.projectName</h5>
-						
-							@foreach (var precast in project.precast)
-							{
-								<div class="d-flex flex-row justify-content-between">
-									<p>@precast.PrecastName</p>
-									<p>@precast.Count</p>
-								</div>
-							}
-					
-					</div>
+					<table class="table table-borderless">
+						<tr>
+							<th>@project.projectName</th>
+							<th></th>
+							
+						</tr>
+						@foreach (var precast in project.precast)
+						{
+							<tr>
+								<td></td>
+								<td>@precast.PrecastName</td>
+								<td>@precast.Count pcs.</td>
+							</tr>
+						}
+					</table>
 				}
 			</div>
 		}

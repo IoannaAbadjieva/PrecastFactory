@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Orders\Order " />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.26" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.29" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.29" />
@@ -46,6 +50,7 @@
     <Folder Include="Areas\Admin\Services\" />
     <Folder Include="Areas\Identity\Data\" />
     <Folder Include="Areas\Identity\Pages\Account\" />
+    <Folder Include="Orders\" />
   </ItemGroup>
 
   <ItemGroup>

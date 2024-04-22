@@ -29,16 +29,27 @@
 				<td>@reinforce.Weight</td>
 				@if (User.IsAdmin() || User.IsReinforceManager())
 				{
-
-
-					<td><a asp-controller="Reinforce" asp-action="Edit" asp-route-id="@reinforce.Id" class="card-link">Edit</a></td>
 					<td>
-						<a asp-controller="Reinforce" asp-action="Delete" asp-route-id="@reinforce.Id" class="card-link"
-						   onclick="return confirm('Are you sure you want to delete this reinforce?')">Delete</a>
+						<a asp-controller="Reinforce"
+						   asp-action="Edit"
+						   asp-route-id="@reinforce.Id"
+						   class="card-link">Edit</a>
+					</td>
+					<td>
+						<a asp-controller="Reinforce"
+						   asp-action="Delete"
+						   asp-route-id="@reinforce.Id"
+						   asp-route-precastId="@reinforce.PrecastId"
+						   onclick="return confirm('Are you sure you want to delete this record?')"
+						   class="card-link">
+							Delete
+						</a>
 					</td>
 				}
 			</tr>
 		}
 	</tbody>
-
 </table>
+}
+
+

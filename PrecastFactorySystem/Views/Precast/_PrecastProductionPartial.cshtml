@@ -36,8 +36,8 @@
 						   asp-action="DeleteProduction"
 						   asp-route-id="@record.Id"
 						   asp-route-precastId="@record.PrecastId"
-						   class="card-link"
-						   onclick="return confirm('Are you sure you want to delete this production record?')">
+						   onclick="return confirm('Are you sure you want to delete this record?')"
+						   class="card-link">
 							Delete
 						</a>
 					</td>
@@ -45,5 +45,5 @@
 			</tr>
 		}
 	</tbody>
-
 </table>
+

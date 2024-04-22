@@ -7,6 +7,7 @@
 
 	using PrecastFactorySystem.Attributes;
 	using PrecastFactorySystem.Core.Models.Reinforce;
+	using PrecastFactorySystem.Core.Services;
 
 	public class ReinforceController : BaseController
 	{
@@ -18,6 +19,34 @@
 		{
 			reinforceService = _reinforceService;
 			baseService = _baseService;
+		}
+
+		[Authorize(Roles = "Administrator, ReinforceManager")]
+		[PrecastExists]
+		[HttpGet]
+		public async Task<IActionResult> Add(int id)
+		{
+			ReinforceFormViewModel model = new ReinforceFormViewModel()
+			{
+				PrecastId = id,
+				ReinforceTypes = await baseService.GetReinforceTypesAsync()
+			};
+			return View(model);
+		}
+
+		[Authorize(Roles = "Administrator, ReinforceManager")]
+		[PrecastExists]
+		[HttpPost]
+		public async Task<IActionResult> Add(int id, ReinforceFormViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				model.ReinforceTypes = await baseService.GetReinforceTypesAsync();
+				return View(model);
+			}
+
+			await reinforceService.AddReinforceAsync(id, model);
+			return RedirectToAction("Reinforce", "Precast", new { id });
 		}
 
 		[Authorize(Roles = "Administrator, ReinforceManager")]
@@ -47,14 +76,13 @@
 
 		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[ReinforceExists]
-		[HttpPost]
-		public async Task<IActionResult> Delete(int id)
+		public async Task<IActionResult> Delete(int id, int precastId)
 		{
-			int precastId = await reinforceService.DeleteReinforceAsync(id);
+			await reinforceService.DeleteReinforceAsync(id);
 			return RedirectToAction("Reinforce", "Precast", new { id = precastId });
 
 		}
 
-	
+
 	}
 }
