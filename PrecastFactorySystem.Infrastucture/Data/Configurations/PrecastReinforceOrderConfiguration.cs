@@ -15,8 +15,7 @@
 			builder
 				.HasOne(pro => pro.Precast)
 				.WithMany(p => p.PrecastReinforceOrders)
-				.HasForeignKey(pro => pro.PrecastId)
-				.OnDelete(DeleteBehavior.Restrict);
+				.HasForeignKey(pro => pro.PrecastId);
 
 			builder
 				.HasData(SeedPrecastReinforceOrders());

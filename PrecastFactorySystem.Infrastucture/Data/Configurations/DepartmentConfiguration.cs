@@ -23,19 +23,19 @@
 			{
 				Id = 1,
 				Name = "1-st Precast",
-				DepartmentType = DepartmentType.Production
+				DepartmentType = DepartmentType.PrecastProduction
 			},
 			new Department()
 			{
 				Id = 2,
 				Name = "2-nd Precast",
-				DepartmentType = DepartmentType.Production
+				DepartmentType = DepartmentType.PrecastProduction
 			},
 			new Department()
 			{
 				Id = 3,
 				Name = "3-rd Precast",
-				DepartmentType = DepartmentType.Production
+				DepartmentType = DepartmentType.PrecastProduction
 			},
 			new Department()
 			{

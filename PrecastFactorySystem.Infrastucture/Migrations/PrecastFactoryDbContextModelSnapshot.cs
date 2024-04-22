@@ -342,19 +342,19 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            DepartmentType = 1,
+                            DepartmentType = 0,
                             Name = "1-st Precast"
                         },
                         new
                         {
                             Id = 2,
-                            DepartmentType = 1,
+                            DepartmentType = 0,
                             Name = "2-nd Precast"
                         },
                         new
                         {
                             Id = 3,
-                            DepartmentType = 1,
+                            DepartmentType = 0,
                             Name = "3-rd Precast"
                         },
                         new
@@ -497,7 +497,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = new Guid("13a26afc-8c31-4777-b202-89966774aaa5"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f48a8f99-71d5-4f05-a849-50505e619245",
+                            ConcurrencyStamp = "78d0ae5a-55e4-44b1-a857-c618b80dc801",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Chief",
@@ -505,9 +505,9 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMuv/pAbQiGJitrCEqKWnjBdFEQkMpROBLw29J921e+jqIBqx/2V4B47Tm66S33vjA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHwRDRe95f26Ug+Pk3zOmmIAbyHBroo82xHu/Xaq/wUnUFWWQIc5JqPJjQp7UVKz8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "35559930-13A5-4699-8B1D-5350EFF7686C",
+                            SecurityStamp = "35978F61-0CD6-4BDE-BD80-621B00A49E5D",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -515,7 +515,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = new Guid("344ef066-7d16-480d-b1d3-6face05c7c62"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b39f515-e9a7-4ad0-9d59-82aef1d732fb",
+                            ConcurrencyStamp = "8639b011-865c-4e05-8b8a-f4e444c5502b",
                             Email = "manager@mail.com",
                             EmailConfirmed = true,
                             FirstName = "General",
@@ -523,9 +523,9 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@MAIL.COM",
                             NormalizedUserName = "MANAGER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIXdqnIsnrEWgobnuR41d/XeNmJSHRRXfP5tvuaJwiqhxbIzpY4/w7iRuloSvMH0Rg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEABSEkivVcv77EG9Sov+AB2H2joWEbABnuNqaY/6mhDC1Gx4BmP1QzOOCLCqwxbJSQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7CF150E4-1A69-4FF9-BEA1-FC3DDAF50E2F",
+                            SecurityStamp = "2C276EDA-6BCA-4D56-89FB-23CC3FC7E8AC",
                             TwoFactorEnabled = false,
                             UserName = "manager"
                         },
@@ -533,7 +533,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = new Guid("af7811c7-760b-42c4-b3ed-42cd794e5153"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6121e5c8-3324-416b-9417-628d2096c9b1",
+                            ConcurrencyStamp = "79fb1a99-6e00-4d58-b3fe-f84fd4ce49f0",
                             Email = "reinforce@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Reinforce",
@@ -541,9 +541,9 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "REINFORCE@MAIL.COM",
                             NormalizedUserName = "REINFORCE_MANAGER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGGbOoMEKkCQQykEYS7y+zPWxPq6vuONYpf60kam5PFMcskRTPMktpxt5aStFMGlXQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPdBQt8uLDO7Ry61gSbHz5wyQYKGgqWG8BwGxG1bnOZg7b28xB1kFWm6dNSMv0vqJw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "26615B7E-1C36-4853-AC5E-0AA4A11D6F26",
+                            SecurityStamp = "FCD1995E-2D9F-4199-9548-B18A615C18F4",
                             TwoFactorEnabled = false,
                             UserName = "reinforce_manager"
                         },
@@ -551,7 +551,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = new Guid("ed91d639-dfe6-4d7f-9a19-bc8a1f3a1fbe"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fc4cf2c7-8f6d-4b42-b987-c97569c78b5a",
+                            ConcurrencyStamp = "e45656f3-f596-449b-864b-ecdb860da193",
                             Email = "production@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Production",
@@ -559,9 +559,9 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "PRODUCTION@MAIL.COM",
                             NormalizedUserName = "PRODUCTION_MANAGER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGBxTwM5NDCa7qK1FE4bk4A5VsQ9nBEZ4RPBpjoBlz2z3ykZ0IKETj5K8c9LCgER+Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG070hhE5kxt+rM033bBg0Pwd6MeL9pew0s6aOB/QMEDMFuwYv8mlzBXkcNwk9XP9g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "B2619C5C-1663-4E1D-BEFA-24E03BBD14D8",
+                            SecurityStamp = "A6F6A995-0E47-4697-B5E4-3085076EACC5",
                             TwoFactorEnabled = false,
                             UserName = "production_manager"
                         },
@@ -569,7 +569,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = new Guid("f8927215-501c-43ab-92da-972bf9934a93"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5d5a14cc-9647-42f3-84cf-7571c6e3fae6",
+                            ConcurrencyStamp = "99c5aad3-e274-4634-be26-10b00f15764e",
                             Email = "user@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Ordinary",
@@ -577,9 +577,9 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@MAIL.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGOb9ph8yED6wwPKAV4kDvJaJCpDD8ZqClWWKrt/Ar8a+KLJPzwLnpsfK3dHFXl5DQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELgBXw4n+hOKMMORI7d6Y8+Ss+zaDCpnennVPRcQYB9IFSovlDX+TdcRqnLoruXymw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "03ED1F7D-FB46-46F7-84B6-0D591AA30D53",
+                            SecurityStamp = "D5405B16-68EC-41BD-9843-46E113E52292",
                             TwoFactorEnabled = false,
                             UserName = "user"
                         });
@@ -648,7 +648,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            AddedOn = new DateTime(2024, 4, 7, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7245),
+                            AddedOn = new DateTime(2024, 4, 8, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4220),
                             ConcreteActualAmount = 7.22m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 7.32m,
@@ -661,7 +661,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            AddedOn = new DateTime(2024, 4, 7, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7250),
+                            AddedOn = new DateTime(2024, 4, 8, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4225),
                             ConcreteActualAmount = 9.16m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 9.32m,
@@ -674,7 +674,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            AddedOn = new DateTime(2024, 4, 7, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7253),
+                            AddedOn = new DateTime(2024, 4, 8, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4229),
                             ConcreteActualAmount = 6.98m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 7.11m,
@@ -687,7 +687,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            AddedOn = new DateTime(2024, 4, 7, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7255),
+                            AddedOn = new DateTime(2024, 4, 8, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4232),
                             ConcreteActualAmount = 5.16m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 5.32m,
@@ -700,7 +700,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            AddedOn = new DateTime(2024, 4, 11, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7258),
+                            AddedOn = new DateTime(2024, 4, 12, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4234),
                             ConcreteActualAmount = 7.22m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 7.22m,
@@ -713,7 +713,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            AddedOn = new DateTime(2024, 4, 11, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7260),
+                            AddedOn = new DateTime(2024, 4, 12, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4237),
                             ConcreteActualAmount = 7.22m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 7.22m,
@@ -726,7 +726,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            AddedOn = new DateTime(2024, 4, 11, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7263),
+                            AddedOn = new DateTime(2024, 4, 12, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4239),
                             ConcreteActualAmount = 1.61m,
                             ConcreteClassId = 9,
                             ConcreteProjectAmount = 1.61m,
@@ -739,7 +739,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            AddedOn = new DateTime(2024, 4, 11, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7266),
+                            AddedOn = new DateTime(2024, 4, 12, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4271),
                             ConcreteActualAmount = 1.97m,
                             ConcreteClassId = 9,
                             ConcreteProjectAmount = 1.97m,
@@ -752,7 +752,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            AddedOn = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7268),
+                            AddedOn = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4274),
                             ConcreteActualAmount = 1.61m,
                             ConcreteClassId = 9,
                             ConcreteProjectAmount = 1.61m,
@@ -765,7 +765,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            AddedOn = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7270),
+                            AddedOn = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4278),
                             ConcreteActualAmount = 7.90m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 7.88m,
@@ -778,7 +778,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            AddedOn = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7274),
+                            AddedOn = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4280),
                             ConcreteActualAmount = 7.90m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 7.88m,
@@ -791,7 +791,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            AddedOn = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7277),
+                            AddedOn = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4282),
                             ConcreteActualAmount = 9.6m,
                             ConcreteClassId = 14,
                             ConcreteProjectAmount = 9.54m,
@@ -804,7 +804,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            AddedOn = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7279),
+                            AddedOn = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4285),
                             ConcreteActualAmount = 1.2m,
                             ConcreteClassId = 14,
                             ConcreteProjectAmount = 1.24m,
@@ -817,7 +817,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            AddedOn = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7283),
+                            AddedOn = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4288),
                             ConcreteActualAmount = 1.25m,
                             ConcreteClassId = 14,
                             ConcreteProjectAmount = 1.24m,
@@ -830,7 +830,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            AddedOn = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7285),
+                            AddedOn = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4291),
                             ConcreteActualAmount = 2.24m,
                             ConcreteClassId = 9,
                             ConcreteProjectAmount = 2.34m,
@@ -843,7 +843,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            AddedOn = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7287),
+                            AddedOn = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4296),
                             ConcreteActualAmount = 1.46m,
                             ConcreteClassId = 9,
                             ConcreteProjectAmount = 1.58m,
@@ -856,7 +856,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            AddedOn = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7289),
+                            AddedOn = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4298),
                             ConcreteActualAmount = 4.04m,
                             ConcreteClassId = 14,
                             ConcreteProjectAmount = 4.10m,
@@ -869,7 +869,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            AddedOn = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7292),
+                            AddedOn = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4301),
                             ConcreteActualAmount = 4.54m,
                             ConcreteClassId = 14,
                             ConcreteProjectAmount = 4.72m,
@@ -882,7 +882,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 19,
-                            AddedOn = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7294),
+                            AddedOn = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4303),
                             ConcreteActualAmount = 1.67m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 1.59m,
@@ -895,7 +895,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 20,
-                            AddedOn = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7297),
+                            AddedOn = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4305),
                             ConcreteActualAmount = 1.65m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 1.59m,
@@ -908,7 +908,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 21,
-                            AddedOn = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7299),
+                            AddedOn = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4309),
                             ConcreteActualAmount = 1.65m,
                             ConcreteClassId = 12,
                             ConcreteProjectAmount = 1.59m,
@@ -960,7 +960,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 1,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 15, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(60),
+                            Date = new DateTime(2024, 4, 16, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6906),
                             DepartmentId = 1,
                             PrecastId = 7
                         },
@@ -968,7 +968,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 2,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 15, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(70),
+                            Date = new DateTime(2024, 4, 16, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6915),
                             DepartmentId = 1,
                             PrecastId = 8
                         },
@@ -976,7 +976,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 3,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 15, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(72),
+                            Date = new DateTime(2024, 4, 16, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6917),
                             DepartmentId = 1,
                             PrecastId = 1
                         },
@@ -984,7 +984,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 4,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 16, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(74),
+                            Date = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6919),
                             DepartmentId = 1,
                             PrecastId = 7
                         },
@@ -992,7 +992,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 5,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 16, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(76),
+                            Date = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6921),
                             DepartmentId = 1,
                             PrecastId = 8
                         },
@@ -1000,7 +1000,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 6,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 16, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(77),
+                            Date = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6922),
                             DepartmentId = 1,
                             PrecastId = 1
                         },
@@ -1008,7 +1008,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 7,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 16, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(79),
+                            Date = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6924),
                             DepartmentId = 2,
                             PrecastId = 5
                         },
@@ -1016,7 +1016,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 8,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 17, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(81),
+                            Date = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6925),
                             DepartmentId = 1,
                             PrecastId = 7
                         },
@@ -1024,7 +1024,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 9,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 17, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(82),
+                            Date = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6927),
                             DepartmentId = 1,
                             PrecastId = 8
                         },
@@ -1032,7 +1032,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 10,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 17, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(84),
+                            Date = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6975),
                             DepartmentId = 1,
                             PrecastId = 1
                         },
@@ -1040,7 +1040,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 11,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 17, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(86),
+                            Date = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6978),
                             DepartmentId = 2,
                             PrecastId = 5
                         },
@@ -1048,7 +1048,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 12,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 17, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(89),
+                            Date = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6979),
                             DepartmentId = 2,
                             PrecastId = 10
                         },
@@ -1056,7 +1056,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 13,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 18, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(91),
+                            Date = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6981),
                             DepartmentId = 3,
                             PrecastId = 7
                         },
@@ -1064,7 +1064,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 14,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 18, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(92),
+                            Date = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6982),
                             DepartmentId = 1,
                             PrecastId = 8
                         },
@@ -1072,7 +1072,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 15,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 18, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(94),
+                            Date = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6985),
                             DepartmentId = 1,
                             PrecastId = 1
                         },
@@ -1080,7 +1080,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 16,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 18, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(96),
+                            Date = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6986),
                             DepartmentId = 2,
                             PrecastId = 5
                         },
@@ -1088,7 +1088,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 17,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 18, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(97),
+                            Date = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6988),
                             DepartmentId = 2,
                             PrecastId = 10
                         },
@@ -1096,7 +1096,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 18,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 18, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(99),
+                            Date = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6989),
                             DepartmentId = 3,
                             PrecastId = 13
                         },
@@ -1104,7 +1104,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 19,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 18, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(101),
+                            Date = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6991),
                             DepartmentId = 3,
                             PrecastId = 14
                         },
@@ -1112,7 +1112,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 20,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 19, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(102),
+                            Date = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6992),
                             DepartmentId = 1,
                             PrecastId = 7
                         },
@@ -1120,7 +1120,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 21,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 19, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(104),
+                            Date = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6994),
                             DepartmentId = 1,
                             PrecastId = 8
                         },
@@ -1128,7 +1128,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 22,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 19, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(106),
+                            Date = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6997),
                             DepartmentId = 1,
                             PrecastId = 1
                         },
@@ -1136,7 +1136,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 23,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 19, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(107),
+                            Date = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(6998),
                             DepartmentId = 2,
                             PrecastId = 5
                         },
@@ -1144,7 +1144,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 24,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 19, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(109),
+                            Date = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7000),
                             DepartmentId = 2,
                             PrecastId = 10
                         },
@@ -1152,7 +1152,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 25,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 19, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(111),
+                            Date = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7001),
                             DepartmentId = 3,
                             PrecastId = 13
                         },
@@ -1160,7 +1160,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 26,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 19, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(113),
+                            Date = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7003),
                             DepartmentId = 3,
                             PrecastId = 14
                         },
@@ -1168,7 +1168,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 27,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 20, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(114),
+                            Date = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7004),
                             DepartmentId = 1,
                             PrecastId = 7
                         },
@@ -1176,7 +1176,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 28,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 20, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(116),
+                            Date = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7006),
                             DepartmentId = 1,
                             PrecastId = 8
                         },
@@ -1184,7 +1184,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 29,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 20, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(118),
+                            Date = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7008),
                             DepartmentId = 1,
                             PrecastId = 1
                         },
@@ -1192,7 +1192,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 30,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 20, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(119),
+                            Date = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7009),
                             DepartmentId = 2,
                             PrecastId = 5
                         },
@@ -1200,7 +1200,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 31,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 20, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(121),
+                            Date = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7011),
                             DepartmentId = 2,
                             PrecastId = 10
                         },
@@ -1208,7 +1208,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 32,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 20, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(123),
+                            Date = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7012),
                             DepartmentId = 2,
                             PrecastId = 12
                         },
@@ -1216,7 +1216,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 33,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 20, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(124),
+                            Date = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7014),
                             DepartmentId = 3,
                             PrecastId = 13
                         },
@@ -1224,7 +1224,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 34,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 20, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(126),
+                            Date = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7015),
                             DepartmentId = 3,
                             PrecastId = 14
                         },
@@ -1232,7 +1232,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 35,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 21, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(128),
+                            Date = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7017),
                             DepartmentId = 1,
                             PrecastId = 7
                         },
@@ -1240,7 +1240,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 36,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 21, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(129),
+                            Date = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7018),
                             DepartmentId = 1,
                             PrecastId = 8
                         },
@@ -1248,7 +1248,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 37,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 21, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(131),
+                            Date = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7020),
                             DepartmentId = 1,
                             PrecastId = 1
                         },
@@ -1256,7 +1256,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 38,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 21, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(132),
+                            Date = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7021),
                             DepartmentId = 2,
                             PrecastId = 5
                         },
@@ -1264,7 +1264,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 39,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 21, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(134),
+                            Date = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7023),
                             DepartmentId = 2,
                             PrecastId = 10
                         },
@@ -1272,7 +1272,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 40,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 21, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(136),
+                            Date = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7024),
                             DepartmentId = 2,
                             PrecastId = 12
                         },
@@ -1280,7 +1280,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 41,
                             Count = 1,
-                            Date = new DateTime(2024, 4, 21, 2, 34, 17, 141, DateTimeKind.Local).AddTicks(137),
+                            Date = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(7026),
                             DepartmentId = 3,
                             PrecastId = 13
                         });
@@ -3858,28 +3858,28 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            AddedOn = new DateTime(2024, 4, 11, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7120),
+                            AddedOn = new DateTime(2024, 4, 12, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4129),
                             Name = "Yung Solent",
                             ProdNumber = "24-101"
                         },
                         new
                         {
                             Id = 2,
-                            AddedOn = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7156),
+                            AddedOn = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4162),
                             Name = "Argus",
                             ProdNumber = "24-102"
                         },
                         new
                         {
                             Id = 3,
-                            AddedOn = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7158),
+                            AddedOn = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4164),
                             Name = "DM",
                             ProdNumber = "24-103"
                         },
                         new
                         {
                             Id = 4,
-                            AddedOn = new DateTime(2024, 4, 21, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7160),
+                            AddedOn = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4166),
                             Name = "Delita",
                             ProdNumber = "24-104"
                         });
@@ -3933,230 +3933,230 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                         {
                             Id = 1,
                             Count = 6,
-                            DeliverDate = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7778),
+                            DeliverDate = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4714),
                             DelivererId = 1,
                             DepartmentId = 4,
-                            OrderDate = new DateTime(2024, 4, 12, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7771),
+                            OrderDate = new DateTime(2024, 4, 13, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4707),
                             PrecastWeight = 362.34m
                         },
                         new
                         {
                             Id = 2,
                             Count = 6,
-                            DeliverDate = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7783),
+                            DeliverDate = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4718),
                             DelivererId = 1,
                             DepartmentId = 4,
-                            OrderDate = new DateTime(2024, 4, 12, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7781),
+                            OrderDate = new DateTime(2024, 4, 13, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4716),
                             PrecastWeight = 375.35m
                         },
                         new
                         {
                             Id = 3,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7787),
+                            DeliverDate = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4721),
                             DelivererId = 1,
                             DepartmentId = 1,
-                            OrderDate = new DateTime(2024, 4, 12, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7785),
+                            OrderDate = new DateTime(2024, 4, 13, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4720),
                             PrecastWeight = 1826.74m
                         },
                         new
                         {
                             Id = 4,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 15, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7790),
+                            DeliverDate = new DateTime(2024, 4, 16, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4752),
                             DelivererId = 1,
                             DepartmentId = 1,
-                            OrderDate = new DateTime(2024, 4, 12, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7789),
+                            OrderDate = new DateTime(2024, 4, 13, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4750),
                             PrecastWeight = 1575.52m
                         },
                         new
                         {
                             Id = 5,
                             Count = 6,
-                            DeliverDate = new DateTime(2024, 4, 16, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7793),
+                            DeliverDate = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4756),
                             DelivererId = 1,
                             DepartmentId = 2,
-                            OrderDate = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7792),
+                            OrderDate = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4754),
                             PrecastWeight = 1282.15m
                         },
                         new
                         {
                             Id = 6,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 16, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7796),
+                            DeliverDate = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4759),
                             DelivererId = 1,
                             DepartmentId = 2,
-                            OrderDate = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7795),
+                            OrderDate = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4757),
                             PrecastWeight = 1590.3m
                         },
                         new
                         {
                             Id = 7,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7800),
+                            DeliverDate = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4762),
                             DelivererId = 1,
                             DepartmentId = 3,
-                            OrderDate = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7798),
+                            OrderDate = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4760),
                             PrecastWeight = 261.51m
                         },
                         new
                         {
                             Id = 8,
                             Count = 3,
-                            DeliverDate = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7803),
+                            DeliverDate = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4765),
                             DelivererId = 1,
                             DepartmentId = 3,
-                            OrderDate = new DateTime(2024, 4, 14, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7801),
+                            OrderDate = new DateTime(2024, 4, 15, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4764),
                             PrecastWeight = 258.45m
                         },
                         new
                         {
                             Id = 9,
                             Count = 6,
-                            DeliverDate = new DateTime(2024, 4, 18, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7806),
+                            DeliverDate = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4768),
                             DelivererId = 1,
                             DepartmentId = 1,
-                            OrderDate = new DateTime(2024, 4, 15, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7805),
+                            OrderDate = new DateTime(2024, 4, 16, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4767),
                             PrecastWeight = 1826.74m
                         },
                         new
                         {
                             Id = 10,
                             Count = 6,
-                            DeliverDate = new DateTime(2024, 4, 18, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7809),
+                            DeliverDate = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4771),
                             DelivererId = 1,
                             DepartmentId = 4,
-                            OrderDate = new DateTime(2024, 4, 15, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7808),
+                            OrderDate = new DateTime(2024, 4, 16, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4770),
                             PrecastWeight = 362.34m
                         },
                         new
                         {
                             Id = 11,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 18, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7812),
+                            DeliverDate = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4774),
                             DelivererId = 1,
                             DepartmentId = 4,
-                            OrderDate = new DateTime(2024, 4, 15, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7811),
+                            OrderDate = new DateTime(2024, 4, 16, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4773),
                             PrecastWeight = 375.35m
                         },
                         new
                         {
                             Id = 12,
                             Count = 2,
-                            DeliverDate = new DateTime(2024, 4, 19, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7816),
+                            DeliverDate = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4777),
                             DelivererId = 1,
                             DepartmentId = 2,
-                            OrderDate = new DateTime(2024, 4, 16, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7814),
+                            OrderDate = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4776),
                             PrecastWeight = 1575.52m
                         },
                         new
                         {
                             Id = 13,
                             Count = 2,
-                            DeliverDate = new DateTime(2024, 4, 19, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7819),
+                            DeliverDate = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4781),
                             DelivererId = 1,
                             DepartmentId = 2,
-                            OrderDate = new DateTime(2024, 4, 16, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7817),
+                            OrderDate = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4779),
                             PrecastWeight = 1703.67m
                         },
                         new
                         {
                             Id = 14,
                             Count = 3,
-                            DeliverDate = new DateTime(2024, 4, 19, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7822),
+                            DeliverDate = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4784),
                             DelivererId = 1,
                             DepartmentId = 2,
-                            OrderDate = new DateTime(2024, 4, 16, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7820),
+                            OrderDate = new DateTime(2024, 4, 17, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4783),
                             PrecastWeight = 1282.15m
                         },
                         new
                         {
                             Id = 15,
                             Count = 6,
-                            DeliverDate = new DateTime(2024, 4, 20, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7825),
+                            DeliverDate = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4850),
                             DelivererId = 1,
                             DepartmentId = 4,
-                            OrderDate = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7823),
+                            OrderDate = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4786),
                             PrecastWeight = 286.16m
                         },
                         new
                         {
                             Id = 16,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 20, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7828),
+                            DeliverDate = new DateTime(2024, 4, 21, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4854),
                             DelivererId = 1,
                             DepartmentId = 1,
-                            OrderDate = new DateTime(2024, 4, 17, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7826),
+                            OrderDate = new DateTime(2024, 4, 18, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4852),
                             PrecastWeight = 2386.87m
                         },
                         new
                         {
                             Id = 17,
                             Count = 3,
-                            DeliverDate = new DateTime(2024, 4, 21, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7831),
+                            DeliverDate = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4857),
                             DelivererId = 1,
                             DepartmentId = 3,
-                            OrderDate = new DateTime(2024, 4, 18, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7829),
+                            OrderDate = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4856),
                             PrecastWeight = 368.88m
                         },
                         new
                         {
                             Id = 18,
                             Count = 1,
-                            DeliverDate = new DateTime(2024, 4, 21, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7834),
+                            DeliverDate = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4860),
                             DelivererId = 1,
                             DepartmentId = 3,
-                            OrderDate = new DateTime(2024, 4, 18, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7832),
+                            OrderDate = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4859),
                             PrecastWeight = 368.31m
                         },
                         new
                         {
                             Id = 19,
                             Count = 1,
-                            DeliverDate = new DateTime(2024, 4, 21, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7837),
+                            DeliverDate = new DateTime(2024, 4, 22, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4863),
                             DelivererId = 1,
                             DepartmentId = 3,
-                            OrderDate = new DateTime(2024, 4, 18, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7836),
+                            OrderDate = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4862),
                             PrecastWeight = 360.01m
                         },
                         new
                         {
                             Id = 20,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 22, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7840),
+                            DeliverDate = new DateTime(2024, 4, 23, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4866),
                             DelivererId = 1,
                             DepartmentId = 2,
-                            OrderDate = new DateTime(2024, 4, 18, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7839),
+                            OrderDate = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4865),
                             PrecastWeight = 1703.67m
                         },
                         new
                         {
                             Id = 21,
                             Count = 2,
-                            DeliverDate = new DateTime(2024, 4, 22, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7843),
+                            DeliverDate = new DateTime(2024, 4, 23, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4869),
                             DelivererId = 1,
                             DepartmentId = 3,
-                            OrderDate = new DateTime(2024, 4, 18, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7842),
+                            OrderDate = new DateTime(2024, 4, 19, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4868),
                             PrecastWeight = 1295.08m
                         },
                         new
                         {
                             Id = 22,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 23, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7846),
+                            DeliverDate = new DateTime(2024, 4, 24, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4873),
                             DelivererId = 1,
                             DepartmentId = 2,
-                            OrderDate = new DateTime(2024, 4, 19, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7845),
+                            OrderDate = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4871),
                             PrecastWeight = 1244.27m
                         },
                         new
                         {
                             Id = 23,
                             Count = 4,
-                            DeliverDate = new DateTime(2024, 4, 23, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7849),
+                            DeliverDate = new DateTime(2024, 4, 24, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4876),
                             DelivererId = 1,
                             DepartmentId = 2,
-                            OrderDate = new DateTime(2024, 4, 19, 2, 34, 17, 140, DateTimeKind.Local).AddTicks(7848),
+                            OrderDate = new DateTime(2024, 4, 20, 17, 18, 5, 290, DateTimeKind.Local).AddTicks(4874),
                             PrecastWeight = 1411.44m
                         });
                 });
@@ -4508,7 +4508,7 @@ namespace PrecastFactorySystem.Infrastructure.Migrations
                     b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.Precast", "Precast")
                         .WithMany("PrecastReinforceOrders")
                         .HasForeignKey("PrecastId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PrecastFactorySystem.Infrastructure.Data.Models.ReinforceOrder", "ReinforceOrder")
