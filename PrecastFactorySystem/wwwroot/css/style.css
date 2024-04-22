@@ -48,3 +48,7 @@ a {
         background-color: #264e70;
         color: #bbd4ce;
     }
+
+#report {
+    height: 50vh;
+}

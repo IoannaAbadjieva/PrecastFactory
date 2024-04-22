@@ -14,9 +14,7 @@
 		Task<ReportQueryModel> GetMonthlyProductionAsync(
 			DateTime? month, 
 			int? projectId, 
-			int? departmentId,
-			int currentPage = 1,
-			int precastPerPage = 4);
+			int? departmentId);
 
 		Task<ProductionDetailsQueryModel> GetPrecastProductionDetailsAsync(
 			int id,

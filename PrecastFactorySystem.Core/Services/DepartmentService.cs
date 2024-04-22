@@ -64,9 +64,7 @@
 		public async Task<ReportQueryModel> GetMonthlyProductionAsync(
 			DateTime? month,
 			int? projectId,
-			int? departmentId,
-			int currentPage = 1,
-			int precastPerPage = 4)
+			int? departmentId)
 		{
 			var query = repository.AllReadonly<PrecastDepartment>();
 
@@ -134,10 +132,7 @@
 			var totalPrecast = precast.Count();
 			var totalReinforceWeight = precast.Sum(p => p.Reinforcement);
 			var totalConcreteAmount = precast.Sum(p => p.Concrete);
-
-			precast = precast.Skip((currentPage - 1) * precastPerPage)
-				.Take(precastPerPage)
-				.ToArray();
+	
 
 			return new ReportQueryModel()
 			{
@@ -200,8 +195,8 @@
 			DateTime? toDate = null,
 			string? searchTerm = null,
 			ProductionSorting sorting = ProductionSorting.ProjectName,
-			int currentPage = 1, int
-			precastPerPage = 12)
+			int currentPage = 1, 
+			int precastPerPage = 12)
 		{
 			var query = repository.AllReadonly<PrecastDepartment>();
 
@@ -244,17 +239,12 @@
 
 			query = sorting switch
 			{
-				ProductionSorting.PrecastType => query.OrderBy(dp => dp.Precast.PrecastType.Name).ThenBy(dp => dp.Precast.Project.Name),
-				_ => query.OrderBy(dp => dp.Precast.Project.Name).ThenBy(dp => dp.Precast.PrecastType.Name)
+				ProductionSorting.PrecastType => query.OrderBy(dp => dp.Precast.PrecastType.Name).ThenBy(dp => dp.Precast.Project.Name).ThenBy(dp => dp.Precast.Name),
+				_ => query.OrderBy(dp => dp.Precast.Project.Name).ThenBy(dp => dp.Precast.PrecastType.Name).ThenBy(dp => dp.Precast.Name)
 			};
 
-			query = query.OrderByDescending(dp => dp.Precast.Name);
-
-			var totalPrecast = query.Count();
-
+			
 			var precast = await query
-				.Skip((currentPage - 1) * precastPerPage)
-				.Take(precastPerPage)
 				.Select(dp => new ProductionInfoViewModel
 				{
 					ProjectName = dp.Precast.Project.Name,
@@ -282,6 +272,13 @@
 					Count = dp.Sum(p => p.Count),
 					Department = dp.Key.Department
 				}).ToArray();
+
+			var totalPrecast = precast.Count();
+
+			precast = precast
+				.Skip((currentPage - 1) * precastPerPage)
+				.Take(precastPerPage)
+				.ToArray();
 
 			return new ProductionQueryModel()
 			{
