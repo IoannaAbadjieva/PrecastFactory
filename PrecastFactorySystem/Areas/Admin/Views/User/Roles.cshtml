@@ -7,20 +7,18 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<table class="table table-borderless">
-	@foreach (var role in Model)
+
+@foreach (var role in Model)
+{
+	<h6>@role.Name</h6>
+	<hr />
+	foreach (var user in role.Users)
 	{
-		<tr>
-			<td>@role.Name</td>
-			<td></td>
-		</tr>
-		<hr/>
-		foreach (var user in role.Users)
-		{
+		<table class="table table-borderless">
 			<tr>
 				<td></td>
 				<td>@user</td>
 			</tr>
-		}
+		</table>
 	}
-</table>
+}

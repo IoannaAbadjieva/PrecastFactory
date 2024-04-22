@@ -43,7 +43,7 @@
 
 		[ProjectExists]
 		[HttpPost]
-		public async Task<IActionResult> Delete(int id, ProjectInfoViewModel model)
+		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			await baseService.DeleteEntityAsync<Project>(id);
 			return RedirectToAction(nameof(All));
