@@ -1,0 +1,50 @@
+﻿*, *::before, *::after {
+    color: #1c1b1b;
+}
+
+
+.index-page-greeting {
+    font-weight: 700;
+}
+
+.index-page-greeting-p {
+    color: black;
+}
+
+body {
+    background-color: #e3e1dc;
+}
+
+header {
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+a {
+    text-decoration: none;
+    color: #383636;
+}
+
+*:hover {
+    color: #1f52a3;
+}
+
+
+.custom-button-color {
+    background-color: #fdebd3;
+    border-color: #fdebd3;
+}
+
+    .custom-button-color:hover {
+        background-color: #264e70;
+        color: #bbd4ce;
+    }

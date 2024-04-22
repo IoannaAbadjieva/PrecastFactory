@@ -16,13 +16,13 @@
 		@foreach (var project in Model)
 		{
 			<tr>
-				<td class ="text-dark">@project.Id</td>
-				<td class="text-dark">@project.Name</td>
-				<td class="text-dark">@project.ProdNumber</td>
-				<td class="text-dark">@project.AddedOn</td>
-				<td class="text-dark">@project.PrecastCount</td>
-				<td class="text-dark">@project.PrecastTotalCount</td>
-				<td class="card-link link-secondary"><a asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id">Delete</a></td>
+				<td>@project.Id</td>
+				<td>@project.Name</td>
+				<td>@project.ProdNumber</td>
+				<td>@project.AddedOn</td>
+				<td>@project.PrecastCount</td>
+				<td>@project.PrecastTotalCount</td>
+				<td class="card-link"><a asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id">Delete</a></td>
 			</tr>
 		}
 	</tbody>

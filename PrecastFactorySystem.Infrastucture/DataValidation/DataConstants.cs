@@ -77,5 +77,13 @@
         public const int UserNameMinLength = 3;
 
         public const int UserNameMaxLength = 20;
+
+        public const int UserPasswordMinLength = 6;
+
+        public const int UserPasswordMaxLength = 20;
+
+        public const int UserEmailMinLength = 5;
+
+        public const int UserEmailMaxLength = 60;
     }
 }

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<RoleInfoViewModel>
+
+@{
+	ViewBag.Title = "All Roles";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<table class="table table-borderless">
+	@foreach (var role in Model)
+	{
+		<tr>
+			<td>@role.Name</td>
+			<td></td>
+		</tr>
+		<hr/>
+		foreach (var user in role.Users)
+		{
+			<tr>
+				<td></td>
+				<td>@user</td>
+			</tr>
+		}
+	}
+</table>

@@ -4,17 +4,17 @@
 	ViewBag.Title = "All Users";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<h2 class="bg-light text-dark text-center">@ViewBag.Title</h2>
+<hr class="bg-light text-dark" />
 
-<table>
+<table class=" table table-borderless">
 	<thead>
 		<tr>
-			<th ><label>Full Name</label></th>
-			<th ><label>Email</label></th>
-			<th ><label>UserName</label></th>
-			<th ><label>Phone Number</label></th>
-			<th ><label>Role</label></th>
+			<th></th>
+			<th>Full Name</th>
+			<th>UserName</th>
+			<th>Phone Number</th>
+			<th>Role</th>
 
 		</tr>
 	</thead>
@@ -22,20 +22,12 @@
 		@foreach (var user in Model)
 		{
 			<tr>
-				<td>
-					@if (user.FullName != string.Empty)
-					{
-						<label>✔</label>
-					}
-					else
-					{
-						<label class="text-center">❌</label>
-					}
-				</td>
-				<td ><label>@user.FullName</label></td>
-				<td ><label>@user.UserName</label></td>
-				<td ><label>@user.Email</label></td>
-				<td ><label>@user.Role</label></td>
+				<td>@user.FullName</td>
+				<td>@user.UserName</td>
+				<td>@user.Email</td>
+				<td>@user.Role</td>
+				<td><a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Edit</a></td>
+				<td><a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id"><label class="text-center">❌</label></a></td>
 
 			</tr>
 		}

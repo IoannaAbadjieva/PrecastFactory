@@ -11,11 +11,11 @@
         [Required]
         [PersonalData]
         [MaxLength(UserNameMaxLength)]
-        public string? FirstName { get; set; } 
+        public string FirstName { get; set; } = string.Empty;
 
         [Required]
         [PersonalData]
         [MaxLength(UserNameMaxLength)]
-        public string? LastName { get; set; } 
+        public string LastName { get; set; } = string.Empty;
     }
 }
