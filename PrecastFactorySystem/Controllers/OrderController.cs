@@ -59,7 +59,7 @@
 			}
 			catch (OrderActionException oae)
 			{
-				return View("OrderError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = oae.Message
 				});
@@ -95,7 +95,7 @@
 			catch (OrderActionException oae)
 			{
 
-				return View("OrderError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = oae.Message
 				});
@@ -118,7 +118,7 @@
 			}
 			catch (DeleteActionException dae)
 			{
-				return View("DeleteError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});
@@ -139,7 +139,7 @@
 			catch (DeleteActionException dae)
 			{
 
-				return View("DeleteError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = dae.Message
 				});

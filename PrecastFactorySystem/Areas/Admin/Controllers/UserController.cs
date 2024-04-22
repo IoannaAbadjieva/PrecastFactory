@@ -3,14 +3,14 @@
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 
+	using PrecastFactorySystem.Attributes;
+	using PrecastFactorySystem.Core.Models;
 	using PrecastFactorySystem.Core.Models.User;
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
 
 	using static PrecastFactorySystem.Infrastructure.DataValidation.CustomClaims;
-	using PrecastFactorySystem.Core.Models;
-	using PrecastFactorySystem.Attributes;
 
 	public class UserController : AdminBaseController
 	{
@@ -119,7 +119,7 @@
 			}
 			catch (DeleteActionException dae)
 			{
-				return View("DeleteError", new BaseErrorViewModel { Message = dae.Message });
+				return View("BaseError", new BaseErrorViewModel { Message = dae.Message });
 			}
 		}
 
@@ -134,7 +134,7 @@
 			}
 			catch (DeleteActionException dae)
 			{
-				return View("DeleteError", new BaseErrorViewModel { Message = dae.Message });
+				return View("BaseError", new BaseErrorViewModel { Message = dae.Message });
 			}
 		}
 

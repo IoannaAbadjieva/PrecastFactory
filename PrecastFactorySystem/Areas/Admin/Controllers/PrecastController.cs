@@ -48,7 +48,7 @@
 
 		[PrecastExists]
 		[HttpPost]
-		public async Task<IActionResult> Delete(int id, ProjectInfoViewModel model)
+		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			await baseService.DeleteEntityAsync<Precast>(id);
 			return RedirectToAction(nameof(All));

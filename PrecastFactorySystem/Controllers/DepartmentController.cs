@@ -104,7 +104,7 @@
 		{
 			if (string.IsNullOrWhiteSpace(ReportHtml))
 			{
-				return View("ReportError", new BaseErrorViewModel()
+				return View("BaseError", new BaseErrorViewModel()
 				{
 					Message = DownloadReportErrorMessage
 				});
