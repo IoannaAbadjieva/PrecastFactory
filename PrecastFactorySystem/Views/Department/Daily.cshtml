@@ -17,6 +17,10 @@
 <h4 class="text-center">@ViewBag.Title</h4>
 <hr />
 
+@if (!query.Any())
+{
+	<h5 class="text-center">No production yet</h5>
+}
 <div class="d-flex flex-column justify-content-between overflow-y-scroll">
 
 	<div class="d-flex flex-row justify-content-between">
@@ -43,8 +47,6 @@
 			</div>
 		}
 	</div>
-
-	<a asp-controller="Department" asp-action="All" class="btn btn-secondary mb-2  p-3 fw-bold text-center">Back to all</a>
 
 </div>
 @section Scripts {

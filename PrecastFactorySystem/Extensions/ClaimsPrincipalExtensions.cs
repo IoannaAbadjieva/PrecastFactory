@@ -12,5 +12,20 @@
 			return user.IsInRole("Administrator");
 		}
 
+		public static bool IsManager(this ClaimsPrincipal user)
+		{
+			return user.IsInRole("Manager");
+		}
+
+		public static bool IsReinforceManager(this ClaimsPrincipal user)
+		{
+			return user.IsInRole("ReinforceManager");
+		}
+
+		public static bool IsPrecastProductionManager(this ClaimsPrincipal user)
+		{
+			return user.IsInRole("PrecastProductionManager");
+		}
+
 	}
 }

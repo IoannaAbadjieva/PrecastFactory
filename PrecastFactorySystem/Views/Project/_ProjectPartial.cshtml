@@ -1,4 +1,5 @@
-﻿@model ProjectInfoViewModel
+﻿@using System.Security.Claims
+@model ProjectInfoViewModel
 
 <div class="card bg-transparent text-light " style="max-width:18rem">
 	<h5 class="card-title">@Model.Name</h5>
@@ -8,7 +9,11 @@
 	<p class="card-text"><span class="fw-bold">Total count: </span>@Model.PrecastTotalCount<span class="fw-bold"> pcs</span></p>
 	<hr />
 	<div><a asp-controller="Project" asp-action="Details" asp-route-id="@Model.Id" class="card-link">Details</a></div>
-	<div><a asp-controller="Project" asp-action="AddPrecast" asp-route-id="@Model.Id">Add Precast</a></div>
-	<div><a asp-controller="Project" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
-	<div><a asp-controller="Project" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+	@if (User.IsAdmin() || User.IsManager())
+	{
+		<div><a asp-controller="Project" asp-action="AddPrecast" asp-route-id="@Model.Id">Add Precast</a></div>
+		<div><a asp-controller="Project" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
+		<div><a asp-controller="Project" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+	}
+
 </div>

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PrecastProductionViewModel>
+﻿@using System.Security.Claims
+@model IEnumerable<PrecastProductionViewModel>
 
 <table class="table table-hover table-borderless">
 	<thead>
@@ -20,23 +21,27 @@
 				<td>@record.Department</td>
 				<td>@record.Count</td>
 				<td>@record.Date</td>
-				<td>
-					<a asp-controller="Precast"
-					   asp-action="EditProduction"
-					   asp-route-id="@record.Id"
-					   class="card-link">Edit
-					</a>
-				</td>
-				<td>
-					<a asp-controller="Precast"
-					   asp-action="DeleteProduction"
-					   asp-route-id="@record.Id"
-					   asp-route-precastId="@record.PrecastId"
-					   class="card-link"
-					   onclick="return confirm('Are you sure you want to delete this production record?')">
-						Delete
-					</a>
-				</td>
+				@if (User.IsAdmin() || User.IsPrecastProductionManager())
+				{
+					<td>
+						<a asp-controller="Precast"
+						   asp-action="EditProduction"
+						   asp-route-id="@record.Id"
+						   class="card-link">
+							Edit
+						</a>
+					</td>
+					<td>
+						<a asp-controller="Precast"
+						   asp-action="DeleteProduction"
+						   asp-route-id="@record.Id"
+						   asp-route-precastId="@record.PrecastId"
+						   class="card-link"
+						   onclick="return confirm('Are you sure you want to delete this production record?')">
+							Delete
+						</a>
+					</td>
+				}
 			</tr>
 		}
 	</tbody>

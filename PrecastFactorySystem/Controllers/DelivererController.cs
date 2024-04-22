@@ -1,14 +1,15 @@
 ﻿namespace PrecastFactorySystem.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Authorization;
 
-	using Attributes;
-	using Core.Contracts;
-	using Core.Exceptions;
-	using Core.Models;
-	using Core.Models.Deliverer;
-	using PrecastFactorySystem.Core.Models.Project;
+	using PrecastFactorySystem.Attributes;
+	using PrecastFactorySystem.Core.Contracts;
+	using PrecastFactorySystem.Core.Exceptions;
+	using PrecastFactorySystem.Core.Models;
+	using PrecastFactorySystem.Core.Models.Deliverer;
 
+	
 	public class DelivererController : BaseController
 	{
 		private readonly IDelivererService delivererService;
@@ -17,6 +18,8 @@
 		{
 			delivererService = _delivererService;
 		}
+
+		[HttpGet]
 		public async Task<IActionResult> All([FromQuery] AllDeliverersQueryModel model)
 		{
 			var deliverers = await delivererService.GetAllDeliverersAsync(
@@ -30,6 +33,8 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
+		[HttpGet]
 		public IActionResult Add()
 		{
 			DelivererFormViewModel model = new DelivererFormViewModel();
@@ -37,6 +42,7 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[HttpPost]
 		public async Task<IActionResult> Add(DelivererFormViewModel model)
 		{
@@ -50,7 +56,9 @@
 			return RedirectToAction(nameof(All));
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[DelivererExists]
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 
@@ -59,8 +67,9 @@
 
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[DelivererExists]
+		[HttpPost]
 		public async Task<IActionResult> Edit(int id, DelivererFormViewModel model)
 		{
 
@@ -69,7 +78,9 @@
 
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[DelivererExists]
+		[HttpGet]
 		public async Task<IActionResult> Delete(int id)
 		{
 			try
@@ -87,8 +98,9 @@
 			}
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[DelivererExists]
+		[HttpPost]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try

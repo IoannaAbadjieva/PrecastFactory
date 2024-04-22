@@ -12,6 +12,7 @@
 
 	using static Core.Constants.MessageConstants;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
+	using Microsoft.AspNetCore.Authorization;
 
 	public class PrecastController : BaseController
 	{
@@ -27,6 +28,8 @@
 			baseService = _baseService;
 			reinforceService = _reinforceService;
 		}
+
+		[HttpGet]
 		public async Task<IActionResult> All([FromQuery] AllPrecastQueryModel model)
 		{
 			var precasts = await precastService.GetAllPrecastAsync(
@@ -45,6 +48,8 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
+		[HttpGet]
 		public async Task<IActionResult> Add()
 		{
 			PrecastFormViewModel model = new PrecastFormViewModel()
@@ -57,6 +62,7 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
 		[HttpPost]
 		public async Task<IActionResult> Add(PrecastFormViewModel model)
 		{
@@ -74,15 +80,18 @@
 			return RedirectToAction(nameof(All));
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
 		[PrecastExists]
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 			PrecastFormViewModel model = await precastService.GetPrecastByIdAsync(id);
 			return View(model);
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, Manager")]
 		[PrecastExists]
+		[HttpPost]
 		public async Task<IActionResult> Edit(PrecastFormViewModel model, int id)
 		{
 			int reinforced = await precastService.GetReinforcedPrecastCountAsync(id);
@@ -114,7 +123,9 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
 		[PrecastExists]
+		[HttpGet]
 		public async Task<IActionResult> Delete(int id)
 		{
 			try
@@ -132,8 +143,9 @@
 
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, Manager")]
 		[PrecastExists]
+		[HttpPost]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try
@@ -153,7 +165,9 @@
 
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[PrecastExists]
+		[HttpGet]
 		public async Task<IActionResult> Reinforce(int id, [FromQuery] AllPrecastReinforceQueryModel model)
 		{
 			PrecastReinforceQueryModel precastReinforce = await precastService.GetPrecastReinforceAsync(
@@ -174,8 +188,9 @@
 			return View(model);
 		}
 
-
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[PrecastExists]
+		[HttpGet]
 		public async Task<IActionResult> AddReinforce(int id)
 		{
 			ReinforceFormViewModel model = new ReinforceFormViewModel()
@@ -186,8 +201,9 @@
 			return View(model);
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[PrecastExists]
+		[HttpPost]
 		public async Task<IActionResult> AddReinforce(int id, ReinforceFormViewModel model)
 		{
 			if (!ModelState.IsValid)
@@ -200,8 +216,8 @@
 			return RedirectToAction(nameof(Reinforce), new { id });
 		}
 
-
 		[PrecastExists]
+		[HttpGet]
 		public async Task<IActionResult> Production(int id, [FromQuery] AllPrecastProductionQueryModel model)
 		{
 			PrecastProductionQueryModel precastProduction = await precastService.GetPrecastProductionAsync(
@@ -223,7 +239,9 @@
 
 		}
 
+		[Authorize(Roles = "Administrator, PrecastProductionManager")]
 		[PrecastExists]
+		[HttpGet]
 		public async Task<IActionResult> Produce(int id)
 		{
 			try
@@ -242,8 +260,9 @@
 
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, PrecastProductionManager")]
 		[PrecastExists]
+		[HttpPost]
 		public async Task<IActionResult> Produce(int id, PrecastProductionFormViewModel model)
 		{
 			try
@@ -276,6 +295,7 @@
 
 		}
 
+		[Authorize(Roles = "Administrator, PrecastProductionManager")]
 		[ProductionRecordExists]
 		public async Task<IActionResult> EditProduction(int id)
 		{
@@ -283,9 +303,9 @@
 			return View(model);
 		}
 
-
-		[HttpPost]
+		[Authorize(Roles = "Administrator, PrecastProductionManager")]
 		[ProductionRecordExists]
+		[HttpPost]
 		public async Task<IActionResult> EditProduction(int id, PrecastProductionFormViewModel model)
 		{
 			try
@@ -320,7 +340,9 @@
 
 		}
 
+		[Authorize(Roles = "Administrator, PrecastProductionManager")]
 		[ProductionRecordExists]
+		[HttpPost]
 		public async Task<IActionResult> DeleteProduction(int id, int precastId)
 		{
 			await precastService.DeletePrecastProductionRecordAsync(id);

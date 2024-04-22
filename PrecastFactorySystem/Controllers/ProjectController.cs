@@ -10,6 +10,7 @@
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
+	using Microsoft.AspNetCore.Authorization;
 
 	public class ProjectController : BaseController
 	{
@@ -27,6 +28,8 @@
 			precastService = _precastService;
 			baseService = _baseService;
 		}
+
+		[HttpGet]
 		public async Task<IActionResult> All([FromQuery]AllProjectsQueryModel model)
 		{
 			var projects = await projectService.GetAllProjectsAsync(
@@ -41,6 +44,8 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
+		[HttpGet]
 		public IActionResult Add()
 		{
 			ProjectFormViewModel model = new ProjectFormViewModel();
@@ -48,6 +53,7 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
 		[HttpPost]
 		public async Task<IActionResult> Add(ProjectFormViewModel model)
 		{
@@ -62,13 +68,16 @@
 		}
 
 		[ProjectExists]
+		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
 			ProjectDetailsViewModel? model = await projectService.GetProjectDetails(id);
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
 		[ProjectExists]
+		[HttpGet]
 		public async Task<IActionResult> AddPrecast(int id)
 		{
 			PrecastFormViewModel model = new PrecastFormViewModel()
@@ -81,8 +90,9 @@
 			return View(model);
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, Manager")]
 		[ProjectExists]
+		[HttpPost]
 		public async Task<IActionResult> AddPrecast(PrecastFormViewModel model, int id)
 		{
 			if (!ModelState.IsValid)
@@ -100,15 +110,18 @@
 
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
 		[ProjectExists]
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 			ProjectFormViewModel model = await projectService.GetProjectByIdAsync(id);
 			return View(model);
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, Manager")]
 		[ProjectExists]
+		[HttpPost]
 		public async Task<IActionResult> Edit(ProjectFormViewModel model, int id)
 		{
 			if (!ModelState.IsValid)
@@ -120,7 +133,9 @@
 			return RedirectToAction(nameof(All));
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
 		[ProjectExists]
+		[HttpGet]
 		public async Task<IActionResult> Delete(int id)
 		{
 			try
@@ -138,8 +153,9 @@
 
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, Manager")]
 		[ProjectExists]
+		[HttpPost]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			try

@@ -1,5 +1,6 @@
 ﻿namespace PrecastFactorySystem.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 
 	using PrecastFactorySystem.Attributes;
@@ -25,6 +26,8 @@
 			precastService = _precastService;
 			baseService = _baseService;
 		}
+
+		[HttpGet]
 		public async Task<IActionResult> All([FromQuery] AllOrdersQueryModel model)
 		{
 			var orders = await orderService.GetReinforceOrdersAsync(
@@ -44,6 +47,8 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
+		[HttpGet]
 		[PrecastExists]
 		public async Task<IActionResult> Order(int id)
 		{
@@ -62,6 +67,7 @@
 
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[HttpPost]
 		[PrecastExists]
 		public async Task<IActionResult> Order(int id, OrderPrecastReinforceViewModel model)
@@ -99,6 +105,9 @@
 
 		}
 
+
+		[Authorize(Roles = "Administrator, ReinforceManager")]
+		[HttpGet]
 		[OrderExists]
 		public async Task<IActionResult> Delete(int id)
 		{
@@ -117,6 +126,7 @@
 
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[HttpPost]
 		[OrderExists]
 		public async Task<IActionResult> DeleteConfirmed(int id)
@@ -136,6 +146,8 @@
 			}
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
+		[HttpGet]
 		[PrecastExists]
 		public async Task<IActionResult> ForPrecast(int id, [FromQuery] AllPrecastOrdersQueryModel model)
 		{

@@ -2,6 +2,7 @@
 {
 	using Core.Contracts;
 
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 
 	using PrecastFactorySystem.Attributes;
@@ -19,15 +20,18 @@
 			baseService = _baseService;
 		}
 
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[ReinforceExists]
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 			ReinforceFormViewModel? model = await reinforceService.GetReinforceByIdAsync(id);
 			return View(model);
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[ReinforceExists]
+		[HttpPost]
 		public async Task<IActionResult> Edit(int id, ReinforceFormViewModel model)
 		{
 			if (!ModelState.IsValid)
@@ -41,8 +45,9 @@
 
 		}
 
-		[HttpPost]
+		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[ReinforceExists]
+		[HttpPost]
 		public async Task<IActionResult> Delete(int id)
 		{
 			int precastId = await reinforceService.DeleteReinforceAsync(id);

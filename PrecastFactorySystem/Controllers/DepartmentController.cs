@@ -13,6 +13,7 @@
 	using PrecastFactorySystem.Core.Models;
 
 	using static PrecastFactorySystem.Core.Constants.MessageConstants;
+	using Microsoft.AspNetCore.Authorization;
 
 	public class DepartmentController : BaseController
 	{
@@ -49,20 +50,21 @@
 			return View(model);
 		}
 
+		[HttpGet]
 		public async Task<IActionResult> Daily()
 		{
 			IEnumerable<ProductionInfoViewModel> model = await departmentService.GetDailyProductionAsync();
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator,Manager,ReinforceManager,PrecastProductionManager")]
+		[HttpGet]
 		public async Task<IActionResult> Monthly([FromQuery] AllReportQueryModel model)
 		{
 			var precast = await departmentService.GetMonthlyProductionAsync(
 				model.Month,
 				model.ProjectId,
-				model.DepartmentId,
-				model.CurrentPage,
-				AllReportQueryModel.PrecastPerPage);
+				model.DepartmentId);
 
 			model.Precast = precast.Precast;
 			model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
@@ -75,7 +77,10 @@
 			return View(model);
 		}
 
+		
 		[PrecastExists]
+		[HttpGet]
+
 		public async Task<IActionResult> Details(int id, [FromQuery] AllProductionDetailsQueryModel model)
 		{
 			ProductionDetailsQueryModel precast = await departmentService.GetPrecastProductionDetailsAsync(
@@ -93,6 +98,7 @@
 			return View(model);
 		}
 
+		[Authorize(Roles = "Administrator, Manager")]
 		[HttpPost]
 		public IActionResult Download(string ReportHtml)
 		{

@@ -25,7 +25,11 @@
 								</a>
 								<ul class="dropdown-menu bg-dark">
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Project" asp-action="All">All Projects</a></li>
-									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Project" asp-action="Add">Add New</a></li>
+									@if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+									{
+										<li><a class="dropdown-item link-light" asp-area="" asp-controller="Project" asp-action="Add">Add New</a></li>
+									}
+
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
@@ -34,7 +38,10 @@
 								</a>
 								<ul class="dropdown-menu bg-dark">
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Precast" asp-action="All">All Precast</a></li>
-									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Precast" asp-action="Add">Add New</a></li>
+									@if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+									{
+										<li><a class="dropdown-item link-light" asp-area="" asp-controller="Precast" asp-action="Add">Add New</a></li>
+									}
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
@@ -43,7 +50,6 @@
 								</a>
 								<ul class="dropdown-menu bg-dark">
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Order" asp-action="All">Orders</a></li>
-									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Reinforce" asp-action="Add">Add New</a></li>
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
@@ -52,9 +58,12 @@
 								</a>
 								<ul class="dropdown-menu bg-dark">
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Deliverer" asp-action="All">All Deliverers</a></li>
-									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Deliverer" asp-action="Add">Add New</a></li>
+									@if (User.IsInRole("Administrator") || User.IsInRole("ReinforceManager"))
+									{
+										<li><a class="dropdown-item link-light" asp-area="" asp-controller="Deliverer" asp-action="Add">Add New</a></li>
+									}
 								</ul>
-							</li>	
+							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle link-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									Departments
@@ -62,10 +71,13 @@
 								<ul class="dropdown-menu bg-dark">
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Department" asp-action="All">Production</a></li>
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Department" asp-action="Daily">For today</a></li>
-									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Department" asp-action="Monthly">Reports</a></li>
+									@if (!User.IsInRole("User"))
+									{
+										<li><a class="dropdown-item link-light" asp-area="" asp-controller="Department" asp-action="Monthly">Reports</a></li>
+									}
 								</ul>
 							</li>
-							
+
 
 						}
 					</ul>
@@ -74,7 +86,7 @@
 			</div>
 		</nav>
 	</header>
-	<div  class="container">
+	<div class="container">
 		<main role="main">
 			@RenderBody()
 		</main>

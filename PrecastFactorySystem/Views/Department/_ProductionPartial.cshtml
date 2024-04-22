@@ -21,11 +21,7 @@
 				<td>@precast.PrecastName</td>
 				<td>@precast.Count</td>
 				<td>@precast.Department</td>
-
-				@if (User?.Identity?.IsAuthenticated ?? false)
-				{
-					<td><a asp-controller="Department" asp-action="Details" asp-route-id="@precast.PrecastId" class="card-link">Details</a></td>
-				}
+				<td><a asp-controller="Department" asp-action="Details" asp-route-id="@precast.PrecastId" class="card-link">Details</a></td>
 			</tr>
 		}
 	</tbody>

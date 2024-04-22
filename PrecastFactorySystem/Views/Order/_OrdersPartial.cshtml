@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ReinforceOrderInfoViewModel>
+﻿@using System.Security.Claims
+@model IEnumerable<ReinforceOrderInfoViewModel>
 
 <table class="table table-hover table-borderless">
 	<thead>
@@ -29,7 +30,7 @@
 				<td>@order.DeliverDate</td>
 				<td>@order.Department</td>
 				<td>@order.Deliverer</td>
-				@if (User?.Identity?.IsAuthenticated ?? false)
+				@if (User.IsAdmin() || User.IsReinforceManager())
 				{
 					<td><a asp-controller="Order" asp-action="Delete" asp-route-id="@order.OrderId" class="card-link">Delete</a></td>
 				}

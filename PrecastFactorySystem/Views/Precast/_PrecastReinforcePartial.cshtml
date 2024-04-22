@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ReinforceInfoViewModel>
+﻿@using System.Security.Claims
+@model IEnumerable<ReinforceInfoViewModel>
 
 <table class="table table-hover table-borderless">
 	<thead>
@@ -26,11 +27,16 @@
 				<td>@reinforce.SpecificMass</td>
 				<td>@reinforce.Length</td>
 				<td>@reinforce.Weight</td>
-				<td><a asp-controller="Reinforce" asp-action="Edit" asp-route-id="@reinforce.Id" class="card-link">Edit</a></td>
-				<td>
-					<a asp-controller="Reinforce" asp-action="Delete" asp-route-id="@reinforce.Id" class="card-link"
-					   onclick="return confirm('Are you sure you want to delete this reinforce?')">Delete</a>
-				</td>
+				@if (User.IsAdmin() || User.IsReinforceManager())
+				{
+
+
+					<td><a asp-controller="Reinforce" asp-action="Edit" asp-route-id="@reinforce.Id" class="card-link">Edit</a></td>
+					<td>
+						<a asp-controller="Reinforce" asp-action="Delete" asp-route-id="@reinforce.Id" class="card-link"
+						   onclick="return confirm('Are you sure you want to delete this reinforce?')">Delete</a>
+					</td>
+				}
 			</tr>
 		}
 	</tbody>

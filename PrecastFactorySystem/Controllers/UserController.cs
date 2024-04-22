@@ -23,8 +23,8 @@
 
 
 
-		[HttpGet]
 		[AllowAnonymous]
+		[HttpGet]
 		public IActionResult Login()
 		{
 			if (User?.Identity?.IsAuthenticated ?? false)
@@ -37,8 +37,8 @@
 			return View(model);
 		}
 
-		[HttpPost]
 		[AllowAnonymous]
+		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel model)
 		{
 			if (!ModelState.IsValid)

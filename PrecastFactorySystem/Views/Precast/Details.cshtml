@@ -1,4 +1,5 @@
-﻿@model PrecastDetailsViewModel
+﻿@using System.Security.Claims
+@model PrecastDetailsViewModel
 @{
     ViewBag.Title = "Precast Details";
 }
@@ -23,7 +24,7 @@
         </div>
 
         <a asp-controller="Precast" asp-action="All" class="btn btn-secondary mb-2  p-3 fw-bold">All Precast</a>
-        @if (User?.Identity?.IsAuthenticated ?? false)
+        @if (User.IsAdmin() || User.IsManager())
         {
             <a asp-controller="Precast" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary mb-2 w-100 p-3 fw-bold">Edit</a>
             <a asp-controller="Precast" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>

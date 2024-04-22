@@ -16,6 +16,10 @@
 		[AllowAnonymous]
 		public IActionResult Index()
 		{
+			if (User?.Identity?.IsAuthenticated ?? false)
+			{
+				return RedirectToAction("Daily", "Department");
+			}
 			return View();
 		}
 
