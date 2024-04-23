@@ -46,6 +46,7 @@
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			await baseService.DeleteEntityAsync<Project>(id);
+			TempData["Message"] = "You have successfully deleted project!";
 			return RedirectToAction(nameof(All));
 		}
 	}

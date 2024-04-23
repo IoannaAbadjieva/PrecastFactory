@@ -69,6 +69,7 @@
 				}
 
 				await produceService.ProducePrecastAsync(id, model);
+				TempData["Message"] = "You have successfully added production record!";
 				return RedirectToAction("Production", "Precast", new { id });
 			}
 			catch (ProduceActionException pae)
@@ -115,6 +116,7 @@
 				}
 
 				await produceService.EditProductionRecordAsync(id, model);
+				TempData["Message"] = "You have successfully edited production record!";
 				return RedirectToAction("Production", "Precast", new { id = precastId });
 			}
 			catch (ProduceActionException pae)
@@ -134,6 +136,7 @@
 		public async Task<IActionResult> Delete(int id, int precastId)
 		{
 			await produceService.DeleteProductionRecordAsync(id);
+			TempData["Message"] = "You have successfully deleted production record!";
 			return RedirectToAction("Production", "Precast", new { id = precastId });
 		}
 	}

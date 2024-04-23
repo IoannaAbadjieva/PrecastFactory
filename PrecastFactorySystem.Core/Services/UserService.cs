@@ -14,6 +14,7 @@
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
 
 	using static PrecastFactorySystem.Core.Constants.MessageConstants;
+	using static PrecastFactorySystem.Core.Constants.AdministratorConstants;
 
 	public class UserService : IUserService
 	{
@@ -87,7 +88,7 @@
 		{
 			var user = await userManager.FindByIdAsync(id);
 
-			if (await userManager.IsInRoleAsync(user, "Administrator"))
+			if (await userManager.IsInRoleAsync(user, AdminRoleName))
 			{
 				throw new DeleteActionException(DeleteAdminErrorMessage);
 			}
@@ -106,8 +107,8 @@
 		{
 			var user = await userManager.FindByIdAsync(id);
 
-			if (await userManager.IsInRoleAsync(user, "Administrator"))
-			{
+			if (await userManager.IsInRoleAsync(user, AdminRoleName))
+			{	
 				throw new DeleteActionException(DeleteAdminErrorMessage);
 			}
 

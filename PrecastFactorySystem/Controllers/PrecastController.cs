@@ -76,6 +76,7 @@
 
 			await precastService.AddPrecastAsync(model);
 
+			TempData["Message"] = "You have successfully added precast!";
 			return RedirectToAction(nameof(All));
 		}
 
@@ -110,6 +111,7 @@
 				return View(model);
 			}
 			await precastService.EditPrecastAsync(id, model);
+			TempData["Message"] = "You have successfully edited precast!";
 			return RedirectToAction(nameof(All));
 
 		}
@@ -150,6 +152,8 @@
 			try
 			{
 				await precastService.DeletePrecastAsync(id);
+				TempData["Message"] = "You have successfully deleted precast!";
+				return RedirectToAction(nameof(All));
 			}
 			catch (DeleteActionException dae)
 			{
@@ -160,7 +164,7 @@
 				});
 			}
 
-			return RedirectToAction(nameof(All));
+			
 
 		}
 

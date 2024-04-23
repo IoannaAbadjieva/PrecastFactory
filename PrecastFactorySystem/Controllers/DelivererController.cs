@@ -52,7 +52,7 @@
 			}
 
 			await delivererService.AddDelivererAsync(model);
-
+			TempData["Message"] = "You have successfully added deliverer!";
 			return RedirectToAction(nameof(All));
 		}
 
@@ -74,6 +74,7 @@
 		{
 
 			await delivererService.EditDelivererAsync(id, model);
+			TempData["Message"] = "You have successfully edited deliverer!";
 			return RedirectToAction(nameof(All));
 
 		}
@@ -106,6 +107,8 @@
 			try
 			{
 				await delivererService.DeleteDelivererAsync(id);
+				TempData["Message"] = "You have successfully deleted deliverer!";
+				return RedirectToAction(nameof(All));
 			}
 			catch (DeleteActionException dae)
 			{
@@ -116,7 +119,7 @@
 				});
 			}
 
-			return RedirectToAction(nameof(All));
+			
 
 		}
 

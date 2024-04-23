@@ -46,6 +46,8 @@
 			}
 
 			await reinforceService.AddReinforceAsync(id, model);
+
+			TempData["Message"] = "You have successfully added reinforce!";
 			return RedirectToAction("Reinforce", "Precast", new { id });
 		}
 
@@ -70,6 +72,8 @@
 			}
 
 			int precastId = await reinforceService.EditReinforceAsync(id, model);
+
+			TempData["Message"] = "You have successfully edited reinforce!";
 			return RedirectToAction("Reinforce", "Precast", new { id = precastId });
 
 		}
@@ -79,6 +83,8 @@
 		public async Task<IActionResult> Delete(int id, int precastId)
 		{
 			await reinforceService.DeleteReinforceAsync(id);
+
+			TempData["Message"] = "You have successfully deleted reinforce!";
 			return RedirectToAction("Reinforce", "Precast", new { id = precastId });
 
 		}

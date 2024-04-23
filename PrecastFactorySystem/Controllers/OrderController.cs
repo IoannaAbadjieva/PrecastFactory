@@ -90,6 +90,7 @@
 				}
 
 				await orderService.OrderPrecastAsync(id, model);
+				TempData["Message"] = "You have successfully ordered precast!";
 				return RedirectToAction("Reinforce", "Precast", new { id });
 			}
 			catch (OrderActionException oae)
@@ -134,6 +135,7 @@
 			try
 			{
 				await orderService.DeleteOrderAsync(id);
+				TempData["Message"] = "You have successfully deleted order!";
 				return RedirectToAction(nameof(All));
 			}
 			catch (DeleteActionException dae)

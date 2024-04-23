@@ -64,6 +64,7 @@
 
 			await projectService.AddProjectAsync(model);
 
+			TempData["Message"] = "You have successfully added project!";
 			return RedirectToAction(nameof(All));
 		}
 
@@ -106,6 +107,8 @@
 
 
 			await projectService.AddPrecastToProjectAsync(model, id);
+
+			TempData["Message"] = "You have successfully added precast!";
 			return RedirectToAction(nameof(All));
 
 		}
@@ -130,6 +133,8 @@
 			}
 
 			await projectService.EditProjectAsync(id, model);
+
+			TempData["Message"] = "You have successfully edited project!";
 			return RedirectToAction(nameof(All));
 		}
 
@@ -161,6 +166,8 @@
 			try
 			{
 				await projectService.DeleteProjectAsync(id);
+
+				TempData["Message"] = "You have successfully deleted project!";
 				return RedirectToAction(nameof(All));
 			}
 			catch (DeleteActionException dae)

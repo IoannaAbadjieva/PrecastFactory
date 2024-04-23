@@ -6,6 +6,7 @@
 
 	using PrecastFactorySystem.Core.Models.User;
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
+	using static PrecastFactorySystem.Core.Constants.AdministratorConstants;
 
 	public class UserController : BaseController
 	{
@@ -54,7 +55,7 @@
 
 				if (result.Succeeded)
 				{
-					if (await userManager.IsInRoleAsync(user, "Administrator"))
+					if (await userManager.IsInRoleAsync(user, AdminRoleName))
 					{
 						return RedirectToAction("Index", "Home", new { area = "Admin" });
 					}

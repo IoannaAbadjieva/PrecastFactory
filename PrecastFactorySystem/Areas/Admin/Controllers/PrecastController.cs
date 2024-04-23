@@ -51,6 +51,7 @@
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			await baseService.DeleteEntityAsync<Precast>(id);
+			TempData["Message"] = "You have successfully deleted precast!";
 			return RedirectToAction(nameof(All));
 		}
 	}

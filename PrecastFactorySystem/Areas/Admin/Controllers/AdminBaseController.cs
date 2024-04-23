@@ -3,8 +3,10 @@
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 
+	using static PrecastFactorySystem.Core.Constants.AdministratorConstants;
+
 	[Area("Admin")]
-	[Authorize(Roles = "Administrator")]
+	[Authorize(Roles = AdminRoleName)]
 	public class AdminBaseController : Controller
 	{
 		

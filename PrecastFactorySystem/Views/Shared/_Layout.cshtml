@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -25,7 +26,7 @@
 								</a>
 								<ul class="dropdown-menu bg-dark">
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Project" asp-action="All">All Projects</a></li>
-									@if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+									@if (User.IsAdmin() || User.IsManager())
 									{
 										<li><a class="dropdown-item link-light" asp-area="" asp-controller="Project" asp-action="Add">Add New</a></li>
 									}
@@ -38,7 +39,7 @@
 								</a>
 								<ul class="dropdown-menu bg-dark">
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Precast" asp-action="All">All Precast</a></li>
-									@if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+									@if (User.IsAdmin() || User.IsManager())
 									{
 										<li><a class="dropdown-item link-light" asp-area="" asp-controller="Precast" asp-action="Add">Add New</a></li>
 									}
@@ -58,7 +59,7 @@
 								</a>
 								<ul class="dropdown-menu bg-dark">
 									<li><a class="dropdown-item link-light" asp-area="" asp-controller="Deliverer" asp-action="All">All Deliverers</a></li>
-									@if (User.IsInRole("Administrator") || User.IsInRole("ReinforceManager"))
+									@if ((User.IsAdmin() || User.IsReinforceManager()))
 									{
 										<li><a class="dropdown-item link-light" asp-area="" asp-controller="Deliverer" asp-action="Add">Add New</a></li>
 									}
@@ -88,6 +89,18 @@
 	</header>
 	<div class="container">
 		<main role="main">
+			@if (TempData["message"] != null)
+			{
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					@TempData["Message"]
+					<button type="button" class="btn-close"
+							data-bs-dismiss="alert"
+							aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+			}
 			@RenderBody()
 		</main>
 	</div>
