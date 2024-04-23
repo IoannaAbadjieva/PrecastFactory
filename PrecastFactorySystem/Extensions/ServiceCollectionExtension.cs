@@ -16,6 +16,7 @@
 			services.AddScoped<IBaseServise, BaseService>();
 			services.AddScoped<IProjectService, ProjectService>();
 			services.AddScoped<IPrecastService, PrecastService>();
+			services.AddScoped<IProduceService, ProduceService>();
 			services.AddScoped<IReinforceService, ReinforceService>();
 			services.AddScoped<IDelivererService, DelivererService>();
 			services.AddScoped<IOrderService, OrderService>();

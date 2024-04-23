@@ -11,18 +11,18 @@
 		{
 			base.OnActionExecuting(context);
 
-			IPrecastService? precastService =
-				context.HttpContext.RequestServices.GetService<IPrecastService>();
+			IProduceService? produceService =
+				context.HttpContext.RequestServices.GetService<IProduceService>();
 
-			if (precastService == null)
+			if (produceService == null)
 			{
 				context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
 			}
 
 
 
-			if (precastService != null
-				&& !precastService.IsProductionRecordExist((int)(context.ActionArguments["id"] ?? 0)).Result)
+			if (produceService != null
+				&& !produceService.IsProductionRecordExist((int)(context.ActionArguments["id"] ?? 0)).Result)
 			{
 				context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
 			}

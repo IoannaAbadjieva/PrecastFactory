@@ -16,8 +16,8 @@
 
 		public const string InvalidProduceCountErrorMessage = "You can not mark as produced more than {0} precast.";
 
-		public const string NoPrecastToProduceErrorMessage = "You can not mark as produced any amount of this precast, there is no reinforce delivered yet.";
-
+		public const string NoPrecastToProduceErrorMessage = "You can not mark as produced any amount of this precast, it is either produced, or there is no reinforce delivered yet.";
+	
 		public const string NoReinforceToOrderErrorMessage = "You can not order any amount of this precast, there is no reinforce added yet.";
 
 		public const string PrecastOrderedErrorMessage = "You can not order any amount of this precast, it is already ordered.";

@@ -74,7 +74,7 @@
 		{
 			try
 			{
-				int maxCountToBeOrdered = await precastService.GetPrecastToReinforceCountAsync(id);
+				int maxCountToBeOrdered = await orderService.GetPrecastToReinforceCountAsync(id);
 
 				if (model.OrderedCount > maxCountToBeOrdered)
 				{

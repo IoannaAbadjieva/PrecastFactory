@@ -8,7 +8,6 @@
 	using Core.Exceptions;
 	using Core.Models;
 	using Core.Models.Precast;
-	using Core.Models.Reinforce;
 
 	using static Core.Constants.MessageConstants;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
@@ -209,116 +208,6 @@
 
 			return View(model);
 
-		}
-
-		[Authorize(Roles = "Administrator, PrecastProductionManager")]
-		[PrecastExists]
-		[HttpGet]
-		public async Task<IActionResult> Produce(int id)
-		{
-			try
-			{
-				PrecastProductionFormViewModel? model = await precastService.GetPrecastProductionFormAsync(id);
-				return View(model);
-			}
-			catch (ProduceActionException pae)
-			{
-
-				return View("BaseError", new BaseErrorViewModel()
-				{
-					Message = pae.Message
-				});
-			}
-
-		}
-
-		[Authorize(Roles = "Administrator, PrecastProductionManager")]
-		[PrecastExists]
-		[HttpPost]
-		public async Task<IActionResult> Produce(int id, PrecastProductionFormViewModel model)
-		{
-			try
-			{
-				int maxCount = await precastService.GetPrecastToProduceCountAsync(id, null);
-
-				if (model.ProducedCount > maxCount)
-				{
-					ModelState.AddModelError(nameof(model.ProducedCount),
-						string.Format(InvalidProduceCountErrorMessage, maxCount));
-				}
-
-				if (!ModelState.IsValid)
-				{
-					model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
-					return View(model);
-				}
-
-				await precastService.ProducePrecastAsync(id, model);
-				return RedirectToAction(nameof(Production), new { id });
-			}
-			catch (ProduceActionException pae)
-			{
-
-				return View("BaseError", new BaseErrorViewModel()
-				{
-					Message = pae.Message
-				});
-			}
-
-		}
-
-		[Authorize(Roles = "Administrator, PrecastProductionManager")]
-		[ProductionRecordExists]
-		public async Task<IActionResult> EditProduction(int id)
-		{
-			PrecastProductionFormViewModel? model = await precastService.GetPrecastProductionRecordByIdAsync(id);
-			return View(model);
-		}
-
-		[Authorize(Roles = "Administrator, PrecastProductionManager")]
-		[ProductionRecordExists]
-		[HttpPost]
-		public async Task<IActionResult> EditProduction(int id, PrecastProductionFormViewModel model)
-		{
-			try
-			{
-				int precastId = model.PrecastId;
-
-				int maxCount = await precastService.GetPrecastToProduceCountAsync(precastId, id);
-
-				if (model.ProducedCount > maxCount)
-				{
-					ModelState.AddModelError(nameof(model.ProducedCount),
-												string.Format(InvalidProduceCountErrorMessage, maxCount));
-				}
-
-				if (!ModelState.IsValid)
-				{
-					model.Departments = await baseService.GetBaseEntityDataAsync<Department>();
-					return View(model);
-				}
-
-				await precastService.EditPrecastProductionRecordAsync(id, model);
-				return RedirectToAction(nameof(Production), new { id = precastId });
-			}
-			catch (ProduceActionException pae)
-			{
-
-				return View("BaseError", new BaseErrorViewModel()
-				{
-					Message = pae.Message
-				});
-			}
-
-		}
-
-
-		[Authorize(Roles = "Administrator, PrecastProductionManager")]
-		[ProductionRecordExists]
-		public async Task<IActionResult> DeleteProduction(int id, int precastId)
-		{
-			await precastService.DeletePrecastProductionRecordAsync(id);
-			return RedirectToAction(nameof(Production), new { id = precastId });
 		}
 	}
 

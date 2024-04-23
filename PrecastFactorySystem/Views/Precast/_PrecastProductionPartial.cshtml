@@ -24,16 +24,16 @@
 				@if (User.IsAdmin() || User.IsPrecastProductionManager())
 				{
 					<td>
-						<a asp-controller="Precast"
-						   asp-action="EditProduction"
+						<a asp-controller="Produce"
+						   asp-action="Edit"
 						   asp-route-id="@record.Id"
 						   class="card-link">
 							Edit
 						</a>
 					</td>
 					<td>
-						<a asp-controller="Precast"
-						   asp-action="DeleteProduction"
+						<a asp-controller="Produce"
+						   asp-action="Delete"
 						   asp-route-id="@record.Id"
 						   asp-route-precastId="@record.PrecastId"
 						   onclick="return confirm('Are you sure you want to delete this record?')"

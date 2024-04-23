@@ -46,7 +46,7 @@
 
 		public async Task<OrderPrecastReinforceViewModel> GetOrderPrecastReinforceViewModel(int id)
 		{
-			int maxCountToBeOrdered = await precastService.GetPrecastToReinforceCountAsync(id);
+			int maxCountToBeOrdered = await GetPrecastToReinforceCountAsync(id);
 
 			if (maxCountToBeOrdered == 0)
 			{
@@ -61,7 +61,7 @@
 			return new OrderPrecastReinforceViewModel()
 			{
 				Id = id,
-				OrderedCount = await precastService.GetPrecastToReinforceCountAsync(id),
+				OrderedCount = await GetPrecastToReinforceCountAsync(id),
 				Departments = await baseServise.GetBaseEntityDataAsync<Department>(),
 				Deliverers = await baseServise.GetBaseEntityDataAsync<Deliverer>()
 			};
@@ -77,7 +77,7 @@
 			var order = new ReinforceOrder()
 			{
 				Count = model.OrderedCount,
-				PrecastWeight = await precastService.GetPrecastActualWeightAsync(id),
+				PrecastWeight = await GetPrecastActualWeightAsync(id),
 				DepartmentId = model.DepartmentId,
 				DelivererId = model.DelivererId,
 				DeliverDate = model.DeliverDate,
@@ -282,6 +282,19 @@
 			}
 
 			return entity;
+		}
+
+		public async Task<int> GetPrecastToReinforceCountAsync(int id)
+		{
+			var precast = await repository.GetByIdAsync<Precast>(id);
+
+			return precast.Count - await precastService.GetReinforcedPrecastCountAsync(id);
+		}
+
+		public async Task<decimal> GetPrecastActualWeightAsync(int id)
+		{
+			return await repository.AllReadonly<PrecastReinforce>(pr => pr.PrecastId == id)
+				.SumAsync(pr => pr.Weight);
 		}
 
 	}

@@ -24,7 +24,7 @@
 <div class="text-center mt-4 p-5">
 	@if (User.IsAdmin() || User.IsPrecastProductionManager())
 	{
-		<a asp-area="" asp-controller="Precast" asp-action="Produce" asp-route-id="@Model.Id" class="btn btn-dark ">Mark as produced</a>
+		<a asp-area="" asp-controller="Produce" asp-action="Produce" asp-route-id="@Model.Id" class="btn btn-dark ">Mark as produced</a>
 	}
 	<a asp-area="" asp-controller="Precast" asp-action="All" class="btn btn-dark ">Back to all precast </a>
 </div>
