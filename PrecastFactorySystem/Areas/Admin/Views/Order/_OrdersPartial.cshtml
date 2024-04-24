@@ -32,7 +32,7 @@
 				<td>@order.Deliverer</td>
 				@if (User.IsAdmin() || User.IsReinforceManager())
 				{
-					<td><a asp-area="Admin" asp-controller="Order" asp-action="Delete" asp-route-id="@order.Id" class="card-link">Delete</a></td>
+					<td><a asp-controller="Order" asp-action="Delete" asp-route-id="@order.Id" class="card-link">Delete</a></td>
 				}
 			</tr>
 		}

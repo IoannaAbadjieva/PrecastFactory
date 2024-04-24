@@ -1,0 +1,28 @@
+﻿@model DeleteOrderViewModel
+
+@{
+	ViewBag.Title = "Delete Order";
+}
+
+<div class="card text-center text-dark bg-transparent p-3" style="max-width:22rem">
+	<h5 class="card-title text-dark"><span class="fw-bold  text-dark">Order N: </span>@Model.Id</h5>
+	<h6 class="card-subtitle mb-2 text-dark"><span class="fw-bold  text-dark">Precast : </span>@Model.Precast</h6>
+	<p><span class="fw-bold  text-dark">Project : </span>@Model.Project</p>
+	<p><span class="fw-bold  text-dark">Count : </span>@Model.OrderedCount</p>
+	<p><span class="fw-bold  text-dark">Order At : </span>@Model.OrderDate.ToString("dd.MM.yyyy")</p>
+	<p><span class="fw-bold  text-dark">Deliver At : </span>@Model.DeliverDate.ToString("dd.MM.yyyy")</p>
+	<p><span class="fw-bold  text-dark">Department : </span>@Model.Department</p>
+	<p></p>
+	<p class="text-danger mt-3">
+		"Are you sure? You will not be able to revert it."
+	</p>
+	<p></p>
+	<hr />
+	<div class="card-footer">
+		<form asp-action="DeleteConfirmed" method="post" class="text-center">
+			<input type="hidden" asp-for=@Model.Id />
+			<button type="submit" class="btn btn-danger">Proceed</button>
+			<a asp-action="All" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div>
+</div>

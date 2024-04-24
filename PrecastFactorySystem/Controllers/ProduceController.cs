@@ -1,8 +1,8 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
-	using PrecastFactorySystem.Attributes;
+	using PrecastFactorySystem.Web.Attributes;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models;
 
@@ -11,6 +11,7 @@
 	using PrecastFactorySystem.Core.Contracts;
 
 	using static PrecastFactorySystem.Core.Constants.MessageConstants;
+
 
 	public class ProduceController : BaseController
 	{

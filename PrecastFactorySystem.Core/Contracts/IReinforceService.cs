@@ -6,11 +6,11 @@
 	{
 		Task AddReinforceAsync(int precastId, ReinforceFormViewModel model);
 
+		Task<ReinforceFormViewModel?> GetReinforceByIdAsync(int id);
+
 		Task<int> EditReinforceAsync(int id, ReinforceFormViewModel model);
 
 		Task DeleteReinforceAsync(int id);
-
-		Task<ReinforceFormViewModel?> GetReinforceByIdAsync(int id);
 
 		Task<bool> IsReinforceExist(int id);
 		

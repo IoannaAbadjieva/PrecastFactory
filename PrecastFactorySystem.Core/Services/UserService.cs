@@ -8,7 +8,6 @@
 
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Exceptions;
-	using PrecastFactorySystem.Core.Models.Base;
 	using PrecastFactorySystem.Core.Models.User;
 	using PrecastFactorySystem.Infrastructure.Data.Common;
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
@@ -63,6 +62,7 @@
 
 			user.FirstName = model.FirstName;
 			user.LastName = model.LastName;
+			user.UserName = model.UserName;
 			user.Email = model.Email;
 
 			var result = await userManager.UpdateAsync(user);

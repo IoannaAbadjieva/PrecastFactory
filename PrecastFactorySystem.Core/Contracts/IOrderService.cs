@@ -1,43 +1,44 @@
 ﻿namespace PrecastFactorySystem.Core.Contracts
 {
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
+    using System.Threading.Tasks;
 
-	using PrecastFactorySystem.Core.Enumeration;
-	using PrecastFactorySystem.Core.Models.Order;
+    using PrecastFactorySystem.Core.Models.Order;
 
-	public interface IOrderService
-	{
+    public interface IOrderService
+    {
 
-		Task<OrdersQueryModel> GetReinforceOrdersAsync(string? searchTerm = null,
-			int? projectId = null,
-			int? departmentId = null,
-			DateTime? fromDate = null,
-			DateTime? toDate = null,
-			int currentPage = 1,
-			int ordersPerPage = 12);
+        Task<OrdersQueryModel> GetReinforceOrdersAsync(string? searchTerm = null,
+            int? projectId = null,
+            int? departmentId = null,
+            DateTime? fromDate = null,
+            DateTime? toDate = null,
+            int currentPage = 1,
+            int ordersPerPage = 12);
 
-		Task<DeleteOrderViewModel> GetOrderToDeleteByIdAsync(int id);
+        Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(
+            int id,
+            int currentPage = 1,
+            int ordersPerPage = 12);
 
-		Task DeleteOrderAsync(int id);
+        Task<OrderPrecastReinforceViewModel> GetOrderPrecastReinforceViewModel(int precastId);
 
-		Task<OrderPrecastReinforceViewModel> GetOrderPrecastReinforceViewModel(int precastId);
+        Task<OrderViewModel> OrderPrecastAsync(int precastId, OrderPrecastReinforceViewModel model);
 
-		Task<OrderViewModel> OrderPrecastAsync(int precastId, OrderPrecastReinforceViewModel model);
+        Task SaveOrderAsync(OrderViewModel orderModel);
 
-		
-		Task SaveOrderAsync(OrderViewModel orderModel);
+        Task<DeleteOrderViewModel> CheckOrderToDeleteByIdAsync(int id);
 
-		Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(
-			int id, 
-			int currentPage = 1,
-			int ordersPerPage = 12);
+        Task<DeleteOrderViewModel> GetOrderToDeleteByIdAsync(int id);
 
-		Task<int> GetPrecastToReinforceCountAsync(int id);
+        Task DeleteOrderAsync(int id);
 
-		Task<decimal> GetPrecastActualWeightAsync(int id);
+        Task DeleteAsync(int id);
 
-		Task<bool> IsOrderExistAsync(int id);
-		
-	}
+        Task<int> GetPrecastToReinforceCountAsync(int id);
+
+        Task<decimal> GetPrecastActualWeightAsync(int id);
+
+        Task<bool> IsOrderExistAsync(int id);
+
+    }
 }

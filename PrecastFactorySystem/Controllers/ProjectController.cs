@@ -1,8 +1,8 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using PrecastFactorySystem.Attributes;
+	using PrecastFactorySystem.Web.Attributes;
 
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Models.Precast;
@@ -11,6 +11,7 @@
 	using PrecastFactorySystem.Core.Models;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
 	using Microsoft.AspNetCore.Authorization;
+
 
 	public class ProjectController : BaseController
 	{

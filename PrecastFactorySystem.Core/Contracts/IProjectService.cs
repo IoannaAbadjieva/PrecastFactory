@@ -9,27 +9,26 @@
 	using PrecastFactorySystem.Core.Models.Precast;
 
 	public interface IProjectService
-	{
-		Task AddPrecastToProjectAsync(PrecastFormViewModel model, int id);
-
-		Task AddProjectAsync(ProjectFormViewModel model);
-
-		Task DeleteProjectAsync(int id);
-
-		Task EditProjectAsync(int id, ProjectFormViewModel model);
-
+	{		
 		Task<ProjectQueryModel> GetAllProjectsAsync(string? searchTerm = null,
 			ProjectSorting sorting = ProjectSorting.Oldest,
 			int currentPage = 1,
 			int projectsPerPage = 4);
+		Task AddProjectAsync(ProjectFormViewModel model);
+
+		Task AddPrecastToProjectAsync(PrecastFormViewModel model, int id);
 
 		Task<ProjectFormViewModel> GetProjectByIdAsync(int id);
+
+        Task EditProjectAsync(int id, ProjectFormViewModel model);
+
+		Task<ProjectInfoViewModel?> GetProjectToDeleteByIdAsync(int id);
+
+        Task DeleteProjectAsync(int id);
 
 		Task<ProjectDetailsViewModel?> GetProjectDetails(int id);
 
 		Task<bool>IsReinforcedProjectPrecastAsync(int id);
-
-		Task<ProjectInfoViewModel?> GetProjectToDeleteByIdAsync(int id);
 
 		Task<bool> IsProjectExistAsync(int id);
 	}

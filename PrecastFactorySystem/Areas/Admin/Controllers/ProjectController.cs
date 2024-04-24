@@ -1,11 +1,10 @@
-﻿namespace PrecastFactorySystem.Areas.Admin.Controllers
+﻿namespace PrecastFactorySystem.Web.Areas.Admin.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using PrecastFactorySystem.Attributes;
+	using PrecastFactorySystem.Web.Attributes;
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Models.Project;
-	using PrecastFactorySystem.Infrastructure.Data.Common;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	public class ProjectController : AdminBaseController

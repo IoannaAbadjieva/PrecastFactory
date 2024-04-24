@@ -1,13 +1,13 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using Attributes;
+	using PrecastFactorySystem.Web.Attributes;
 
-	using Core.Contracts;
-	using Core.Exceptions;
-	using Core.Models;
-	using Core.Models.Precast;
+	using PrecastFactorySystem.Core.Contracts;
+	using PrecastFactorySystem.Core.Exceptions;
+	using PrecastFactorySystem.Core.Models;
+	using PrecastFactorySystem.Core.Models.Precast;
 
 	using static Core.Constants.MessageConstants;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
@@ -164,7 +164,7 @@
 				});
 			}
 
-			
+
 
 		}
 

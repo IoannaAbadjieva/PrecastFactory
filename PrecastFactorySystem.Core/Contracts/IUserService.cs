@@ -17,6 +17,5 @@
 
 		Task DeleteUserAsync(string id);
 
-		Task<IEnumerable<RoleInfoViewModel>> GetAllRolesAsync();
 	}
 }

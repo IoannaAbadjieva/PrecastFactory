@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;

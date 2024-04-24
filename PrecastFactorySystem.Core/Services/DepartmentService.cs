@@ -139,51 +139,7 @@
 
 		}
 
-		public async Task<ProductionDetailsQueryModel> GetPrecastProductionDetailsAsync(
-		int id,
-		int currentPage = 1,
-		int recordsPerPage = 12)
-		{
-			var precast = await repository.AllReadonly<Precast>(p => p.Id == id)
-				.Select(p => new
-				{
-					PrecastId = p.Id,
-					PrecastName = p.Name,
-					PrecastType = p.PrecastType.Name,
-					ProjectName = p.Project.Name
-				}).FirstAsync();
-
-			var query = repository.AllReadonly<PrecastDepartment>(dp => dp.PrecastId == id);
-
-			var totalRecords = query.Count();
-
-			var precastProduction = await query
-				.Skip((currentPage - 1) * recordsPerPage)
-				.Take(recordsPerPage)
-				.Select(dp => new ProductionDetailsViewModel
-				{
-					PrecastType = precast.PrecastType,
-					PrecastName = precast.PrecastName,
-					Date = dp.Date,
-					Count = dp.Count,
-					Department = dp.Department.Name
-				}).ToArrayAsync();
-
-			return new ProductionDetailsQueryModel()
-			{
-				ProjectName = precast.ProjectName,
-				PrecastId = precast.PrecastId,
-				PrecastName = precast.PrecastName,
-				PrecastType = precast.PrecastType,
-				TotalRecords = totalRecords,
-				Produced = precastProduction
-			};
-
-		}
-
-
-
-		public async Task<ProductionQueryModel> GetProductionAsync(int? projectId = null,
+				public async Task<ProductionQueryModel> GetProductionAsync(int? projectId = null,
 			int? precastTypeId = null,
 			int? departmentId = null,
 			DateTime? fromDate = null,
@@ -281,6 +237,49 @@
 				TotalProduced = totalPrecast
 			};
 		}
+
+		public async Task<ProductionDetailsQueryModel> GetPrecastProductionDetailsAsync(
+		int id,
+		int currentPage = 1,
+		int recordsPerPage = 12)
+		{
+			var precast = await repository.AllReadonly<Precast>(p => p.Id == id)
+				.Select(p => new
+				{
+					PrecastId = p.Id,
+					PrecastName = p.Name,
+					PrecastType = p.PrecastType.Name,
+					ProjectName = p.Project.Name
+				}).FirstAsync();
+
+			var query = repository.AllReadonly<PrecastDepartment>(dp => dp.PrecastId == id);
+
+			var totalRecords = query.Count();
+
+			var precastProduction = await query
+				.Skip((currentPage - 1) * recordsPerPage)
+				.Take(recordsPerPage)
+				.Select(dp => new ProductionDetailsViewModel
+				{
+					PrecastType = precast.PrecastType,
+					PrecastName = precast.PrecastName,
+					Date = dp.Date,
+					Count = dp.Count,
+					Department = dp.Department.Name
+				}).ToArrayAsync();
+
+			return new ProductionDetailsQueryModel()
+			{
+				ProjectName = precast.ProjectName,
+				PrecastId = precast.PrecastId,
+				PrecastName = precast.PrecastName,
+				PrecastType = precast.PrecastType,
+				TotalRecords = totalRecords,
+				Produced = precastProduction
+			};
+
+		}
+
 
 
 

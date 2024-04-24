@@ -1,13 +1,13 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Web.Controllers
 {
 	using Core.Contracts;
 
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 
-	using PrecastFactorySystem.Attributes;
 	using PrecastFactorySystem.Core.Models.Reinforce;
-	using PrecastFactorySystem.Core.Services;
+	using PrecastFactorySystem.Web.Attributes;
+	using PrecastFactorySystem.Web.Controllers;
 
 	public class ReinforceController : BaseController
 	{

@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.Attributes
+﻿namespace PrecastFactorySystem.Web.Attributes
 {
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Filters;

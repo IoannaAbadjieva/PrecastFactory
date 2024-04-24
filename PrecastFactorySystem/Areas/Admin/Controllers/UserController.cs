@@ -1,16 +1,16 @@
-﻿namespace PrecastFactorySystem.Areas.Admin.Controllers
+﻿namespace PrecastFactorySystem.Web.Areas.Admin.Controllers
 {
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.Extensions.Caching.Memory;
 
-	using PrecastFactorySystem.Attributes;
 	using PrecastFactorySystem.Core.Models;
 	using PrecastFactorySystem.Core.Models.User;
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
+	using PrecastFactorySystem.Web.Attributes;
 
-	using Microsoft.Extensions.Caching.Memory;
 	using static PrecastFactorySystem.Infrastructure.DataValidation.CustomClaims;
 	using static PrecastFactorySystem.Core.Constants.AdministratorConstants;
 
@@ -44,7 +44,7 @@
 					AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
 				});
 			}
-			
+
 			return View(users);
 		}
 
@@ -133,7 +133,7 @@
 			{
 				UserInfoViewModel model = await userService.GetUserToDeleteAsync(id);
 				return View(model);
-			} 
+			}
 			catch (DeleteActionException dae)
 			{
 				return View("BaseError", new BaseErrorViewModel { Message = dae.Message });
@@ -155,13 +155,7 @@
 				return View("BaseError", new BaseErrorViewModel { Message = dae.Message });
 			}
 		}
-
-		[HttpGet]
-		public async Task<IActionResult> Roles()
-		{
-			IEnumerable<RoleInfoViewModel> model = await userService.GetAllRolesAsync();
-			return View(model);
-		}
+	
 
 	}
 }

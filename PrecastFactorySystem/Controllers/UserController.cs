@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
@@ -6,6 +6,7 @@
 
 	using PrecastFactorySystem.Core.Models.User;
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
+
 	using static PrecastFactorySystem.Core.Constants.AdministratorConstants;
 
 	public class UserController : BaseController

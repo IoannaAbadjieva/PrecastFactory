@@ -1,10 +1,10 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
 
 	using iText.Html2pdf;
 
-	using PrecastFactorySystem.Attributes;
+	using PrecastFactorySystem.Web.Attributes;
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Models.Department;
 	using PrecastFactorySystem.Core.Models.Order;
@@ -14,6 +14,7 @@
 
 	using static PrecastFactorySystem.Core.Constants.MessageConstants;
 	using Microsoft.AspNetCore.Authorization;
+	using PrecastFactorySystem.Web.Controllers;
 
 	public class DepartmentController : BaseController
 	{

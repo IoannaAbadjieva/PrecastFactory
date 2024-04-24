@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.ModelBinders
+﻿namespace PrecastFactorySystem.Web.ModelBinders
 {
 	using System.Globalization;
 	using System.Threading.Tasks;

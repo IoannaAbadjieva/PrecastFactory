@@ -1,4 +1,4 @@
-﻿namespace PrecastFactorySystem.Attributes
+﻿namespace PrecastFactorySystem.Web.Attributes
 {
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;

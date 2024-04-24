@@ -1,14 +1,24 @@
-﻿@model AllPrecastQueryModel
+﻿@model AllOrdersQueryModel
 
 @{
-	ViewBag.Title = "All Precast";
+	ViewBag.Title = "All Orders";
 }
 
 <h3 class="text-center">@ViewBag.Title</h3>
 <hr />
 
 <form method="get">
+
 	<div class="row justify-content-end align-content-sm-stretch">
+		<div class="form-group col-sm-2">
+			<label asp-for="FromDate">From</label>
+			<input asp-for="FromDate" class="form-control">
+		</div>
+
+		<div class="form-group col-sm-2">
+			<label asp-for="ToDate">To</label>
+			<input asp-for="ToDate" class="form-control">
+		</div>
 
 		<div class="form-group col-sm-2">
 			<div class="form-group">
@@ -17,38 +27,28 @@
 					<option disabled selected value="">...</option>
 					@foreach (var project in Model.Projects)
 					{
-						<option class="bg-dark text-light" value="@project.Id">@project.Name</option>
+						<option  value="@project.Id">@project.Name</option>
 					}
 				</select>
 			</div>
 		</div>
-		<div class="form-group col-sm-2">
+		<div class="form-group col-sm-1">
 			<div class="form-group">
-				<label asp-for="PrecastTypeId">Type</label>
-				<select asp-for="PrecastTypeId" class="form-control">
+				<label asp-for="DepartmentId">Type</label>
+				<select asp-for="DepartmentId" class="form-control">
+					.
+
 					<option disabled selected value="">...</option>
-					@foreach (var type in Model.PrecastTypes)
+					@foreach (var department in Model.Departments)
 					{
-						<option  value="@type.Id">@type.Name</option>
+						<option value="@department.Id">@department.Name</option>
 					}
 				</select>
 			</div>
 		</div>
-		<div class="form-group col-sm-2">
+		<div class="form-group col-sm-1">
 			<label asp-for="SearchTerm"></label>
 			<input asp-for="SearchTerm" class="form-control" placeholder="...">
-		</div>
-
-		<div class="form-group col-sm-2">
-			<div class="form-group">
-				<label asp-for="Sorting"></label>
-				<select asp-for="Sorting" class="form-control">
-					<option disabled selected value="">...</option>
-					<option  value="0">Newest</option>
-					<option  value="1">By Project</option>
-					<option  value="2">By Type</option>
-				</select>
-			</div>
 		</div>
 
 		<div class="col-sm-2">
@@ -65,43 +65,40 @@
 		previousPage = 1;
 	}
 
-	var maxPage = Math.Ceiling((double)Model.TotalPrecast /
-		AllPrecastQueryModel.PrecastsPerPage);
+	var maxPage = Math.Ceiling((double)Model.TotalOrders /
+		AllOrdersQueryModel.OrdersPerPage);
 }
 
 <div class="row mb-5">
 	<div class="col-sm-6 d-grid gap-2 d-sm-flex justify-content-sm-start">
 		<a class="btn btn-secondary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-		   asp-controller="Precast"
+		   asp-controller="Order"
 		   asp-action="All"
 		   asp-route-currentPage="@previousPage"
-		   asp-route-searchTerm="@Model.SearchTerm"
-		   asp-route-sorting="@((int)Model.Sorting)"><<</a>
+		   asp-route-searchTerm="@Model.SearchTerm"><<</a>
 	</div>
 
 	@{
 		var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
-		!Model.Projects.Any();
+		!Model.Orders.Any();
 	}
 
 	<div class="col-sm-6 d-grid gap-2 d-sm-flex justify-content-sm-end">
 		<a class="btn btn-secondary
            @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
-		   asp-controller="Precast"
+		   asp-controller="Order"
 		   asp-action="All"
 		   asp-route-currentPage="@(Model.CurrentPage + 1)"
-		   asp-route-searchTerm="@Model.SearchTerm"
-		   asp-route-sorting="@((int)Model.Sorting)">>></a>
+		   asp-route-searchTerm="@Model.SearchTerm">>></a>
 	</div>
 </div>
 
-@if (!Model.Precast.Any())
+@if (!Model.Orders.Any())
 {
-	<h2 class="text-center">No precast found by the given criteria!</h2>
+	<h2 class="text-center">No orders found by the given criteria!</h2>
 }
 
-
-<partial name="_PrecastPartial" model=@Model.Precast />
+<partial name="_OrdersPartial" model=@Model.Orders />
 
 
 

@@ -1,11 +1,11 @@
-﻿namespace PrecastFactorySystem.Attributes
+﻿namespace PrecastFactorySystem.Web.Attributes
 {
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Filters;
 
 	using PrecastFactorySystem.Core.Contracts;
 
-	public class ProjectExistsAttribute:ActionFilterAttribute
+	public class ProjectExistsAttribute : ActionFilterAttribute
 	{
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
@@ -26,5 +26,5 @@
 			}
 		}
 	}
-	
+
 }

@@ -1,15 +1,14 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Authorization;
 
-	using PrecastFactorySystem.Attributes;
+	using PrecastFactorySystem.Web.Attributes;
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models;
 	using PrecastFactorySystem.Core.Models.Deliverer;
 
-	
 	public class DelivererController : BaseController
 	{
 		private readonly IDelivererService delivererService;
@@ -119,7 +118,7 @@
 				});
 			}
 
-			
+
 
 		}
 

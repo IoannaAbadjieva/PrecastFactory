@@ -3,9 +3,9 @@
 	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore;
 
-	using Configurations;
+	using PrecastFactorySystem.Infrastructure.Data.Configurations;
 
-	using Models;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
 
 	public class PrecastFactoryDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
@@ -56,7 +56,9 @@
 			builder.ApplyConfiguration(new UserConfiguration());
 			builder.ApplyConfiguration(new UserClaimsConfiguration());
 
+
 			base.OnModelCreating(builder);
+
 		}
 	}
 }

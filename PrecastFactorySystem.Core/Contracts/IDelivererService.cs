@@ -1,11 +1,10 @@
 ﻿namespace PrecastFactorySystem.Core.Contracts
 {
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
+    using System.Threading.Tasks;
 
-	using PrecastFactorySystem.Core.Models.Deliverer;
+    using PrecastFactorySystem.Core.Models.Deliverer;
 
-	public interface IDelivererService
+    public interface IDelivererService
 	{
 		Task AddDelivererAsync(DelivererFormViewModel model);
 

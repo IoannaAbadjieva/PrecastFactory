@@ -44,5 +44,6 @@
 		public Deliverer Deliverer { get; set; } = null!;
 
 		public ICollection<PrecastReinforceOrder> PrecastReinforceOrders { get; set; } = new HashSet<PrecastReinforceOrder>();
+
 	}
 }

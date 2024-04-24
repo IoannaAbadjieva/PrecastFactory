@@ -1,22 +1,22 @@
 ﻿namespace PrecastFactorySystem.Core.Services
 {
-	using System;
-	using System.Linq;
-	using System.Threading.Tasks;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
 
-	using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
-	using PrecastFactorySystem.Core.Contracts;
-	using PrecastFactorySystem.Core.Exceptions;
-	using PrecastFactorySystem.Core.Models.Order;
-	using PrecastFactorySystem.Core.Models.Reinforce;
-	using PrecastFactorySystem.Infrastructure.Data.Common;
-	using PrecastFactorySystem.Infrastructure.Data.Models;
+    using PrecastFactorySystem.Core.Contracts;
+    using PrecastFactorySystem.Core.Exceptions;
+    using PrecastFactorySystem.Core.Models.Order;
+    using PrecastFactorySystem.Core.Models.Reinforce;
+    using PrecastFactorySystem.Infrastructure.Data.Common;
+    using PrecastFactorySystem.Infrastructure.Data.Models;
 
-	using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
-	using static PrecastFactorySystem.Core.Constants.MessageConstants;
+    using static PrecastFactorySystem.Core.Constants.MessageConstants;
+    using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
 
-	public class OrderService : IOrderService
+    public class OrderService : IOrderService
 	{
 		private readonly IRepository repository;
 		private readonly IBaseServise baseServise;
@@ -58,6 +58,76 @@
 				Deliverers = await baseServise.GetBaseEntityDataAsync<Deliverer>()
 			};
 		}
+		public async Task<OrdersQueryModel> GetReinforceOrdersAsync(string? searchTerm = null,
+			int? projectId = null,
+			int? departmentId = null,
+			DateTime? fromDate = null,
+			DateTime? toDate = null,
+			int currentPage = 1,
+			int ordersPerPage = 12)
+		{
+			var query = repository.AllReadonly<PrecastReinforceOrder>();
+
+			var search = searchTerm?.ToLower();
+
+
+			if (projectId.HasValue)
+			{
+				query = query.Where(pro => pro.Precast.ProjectId == projectId);
+			}
+
+			if (departmentId.HasValue)
+			{
+				query = query.Where(pro => pro.ReinforceOrder.DepartmentId == departmentId);
+			}
+
+
+			if (fromDate.HasValue)
+			{
+				query = query.Where(pro => pro.ReinforceOrder.DeliverDate.Date >= fromDate.Value.Date);
+			}
+
+			if (toDate.HasValue)
+			{
+				query = query.Where(pro => pro.ReinforceOrder.DeliverDate.Date <= toDate.Value.Date);
+			}
+
+
+			if (!string.IsNullOrWhiteSpace(search))
+			{
+				query = query.Where(pro => pro.Precast.Name.ToLower().Contains(search)
+								|| pro.Precast.Project.Name.ToLower().Contains(search)
+								|| pro.Precast.PrecastType.Name.ToLower().Contains(search)
+								|| pro.ReinforceOrder.Department.Name.ToLower().Contains(search));
+			}
+
+
+			var totalOrders = await query.CountAsync();
+
+			var orders = await query
+				.Skip((currentPage - 1) * ordersPerPage)
+				.Take(ordersPerPage)
+				.Select(pro => new ReinforceOrderInfoViewModel()
+				{
+					Id = pro.ReinforceOrder.Id,
+					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					Project = pro.Precast.Project.Name,
+					PrecastType = pro.Precast.PrecastType.Name,
+					Precast = pro.Precast.Name,
+					OrderedCount = pro.ReinforceOrder.Count,
+					DeliverDate = pro.ReinforceOrder.DeliverDate.ToString(DateFormat),
+					Department = pro.ReinforceOrder.Department.Name,
+					Deliverer = pro.ReinforceOrder.Deliverer.Name
+				})
+				.ToArrayAsync();
+
+			return new OrdersQueryModel
+			{
+				TotalOrders = totalOrders,
+				Orders = orders
+			};
+		}
+
 
 		public async Task<OrderViewModel> OrderPrecastAsync(int id, OrderPrecastReinforceViewModel model)
 		{
@@ -137,76 +207,6 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<OrdersQueryModel> GetReinforceOrdersAsync(string? searchTerm = null,
-			int? projectId = null,
-			int? departmentId = null,
-			DateTime? fromDate = null,
-			DateTime? toDate = null,
-			int currentPage = 1,
-			int ordersPerPage = 12)
-		{
-			var query = repository.AllReadonly<PrecastReinforceOrder>();
-
-			var search = searchTerm?.ToLower();
-
-
-			if (projectId.HasValue)
-			{
-				query = query.Where(pro => pro.Precast.ProjectId == projectId);
-			}
-
-			if (departmentId.HasValue)
-			{
-				query = query.Where(pro => pro.ReinforceOrder.DepartmentId == departmentId);
-			}
-
-
-			if (fromDate.HasValue)
-			{
-				query = query.Where(pro => pro.ReinforceOrder.DeliverDate.Date >= fromDate.Value.Date);
-			}
-
-			if (toDate.HasValue)
-			{
-				query = query.Where(pro => pro.ReinforceOrder.DeliverDate.Date <= toDate.Value.Date);
-			}
-
-
-			if (!string.IsNullOrWhiteSpace(search))
-			{
-				query = query.Where(pro => pro.Precast.Name.ToLower().Contains(search)
-								|| pro.Precast.Project.Name.ToLower().Contains(search)
-								|| pro.Precast.PrecastType.Name.ToLower().Contains(search)
-								|| pro.ReinforceOrder.Department.Name.ToLower().Contains(search));
-			}
-
-
-			var totalOrders = await query.CountAsync();
-
-			var orders = await query
-				.Skip((currentPage - 1) * ordersPerPage)
-				.Take(ordersPerPage)
-				.Select(pro => new ReinforceOrderInfoViewModel()
-				{
-					Id = pro.ReinforceOrder.Id,
-					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
-					Project = pro.Precast.Project.Name,
-					PrecastType = pro.Precast.PrecastType.Name,
-					Precast = pro.Precast.Name,
-					OrderedCount = pro.ReinforceOrder.Count,
-					DeliverDate = pro.ReinforceOrder.DeliverDate.ToString(DateFormat),
-					Department = pro.ReinforceOrder.Department.Name,
-					Deliverer = pro.ReinforceOrder.Deliverer.Name
-				})
-				.ToArrayAsync();
-
-			return new OrdersQueryModel
-			{
-				TotalOrders = totalOrders,
-				Orders = orders
-			};
-		}
-
 		public async Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(int id, int currentPage = 1, int ordersPerPage = 12)
 		{
 			var query = repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id);
@@ -239,10 +239,15 @@
 			};
 		}
 
-		public async Task<DeleteOrderViewModel> GetOrderToDeleteByIdAsync(int id)
+		public async Task<DeleteOrderViewModel> CheckOrderToDeleteByIdAsync(int id)
 		{
 			var entity = await CheckOrderDateAsync(id);
 
+			return await GetOrderToDeleteByIdAsync(id);
+		}
+
+		public async Task<DeleteOrderViewModel> GetOrderToDeleteByIdAsync(int id)
+		{
 			return await repository.AllReadonly<PrecastReinforceOrder>(r => r.ReinforceOrderId == id)
 				.Select(pro => new DeleteOrderViewModel()
 				{
@@ -261,17 +266,12 @@
 		public async Task DeleteOrderAsync(int id)
 		{
 			var entity = await CheckOrderDateAsync(id);
-
-			repository.Delete(entity);
-			await repository.SaveChangesAsync();
-
-
+			await DeleteAsync(id);
 		}
 
-		public async Task<bool> IsOrderExistAsync(int id)
+		public async Task DeleteAsync(int id)
 		{
-			return await repository.AllReadonly<ReinforceOrder>()
-				.AnyAsync(ro => ro.Id == id);
+			await repository.DeleteAsync<ReinforceOrder>(id);
 		}
 
 		private async Task<ReinforceOrder> CheckOrderDateAsync(int id)
@@ -298,6 +298,11 @@
 		{
 			return await repository.AllReadonly<PrecastReinforce>(pr => pr.PrecastId == id)
 				.SumAsync(pr => pr.Weight);
+		}
+		public async Task<bool> IsOrderExistAsync(int id)
+		{
+			return await repository.AllReadonly<ReinforceOrder>()
+				.AnyAsync(ro => ro.Id == id);
 		}
 
 

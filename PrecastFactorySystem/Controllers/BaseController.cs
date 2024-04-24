@@ -1,12 +1,12 @@
-﻿namespace PrecastFactorySystem.Controllers
+﻿namespace PrecastFactorySystem.Web.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
 
-    [Authorize]
-	public  class BaseController : Controller
+	[Authorize]
+	public class BaseController : Controller
 	{
-	
-       
+
+
 	}
 }
