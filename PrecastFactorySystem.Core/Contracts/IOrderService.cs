@@ -17,24 +17,27 @@
 			int currentPage = 1,
 			int ordersPerPage = 12);
 
-		Task<ReinforceOrderInfoViewModel> GetOrderToDeleteByIdAsync(int id);
+		Task<DeleteOrderViewModel> GetOrderToDeleteByIdAsync(int id);
 
 		Task DeleteOrderAsync(int id);
 
 		Task<OrderPrecastReinforceViewModel> GetOrderPrecastReinforceViewModel(int precastId);
 
-		Task OrderPrecastAsync(int precastId, OrderPrecastReinforceViewModel model);
+		Task<OrderViewModel> OrderPrecastAsync(int precastId, OrderPrecastReinforceViewModel model);
 
-		Task GetOrderDetailsAndEmailAsync(int orderId, int precastId, string email);
+		
+		Task SaveOrderAsync(OrderViewModel orderModel);
 
-	
-
-		Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(int id, int currentPage = 1, int ordersPerPage = 12);
+		Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(
+			int id, 
+			int currentPage = 1,
+			int ordersPerPage = 12);
 
 		Task<int> GetPrecastToReinforceCountAsync(int id);
 
 		Task<decimal> GetPrecastActualWeightAsync(int id);
 
 		Task<bool> IsOrderExistAsync(int id);
+		
 	}
 }

@@ -21,25 +21,17 @@
 		private readonly IRepository repository;
 		private readonly IBaseServise baseServise;
 		private readonly IPrecastService precastService;
-		private readonly IDelivererService delivererService;
-		private readonly IExportService exportService;
-		private readonly IEmailService emailService;
+
 
 		private const int DaysLeftToDeliverDate = 4;
 
 		public OrderService(IRepository _repository,
 						IBaseServise _baseServise,
-						IPrecastService _precastService,
-						IDelivererService _delivererService,
-						IExportService _exportService,
-						IEmailService _emailService)
+						IPrecastService _precastService)
 		{
 			repository = _repository;
 			baseServise = _baseServise;
 			precastService = _precastService;
-			delivererService = _delivererService;
-			exportService = _exportService;
-			emailService = _emailService;
 		}
 
 
@@ -60,79 +52,89 @@
 
 			return new OrderPrecastReinforceViewModel()
 			{
-				Id = id,
-				OrderedCount = await GetPrecastToReinforceCountAsync(id),
+				PrecastId = id,
+				OrderedCount = maxCountToBeOrdered,
 				Departments = await baseServise.GetBaseEntityDataAsync<Department>(),
 				Deliverers = await baseServise.GetBaseEntityDataAsync<Deliverer>()
 			};
 		}
 
-		public async Task OrderPrecastAsync(int id, OrderPrecastReinforceViewModel model)
+		public async Task<OrderViewModel> OrderPrecastAsync(int id, OrderPrecastReinforceViewModel model)
 		{
+			int maxCountToBeOrdered = await GetPrecastToReinforceCountAsync(id);
+
+			if (maxCountToBeOrdered == 0)
+			{
+				throw new OrderActionException(PrecastOrderedErrorMessage);
+			}
+
 			if (!await repository.AllReadonly<PrecastReinforce>().AnyAsync(pr => pr.PrecastId == id))
 			{
 				throw new OrderActionException(NoReinforceToOrderErrorMessage);
 			}
 
-			var order = new ReinforceOrder()
-			{
-				Count = model.OrderedCount,
-				PrecastWeight = await GetPrecastActualWeightAsync(id),
-				DepartmentId = model.DepartmentId,
-				DelivererId = model.DelivererId,
-				DeliverDate = model.DeliverDate,
-				OrderDate = DateTime.Now
+			var actualWeight = await GetPrecastActualWeightAsync(id);
 
-			};
+			int lastOrderNumber = await repository.AllReadonly<ReinforceOrder>().MaxAsync(o => o.Id);
 
-			await repository.AddAsync<ReinforceOrder>(order);
-			await repository.SaveChangesAsync();
+			var department = await repository.GetByIdAsync<Department>(model.DepartmentId);
+			string departmentName = department.Name;
 
-			await repository.AddAsync<PrecastReinforceOrder>(new PrecastReinforceOrder
-			{
-				PrecastId = id,
-				ReinforceOrderId = order.Id
-			});
-			await repository.SaveChangesAsync();
+			var deliverer = await repository.GetByIdAsync<Deliverer>(model.DelivererId);
+			string delivererEmail = deliverer.Email;
 
-			string? email = await delivererService.GetDelivererEmailAsync(model.DelivererId);
+			var precastOrder = await repository.AllReadonly<Precast>(p => p.Id == id)
+				.Select(p => new OrderViewModel()
+				{
+					OrderNum = lastOrderNumber + 1,
+					PrecastId = id,
+					Precast = p.Name,
+					Project = p.Project.Name,
+					Count = model.OrderedCount,
+					OrderDate = DateTime.Now,
+					DeliveryDate = model.DeliveryDate,
+					DelivererId = model.DelivererId,
+					DelivererEmail = delivererEmail,
+					DepartmentId = model.DepartmentId,
+					Department = departmentName,
+					Reinforce = p.PrecastReinforce.Select(pr => new ReinforceInfoViewModel()
+					{
+						Position = pr.Position,
+						ReinforceType = $"{pr.ReinforceType.ReinforceClass.ToString()}"
+						+ $" {pr.ReinforceType.Diameter}",
+						Count = pr.Count * model.OrderedCount,
+						Length = pr.Length,
+						Weight = pr.Weight * model.OrderedCount,
+					})
+					.ToArray()
 
-			await GetOrderDetailsAndEmailAsync(order.Id, id, email ?? string.Empty);
+				})
+				.FirstAsync();
+
+			return precastOrder;
 
 		}
 
-		public async Task GetOrderDetailsAndEmailAsync(int orderId, int id, string email)
+		public async Task SaveOrderAsync(OrderViewModel orderModel)
 		{
-			var precastOrder = await repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id && pro.ReinforceOrder.Id == orderId)
-				.Include(pro => pro.Precast.PrecastReinforce)
-				.Select(pro => new OrderViewModel()
-				{
-					OrderNum = pro.ReinforceOrder.Id,
-					Precast = pro.Precast.Name,
-					Project = pro.Precast.Project.Name,
-					Count = pro.ReinforceOrder.Count,
-					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
-					DeliverDate = pro.ReinforceOrder.DeliverDate.ToString(DateFormat),
-					Department = pro.ReinforceOrder.Department.Name,
-					Reinforce = pro.Precast.PrecastReinforce.Select(pr => new ReinforceInfoViewModel()
-					{
-						Position = pr.Position,
-						ReinforceType = $"{pr.ReinforceType.ReinforceClass.ToString()} {pr.ReinforceType.Diameter}",
-						Count = pr.Count * pro.ReinforceOrder.Count,
-						SpecificMass = pr.ReinforceType.SpecificMass,
-						Length = pr.Length,
-						Weight = pr.Weight * pro.ReinforceOrder.Count
+			var entityOrder = new ReinforceOrder()
+			{
+				OrderDate = orderModel.OrderDate,
+				DeliverDate = orderModel.DeliveryDate,
+				Count = orderModel.Count,
+				DepartmentId = orderModel.DepartmentId,
+				DelivererId = orderModel.DelivererId
+			};
 
-					}).ToArray()
-				}).FirstAsync();
+			var entity = new PrecastReinforceOrder()
+			{
+				PrecastId = orderModel.PrecastId,
+				ReinforceOrder = entityOrder
+			};
 
-
-			string fileName = $"Order {precastOrder.OrderNum} - {precastOrder.Precast}  {precastOrder.Project}";
-
-			byte[] bytes = exportService.ExportOrderToPdf(precastOrder, fileName);
-
-			await emailService.SendOrderEmailAsync(email, fileName, bytes);
-
+			await repository.AddAsync(entityOrder);
+			await repository.AddAsync(entity);
+			await repository.SaveChangesAsync();
 		}
 
 		public async Task<OrdersQueryModel> GetReinforceOrdersAsync(string? searchTerm = null,
@@ -209,6 +211,8 @@
 		{
 			var query = repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id);
 
+			var totalOrders = await query.CountAsync();
+
 			var orders = await query
 				.Skip((currentPage - 1) * ordersPerPage)
 				.Take(ordersPerPage)
@@ -226,27 +230,30 @@
 				})
 				.ToArrayAsync();
 
+
+
 			return new OrdersQueryModel()
 			{
-				TotalOrders = await query.CountAsync(),
+				TotalOrders = totalOrders,
 				Orders = orders
 			};
 		}
 
-		public async Task<ReinforceOrderInfoViewModel> GetOrderToDeleteByIdAsync(int id)
+		public async Task<DeleteOrderViewModel> GetOrderToDeleteByIdAsync(int id)
 		{
 			var entity = await CheckOrderDateAsync(id);
 
 			return await repository.AllReadonly<PrecastReinforceOrder>(r => r.ReinforceOrderId == id)
-				.Select(pro => new ReinforceOrderInfoViewModel()
+				.Select(pro => new DeleteOrderViewModel()
 				{
 					Id = id,
-					OrderDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					OrderDate = pro.ReinforceOrder.OrderDate,
 					Project = pro.Precast.Project.Name,
-					PrecastType = pro.Precast.PrecastType.Name,
-					DeliverDate = pro.ReinforceOrder.OrderDate.ToString(DateFormat),
+					OrderedCount = pro.ReinforceOrder.Count,
+					DeliverDate = pro.ReinforceOrder.OrderDate,
+					DepartmentId = pro.ReinforceOrder.DepartmentId,
 					Department = pro.ReinforceOrder.Department.Name,
-					Deliverer = pro.ReinforceOrder.Deliverer.Name
+					DelivererEmail = pro.ReinforceOrder.Deliverer.Email
 				})
 				.FirstAsync();
 		}
@@ -258,11 +265,7 @@
 			repository.Delete(entity);
 			await repository.SaveChangesAsync();
 
-			var email = await delivererService.GetDelivererEmailAsync(entity.DelivererId);
-			var subject = $"Order N: {entity.Id}";
-			var body = $"Order N: {entity.Id} has been canceled.";
 
-			await emailService.SendCancelOrderEmailAsync(email ?? string.Empty, subject, body);
 		}
 
 		public async Task<bool> IsOrderExistAsync(int id)
@@ -296,6 +299,7 @@
 			return await repository.AllReadonly<PrecastReinforce>(pr => pr.PrecastId == id)
 				.SumAsync(pr => pr.Weight);
 		}
+
 
 	}
 

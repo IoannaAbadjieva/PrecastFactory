@@ -4,8 +4,8 @@
 
 	public interface IEmailService
 	{
-		Task SendOrderEmailAsync(string email, string fileName, byte[] bytes);
+		Task<bool> SendOrderEmailAsync(string email, string fileName, byte[] bytes);
 
-		Task SendCancelOrderEmailAsync(string email, string subject, string body);
+		Task<bool> SendCancelOrderEmailAsync(string email, string subject, string body);
 	}
 }

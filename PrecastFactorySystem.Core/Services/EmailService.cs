@@ -22,7 +22,7 @@
 			apiKey = configuration.GetSection("EmailSettings")["Sendgrid_API_Key"];
 		}
 
-		public async Task SendCancelOrderEmailAsync(string email, string subject, string body)
+		public async Task<bool> SendCancelOrderEmailAsync(string email, string subject, string body)
 		{
 			var client = new SendGridClient(apiKey);
 			var from = configuration.GetSection("EmailSettings")["From"];
@@ -32,9 +32,12 @@
 			var msg = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, body, "");
 
 			var response = await client.SendEmailAsync(msg);
+
+			return response.IsSuccessStatusCode;
+
 		}
 
-		public async Task SendOrderEmailAsync(string email, string fileName, byte[] bytes)
+		public async Task<bool> SendOrderEmailAsync(string email, string fileName, byte[] bytes)
 		{
 			var client = new SendGridClient(apiKey);
 			var from = configuration.GetSection("EmailSettings")["From"];
@@ -59,6 +62,8 @@
 
 
 			var response = await client.SendEmailAsync(msg);
+
+			return response.IsSuccessStatusCode;
 		}
 	}
 

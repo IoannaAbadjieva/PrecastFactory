@@ -13,7 +13,7 @@
 	public class OrderPrecastReinforceViewModel
     {
         [Required]
-        public int Id { get; set; }
+        public int PrecastId { get; set; }
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [Range(PrecastCountMinValue, PrecastCountMaxValue,
@@ -28,7 +28,7 @@
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [DeliverDateValidation]
-        public DateTime DeliverDate { get; set; }
+        public DateTime DeliveryDate { get; set; }
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         public int DepartmentId { get; set; }

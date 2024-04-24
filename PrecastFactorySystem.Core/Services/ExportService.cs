@@ -11,7 +11,7 @@
 
 	public class ExportService : IExportService
 	{
-		public byte[] ExportOrderToPdf(OrderViewModel data, string fileName)
+		public byte[] ExportOrderToPdf(OrderViewModel data)
 		{
 			MemoryStream stream = new MemoryStream();
 			PdfWriter writer = new PdfWriter(stream);
@@ -53,7 +53,7 @@
 			document.Add(table);
 			document.Add(new Paragraph(new Text("\n")));
 
-			document.Add(new Paragraph("Deliver Date: " + data.DeliverDate)).SetFontSize(11);
+			document.Add(new Paragraph("Deliver Date: " + data.DeliveryDate)).SetFontSize(11);
 			document.Add(new Paragraph("Department: " + data.Department)).SetFontSize(11);
 
 			int n = pdf.GetNumberOfPages();

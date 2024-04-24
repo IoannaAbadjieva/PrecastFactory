@@ -17,14 +17,20 @@
 		private readonly IOrderService orderService;
 		private readonly IPrecastService precastService;
 		private readonly IBaseServise baseService;
+		private readonly IExportService exportService;
+		private readonly IEmailService emailService;
 
 		public OrderController(IOrderService _orderService,
 			IPrecastService _precastService,
-			IBaseServise _baseService)
+			IBaseServise _baseService,
+			IExportService _exportService,
+			IEmailService _emailService)
 		{
 			orderService = _orderService;
 			precastService = _precastService;
 			baseService = _baseService;
+			exportService = _exportService;
+			emailService = _emailService;
 		}
 
 		[HttpGet]
@@ -89,8 +95,24 @@
 					return View(model);
 				}
 
-				await orderService.OrderPrecastAsync(id, model);
-				TempData["Message"] = "You have successfully ordered precast!";
+				var orderModel = await orderService.OrderPrecastAsync(id, model);
+
+				byte[] bytes = exportService.ExportOrderToPdf(orderModel);
+
+				var fileName = $"Order {orderModel.OrderNum} - {orderModel.Precast}  {orderModel.Project}";
+
+				var IsSuccess = await emailService.SendOrderEmailAsync(orderModel.DelivererEmail, fileName, bytes);
+
+				if (IsSuccess)
+				{
+					await orderService.SaveOrderAsync(orderModel);
+					TempData["Message"] = "You have successfully ordered precast!";
+				}
+				else
+				{
+					TempData["Message"] = "Something went wrong, and the order was not created!";
+				}
+
 				return RedirectToAction("Reinforce", "Precast", new { id });
 			}
 			catch (OrderActionException oae)
@@ -114,7 +136,7 @@
 		{
 			try
 			{
-				ReinforceOrderInfoViewModel model = await orderService.GetOrderToDeleteByIdAsync(id);
+				DeleteOrderViewModel model = await orderService.GetOrderToDeleteByIdAsync(id);
 				return View(model);
 			}
 			catch (DeleteActionException dae)
@@ -130,12 +152,21 @@
 		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[HttpPost]
 		[OrderExists]
-		public async Task<IActionResult> DeleteConfirmed(int id)
+		public async Task<IActionResult> DeleteConfirmed(int id, DeleteOrderViewModel model)
 		{
 			try
 			{
-				await orderService.DeleteOrderAsync(id);
-				TempData["Message"] = "You have successfully deleted order!";
+				var IsSuccess = await emailService.SendCancelOrderEmailAsync(model.DelivererEmail, $"Order N:  {model.Id}", "");
+				if (IsSuccess)
+				{
+					TempData["Message"] = "You have successfully deleted order!";
+					await orderService.DeleteOrderAsync(id);
+				}
+				else
+				{
+					TempData["Message"] = "Something went wrong, and the order was not deleted!";
+				}
+
 				return RedirectToAction(nameof(All));
 			}
 			catch (DeleteActionException dae)
