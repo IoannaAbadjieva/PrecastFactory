@@ -12,7 +12,6 @@
 	using PrecastFactorySystem.Core.Models.Base;
 	using PrecastFactorySystem.Infrastructure.Data.Common;
 	using PrecastFactorySystem.Infrastructure.Data.Contracts;
-	using PrecastFactorySystem.Infrastructure.Data.Enums;
 	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	public class BaseService : IBaseServise
@@ -25,7 +24,6 @@
 			repository = _repository;
 		}
 
-
 		public async Task<IEnumerable<ReinforceTypeSelectorViewModel>> GetReinforceTypesAsync()
 		{
 			return await repository.AllReadonly<ReinforceType>()
@@ -36,7 +34,6 @@
 					SpecificMass = rt.SpecificMass,
 				}).ToArrayAsync();
 		}
-
 
 		public async Task<IEnumerable<BaseInfoViewModel>> GetBaseEntityDataAsync<T>() where T : class, IBaseEntity
 		{

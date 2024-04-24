@@ -36,8 +36,6 @@
 			<div class="form-group">
 				<label asp-for="DepartmentId">Type</label>
 				<select asp-for="DepartmentId" class="form-control">
-					.
-
 					<option disabled selected value="">...</option>
 					@foreach (var department in Model.Departments)
 					{
@@ -97,6 +95,6 @@
 {
 	<h2 class="text-center">No orders found by the given criteria!</h2>
 }
-
-<partial name="_OrdersPartial" model=@Model.Orders />
-
+<div>
+	<partial name="_OrdersPartial" model=@Model.Orders />
+</div>

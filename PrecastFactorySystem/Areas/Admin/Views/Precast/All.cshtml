@@ -29,7 +29,7 @@
 					<option disabled selected value="">...</option>
 					@foreach (var type in Model.PrecastTypes)
 					{
-						<option  value="@type.Id">@type.Name</option>
+						<option value="@type.Id">@type.Name</option>
 					}
 				</select>
 			</div>
@@ -44,9 +44,9 @@
 				<label asp-for="Sorting"></label>
 				<select asp-for="Sorting" class="form-control">
 					<option disabled selected value="">...</option>
-					<option  value="0">Newest</option>
-					<option  value="1">By Project</option>
-					<option  value="2">By Type</option>
+					<option value="0">Newest</option>
+					<option value="1">By Project</option>
+					<option value="2">By Type</option>
 				</select>
 			</div>
 		</div>
@@ -100,8 +100,9 @@
 	<h2 class="text-center">No precast found by the given criteria!</h2>
 }
 
-
-<partial name="_PrecastPartial" model=@Model.Precast />
+<div>
+	<partial name="_PrecastPartial" model=@Model.Precast />
+</div>
 
 
 

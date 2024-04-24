@@ -2,13 +2,13 @@
 {
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
-	using PrecastFactorySystem.Web.Attributes;
+
+	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models;
-
-	using PrecastFactorySystem.Infrastructure.Data.Models;
 	using PrecastFactorySystem.Core.Models.Produce;
-	using PrecastFactorySystem.Core.Contracts;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
+	using PrecastFactorySystem.Web.Attributes;
 
 	using static PrecastFactorySystem.Core.Constants.MessageConstants;
 
@@ -137,6 +137,7 @@
 		public async Task<IActionResult> Delete(int id, int precastId)
 		{
 			await produceService.DeleteProductionRecordAsync(id);
+
 			TempData["Message"] = "You have successfully deleted production record!";
 			return RedirectToAction("Production", "Precast", new { id = precastId });
 		}

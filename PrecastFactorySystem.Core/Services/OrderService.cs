@@ -13,8 +13,8 @@
     using PrecastFactorySystem.Infrastructure.Data.Common;
     using PrecastFactorySystem.Infrastructure.Data.Models;
 
-    using static PrecastFactorySystem.Core.Constants.MessageConstants;
     using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
+    using static PrecastFactorySystem.Core.Constants.MessageConstants;
 
     public class OrderService : IOrderService
 	{

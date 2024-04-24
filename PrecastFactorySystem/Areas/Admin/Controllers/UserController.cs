@@ -11,8 +11,8 @@
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
 	using PrecastFactorySystem.Web.Attributes;
 
-	using static PrecastFactorySystem.Infrastructure.DataValidation.CustomClaims;
 	using static PrecastFactorySystem.Core.Constants.AdministratorConstants;
+	using static PrecastFactorySystem.Infrastructure.DataValidation.CustomClaims;
 
 	public class UserController : AdminBaseController
 	{
@@ -89,6 +89,7 @@
 				}
 
 				memoryCache.Remove(UsersCacheKey);
+
 				TempData["Message"] = "You have successfully registered user!";
 				return RedirectToAction("Index", "Home");
 			}

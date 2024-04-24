@@ -27,17 +27,15 @@
 					<option disabled selected value="">...</option>
 					@foreach (var project in Model.Projects)
 					{
-						<option  value="@project.Id">@project.Name</option>
+						<option value="@project.Id">@project.Name</option>
 					}
 				</select>
 			</div>
 		</div>
 		<div class="form-group col-sm-1">
 			<div class="form-group">
-				<label asp-for="DepartmentId">Type</label>
+				<label asp-for="DepartmentId">Department</label>
 				<select asp-for="DepartmentId" class="form-control">
-					.
-
 					<option disabled selected value="">...</option>
 					@foreach (var department in Model.Departments)
 					{
@@ -97,8 +95,9 @@
 {
 	<h2 class="text-center">No orders found by the given criteria!</h2>
 }
-
-<partial name="_OrdersPartial" model=@Model.Orders />
+<div>
+	<partial name="_OrdersPartial" model=@Model.Orders />
+</div>
 
 
 

@@ -41,9 +41,11 @@
 {
 	<h2 class="text-center">No orders found by the given criteria!</h2>
 }
-
-<partial name="_OrdersPartial" model=@Model.Orders />
-
-<a asp-controller="Precast" asp-action="Reinforce" asp-route-id="@precastId" class="card-link">Back to precast</a></td>
+<div>
+	<partial name="_OrdersPartial" model=@Model.Orders />
+</div>
+<div>
+	<a asp-controller="Precast" asp-action="Reinforce" asp-route-id="@precastId" class="btn btn-dark ">Back to precast</a></td>
+</div>
 
 

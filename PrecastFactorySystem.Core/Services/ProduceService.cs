@@ -5,7 +5,6 @@
 
 	using Microsoft.EntityFrameworkCore;
 
-
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models.Produce;

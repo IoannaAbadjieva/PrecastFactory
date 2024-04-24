@@ -1,17 +1,17 @@
 ﻿namespace PrecastFactorySystem.Web.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
-
-	using PrecastFactorySystem.Web.Attributes;
 
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Exceptions;
 	using PrecastFactorySystem.Core.Models;
 	using PrecastFactorySystem.Core.Models.Precast;
+	using PrecastFactorySystem.Web.Attributes;
+
+	using PrecastFactorySystem.Infrastructure.Data.Models;
 
 	using static Core.Constants.MessageConstants;
-	using PrecastFactorySystem.Infrastructure.Data.Models;
-	using Microsoft.AspNetCore.Authorization;
 
 	public class PrecastController : BaseController
 	{

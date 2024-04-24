@@ -1,14 +1,14 @@
 ﻿namespace PrecastFactorySystem.Core.Services
 {
-	using System;
 	using System.Threading.Tasks;
 
 	using Microsoft.EntityFrameworkCore;
 
-	using Contracts;
-	using Infrastructure.Data.Common;
-	using Infrastructure.Data.Models;
-	using Models.Reinforce;
+	using PrecastFactorySystem.Core.Contracts;
+	using PrecastFactorySystem.Core.Models.Reinforce;
+	using PrecastFactorySystem.Infrastructure.Data.Common;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
+
 
 	public class ReinforceService : IReinforceService
 	{
@@ -25,7 +25,6 @@
 
 		public async Task AddReinforceAsync(int precastId, ReinforceFormViewModel model)
 		{
-
 			var reinforce = new PrecastReinforce()
 			{
 				PrecastId = precastId,

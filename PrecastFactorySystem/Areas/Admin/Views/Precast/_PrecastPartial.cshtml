@@ -1,5 +1,4 @@
-﻿@using System.Security.Claims
-@model IEnumerable<PrecastInfoViewModel>
+﻿@model IEnumerable<PrecastInfoViewModel>
 
 <table class="table table-striped table-borderless">
 	<thead>
@@ -30,7 +29,6 @@
 				<td><a asp-controller="Precast" asp-action="Delete" asp-route-id="@precast.Id" class="card-link link-secondary">Delete</a></td>
 
 			</tr>
-
 		}
 	</tbody>
 </table>

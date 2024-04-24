@@ -12,8 +12,8 @@
 	using PrecastFactorySystem.Infrastructure.Data.Common;
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
 
-	using static PrecastFactorySystem.Core.Constants.MessageConstants;
 	using static PrecastFactorySystem.Core.Constants.AdministratorConstants;
+	using static PrecastFactorySystem.Core.Constants.MessageConstants;
 
 	public class UserService : IUserService
 	{
@@ -111,26 +111,6 @@
 
 			await userManager.DeleteAsync(user);
 		}
-
-		public async Task<IEnumerable<RoleInfoViewModel>> GetAllRolesAsync()
-		{
-			var model = await repository.AllReadonly<ApplicationRole>()
-				.Select(r => new RoleInfoViewModel()
-				{
-					Id = r.Id.ToString(),
-					Name = r.Name,
-				}).ToArrayAsync();
-
-			foreach (var role in model)
-			{
-				var users = await userManager.GetUsersInRoleAsync(role.Name);
-
-				role.Users = users
-					.Select(u => $"{u.FirstName} {u.LastName} - {u.UserName}");
-			}
-
-			return model;
-		}
-
+		
 	}
 }

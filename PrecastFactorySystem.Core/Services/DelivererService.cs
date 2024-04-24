@@ -1,17 +1,15 @@
 ﻿namespace PrecastFactorySystem.Core.Services
 {
-	using System;
-	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
 
 	using Microsoft.EntityFrameworkCore;
 
-	using Contracts;
-	using Exceptions;
-	using Infrastructure.Data.Common;
-	using Infrastructure.Data.Models;
-	using Models.Deliverer;
+	using PrecastFactorySystem.Core.Contracts;
+	using PrecastFactorySystem.Core.Exceptions;
+	using PrecastFactorySystem.Infrastructure.Data.Common;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
+	using PrecastFactorySystem.Core.Models.Deliverer;
 
 	using static Constants.MessageConstants;
 
