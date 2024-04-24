@@ -76,16 +76,9 @@
 		{
 			var entity = await repository.GetByIdAsync<PrecastReinforce>(id);
 
-			if (entity == null)
-			{
-				throw new ArgumentException();
-			}
-
-			int precastId = entity.PrecastId;
-
 			repository.Delete(entity);
 			await repository.SaveChangesAsync();
-			
+
 		}
 
 		public async Task<bool> IsReinforceExist(int id)

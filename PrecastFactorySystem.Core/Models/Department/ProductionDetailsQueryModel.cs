@@ -16,6 +16,6 @@
 
 		public int TotalRecords { get; set; }
 
-		public IEnumerable<ProductionDetailsViewModel> Precast { get; set; } = Array.Empty<ProductionDetailsViewModel>();
+		public IEnumerable<ProductionDetailsViewModel> Produced { get; set; } = Array.Empty<ProductionDetailsViewModel>();
 	}
 }

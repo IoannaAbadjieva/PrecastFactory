@@ -8,7 +8,6 @@
 
 	using PrecastFactorySystem.Core.Contracts;
 	using PrecastFactorySystem.Core.Exceptions;
-	using PrecastFactorySystem.Core.Models.Base;
 	using PrecastFactorySystem.Core.Models.Produce;
 	using PrecastFactorySystem.Infrastructure.Data.Common;
 	using PrecastFactorySystem.Infrastructure.Data.Enums;
@@ -19,17 +18,14 @@
 	public class ProduceService : IProduceService
 	{
 		private readonly IRepository repository;
-		private readonly IPrecastService precastService;
 		private readonly IBaseServise baseService;
 
 		public ProduceService(
 			IRepository _repository,
-			IPrecastService _precastService,
 			IBaseServise _baseService)
 		{
 			repository = _repository;
 			baseService = _baseService;
-			precastService = _precastService;
 		}
 
 

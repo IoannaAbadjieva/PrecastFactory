@@ -18,17 +18,12 @@
 	public class DepartmentService : IDepartmentService
 	{
 		private readonly IRepository repository;
-		private readonly IPrecastService precastService;
-		private readonly IBaseServise baseServise;
 
 		public DepartmentService(
-			IRepository _repository,
-			IPrecastService _precastService,
-			IBaseServise _baseServise)
+			IRepository _repository)
 		{
 			repository = _repository;
-			precastService = _precastService;
-			baseServise = _baseServise;
+			
 		}
 
 		public async Task<IEnumerable<ProductionInfoViewModel>> GetDailyProductionAsync()
@@ -129,7 +124,7 @@
 					Concrete = dp.Sum(p => p.ConcreteAmount * p.Count)
 				}).ToArray();
 
-			var totalPrecast = precast.Count();
+			var totalPrecast = precast.Length;
 			var totalReinforceWeight = precast.Sum(p => p.Reinforcement);
 			var totalConcreteAmount = precast.Sum(p => p.Concrete);
 	
@@ -181,7 +176,7 @@
 				PrecastName = precast.PrecastName,
 				PrecastType = precast.PrecastType,
 				TotalRecords = totalRecords,
-				Precast = precastProduction
+				Produced = precastProduction
 			};
 
 		}
@@ -273,7 +268,7 @@
 					Department = dp.Key.Department
 				}).ToArray();
 
-			var totalPrecast = precast.Count();
+			var totalPrecast = precast.Length;
 
 			precast = precast
 				.Skip((currentPage - 1) * precastPerPage)

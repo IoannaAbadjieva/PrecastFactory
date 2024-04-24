@@ -2,7 +2,7 @@
 {
 	public enum ProjectSorting
 	{
-		Newest,
+		Oldest,
 		Name,
 	}
 }

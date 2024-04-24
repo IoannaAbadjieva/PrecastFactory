@@ -7,7 +7,7 @@
 
         public const int PrecastNameMaxLength = 30;
 
-        public const int PrecastCountMinValue = 0;
+        public const int PrecastCountMinValue = 1;
 
         public const int PrecastCountMaxValue = 1000;
 
@@ -35,7 +35,7 @@
         public const int ReinforcePositionMaxLength = 20;
 
 
-		public const int ReinforceCountMinValue = 0;
+		public const int ReinforceCountMinValue = 1;
 
 		public const int ReinforceCountMaxValue = 500;
 

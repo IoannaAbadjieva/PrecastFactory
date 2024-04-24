@@ -72,7 +72,7 @@
 				_ => query.OrderByDescending(p => p.Id)
 			};
 
-			var totalPrecasts = await query.CountAsync();
+			var totalPrecast = await query.CountAsync();
 
 			var precast = await query
 				.Skip((currentPage - 1) * precastPerPage)
@@ -90,8 +90,8 @@
 
 			return new PrecastQueryModel()
 			{
-				TotalPrecast = totalPrecasts,
-				Precasts = precast
+				TotalPrecast = totalPrecast,
+				Precast = precast
 			};
 		}
 
@@ -220,7 +220,7 @@
 					Id = pr.Id,
 					PrecastId = pr.PrecastId,
 					Position = pr.Position,
-					ReinforceType = $"{pr.ReinforceType.ReinforceClass.ToString()} {pr.ReinforceType.Diameter}",
+					ReinforceType = $"{pr.ReinforceType.ReinforceClass} {pr.ReinforceType.Diameter}",
 					SpecificMass = pr.ReinforceType.SpecificMass,
 					Count = pr.Count,
 					Length = pr.Length,

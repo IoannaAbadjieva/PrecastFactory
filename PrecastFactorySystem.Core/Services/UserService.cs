@@ -19,16 +19,13 @@
 	public class UserService : IUserService
 	{
 		private readonly IRepository repository;
-		private readonly RoleManager<ApplicationRole> roleManager;
 		private readonly UserManager<ApplicationUser> userManager;
 
 		public UserService(
 			IRepository _repository,
-			RoleManager<ApplicationRole> _roleManager,
 			UserManager<ApplicationUser> _userManager)
 		{
 			repository = _repository;
-			roleManager = _roleManager;
 			userManager = _userManager;
 		}
 		public async Task<IEnumerable<UserInfoViewModel>> GetAllUsersAsync()
@@ -108,7 +105,7 @@
 			var user = await userManager.FindByIdAsync(id);
 
 			if (await userManager.IsInRoleAsync(user, AdminRoleName))
-			{	
+			{
 				throw new DeleteActionException(DeleteAdminErrorMessage);
 			}
 
@@ -127,7 +124,7 @@
 			foreach (var role in model)
 			{
 				var users = await userManager.GetUsersInRoleAsync(role.Name);
-							
+
 				role.Users = users
 					.Select(u => $"{u.FirstName} {u.LastName} - {u.UserName}");
 			}

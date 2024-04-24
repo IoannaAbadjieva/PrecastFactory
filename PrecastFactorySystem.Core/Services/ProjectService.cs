@@ -24,7 +24,7 @@
 		}
 
 		public async Task<ProjectQueryModel> GetAllProjectsAsync(string? searchTerm = null,
-			ProjectSorting sorting = ProjectSorting.Newest,
+			ProjectSorting sorting = ProjectSorting.Oldest,
 			int currentPage = 1,
 			int projectsPerPage = 4)
 		{
@@ -37,7 +37,7 @@
 
 			query = sorting switch
 			{
-				ProjectSorting.Newest => query.OrderBy(p => p.AddedOn),
+				ProjectSorting.Oldest => query.OrderByDescending(p => p.Id),
 				ProjectSorting.Name => query.OrderBy(p => p.Name),
 				_ => query.OrderByDescending(p => p.Id)
 			};

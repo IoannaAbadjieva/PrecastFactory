@@ -19,7 +19,7 @@
 		Task EditProjectAsync(int id, ProjectFormViewModel model);
 
 		Task<ProjectQueryModel> GetAllProjectsAsync(string? searchTerm = null,
-			ProjectSorting sorting = ProjectSorting.Newest,
+			ProjectSorting sorting = ProjectSorting.Oldest,
 			int currentPage = 1,
 			int projectsPerPage = 4);
 

@@ -7,6 +7,6 @@
 	{
 		public int TotalPrecast { get; set; }
 
-		public IEnumerable<PrecastInfoViewModel> Precasts { get; set; } = Array.Empty<PrecastInfoViewModel>();
+		public IEnumerable<PrecastInfoViewModel> Precast { get; set; } = Array.Empty<PrecastInfoViewModel>();
 	}
 }

@@ -92,7 +92,7 @@
 			model.PrecastType = precast.PrecastType;
 			model.PrecastId = id;
 			model.PrecastName = precast.PrecastName;
-			model.Precast = precast.Precast;
+			model.Precast = precast.Produced;
 			model.TotalRecords = precast.TotalRecords;
 
 			return View(model);
@@ -110,11 +110,9 @@
 				});
 			}
 
-			using (MemoryStream stream = new MemoryStream())
-			{
-				HtmlConverter.ConvertToPdf(ReportHtml, stream);
-				return File(stream.ToArray(), "application/pdf", "Report.pdf");
-			}
+			using MemoryStream stream = new MemoryStream();
+			HtmlConverter.ConvertToPdf(ReportHtml, stream);
+			return File(stream.ToArray(), "application/pdf", "Report.pdf");
 		}
 
 

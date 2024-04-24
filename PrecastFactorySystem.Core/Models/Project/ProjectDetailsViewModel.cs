@@ -12,6 +12,6 @@
 
         public string ProdNumber { get; set; } = string.Empty;
 
-        public IEnumerable<PrecastInfoViewModel> Precast { get; set; } = new PrecastInfoViewModel[] { };
+        public IEnumerable<PrecastInfoViewModel> Precast { get; set; } = Array.Empty< PrecastInfoViewModel>();
     }
 }

@@ -41,7 +41,7 @@
 
 			model.Projects = await baseService.GetBaseEntityDataAsync<Project>();
 			model.PrecastTypes = await baseService.GetBaseEntityDataAsync<PrecastType>();
-			model.Precast = precasts.Precasts;
+			model.Precast = precasts.Precast;
 			model.TotalPrecast = precasts.TotalPrecast;
 
 			return View(model);
