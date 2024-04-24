@@ -272,6 +272,7 @@
 		public async Task DeleteAsync(int id)
 		{
 			await repository.DeleteAsync<ReinforceOrder>(id);
+			await repository.SaveChangesAsync();
 		}
 
 		private async Task<ReinforceOrder> CheckOrderDateAsync(int id)
