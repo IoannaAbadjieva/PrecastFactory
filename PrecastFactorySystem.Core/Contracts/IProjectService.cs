@@ -22,11 +22,11 @@
 
         Task EditProjectAsync(int id, ProjectFormViewModel model);
 
-		Task<ProjectInfoViewModel?> GetProjectToDeleteByIdAsync(int id);
+		Task<ProjectInfoViewModel> GetProjectToDeleteByIdAsync(int id);
 
         Task DeleteProjectAsync(int id);
 
-		Task<ProjectDetailsViewModel?> GetProjectDetails(int id);
+		Task<ProjectDetailsViewModel> GetProjectDetails(int id);
 
 		Task<bool>IsReinforcedProjectPrecastAsync(int id);
 

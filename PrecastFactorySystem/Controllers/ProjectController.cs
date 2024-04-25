@@ -72,7 +72,7 @@
 		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
-			ProjectDetailsViewModel? model = await projectService.GetProjectDetails(id);
+			ProjectDetailsViewModel model = await projectService.GetProjectDetails(id);
 			return View(model);
 		}
 
@@ -145,7 +145,7 @@
 		{
 			try
 			{
-				ProjectInfoViewModel? model = await projectService.GetProjectToDeleteByIdAsync(id);
+				ProjectInfoViewModel model = await projectService.GetProjectToDeleteByIdAsync(id);
 				return View(model);
 			}
 			catch (DeleteActionException dae)

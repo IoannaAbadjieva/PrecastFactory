@@ -39,7 +39,7 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<ReinforceFormViewModel?> GetReinforceByIdAsync(int id)
+		public async Task<ReinforceFormViewModel> GetReinforceByIdAsync(int id)
 		{
 			var model = await repository.All<PrecastReinforce>(pr => pr.Id == id)
 				.Select(r => new ReinforceFormViewModel()
@@ -50,7 +50,7 @@
 					Length = r.Length,
 					ReinforceTypeId = r.ReinforceTypeId,
 
-				}).FirstOrDefaultAsync();
+				}).FirstAsync();
 
 			model!.ReinforceTypes = await baseServise.GetReinforceTypesAsync();
 			return model;

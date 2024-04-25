@@ -1,22 +1,22 @@
 ﻿namespace PrecastFactorySystem.Core.Services
 {
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
+	using System;
+	using System.Linq;
+	using System.Threading.Tasks;
 
-    using Microsoft.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore;
 
-    using PrecastFactorySystem.Core.Contracts;
-    using PrecastFactorySystem.Core.Exceptions;
-    using PrecastFactorySystem.Core.Models.Order;
-    using PrecastFactorySystem.Core.Models.Reinforce;
-    using PrecastFactorySystem.Infrastructure.Data.Common;
-    using PrecastFactorySystem.Infrastructure.Data.Models;
+	using PrecastFactorySystem.Core.Contracts;
+	using PrecastFactorySystem.Core.Exceptions;
+	using PrecastFactorySystem.Core.Models.Order;
+	using PrecastFactorySystem.Core.Models.Reinforce;
+	using PrecastFactorySystem.Infrastructure.Data.Common;
+	using PrecastFactorySystem.Infrastructure.Data.Models;
 
-    using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
-    using static PrecastFactorySystem.Core.Constants.MessageConstants;
+	using static PrecastFactorySystem.Infrastructure.DataValidation.DataConstants;
+	using static PrecastFactorySystem.Core.Constants.MessageConstants;
 
-    public class OrderService : IOrderService
+	public class OrderService : IOrderService
 	{
 		private readonly IRepository repository;
 		private readonly IBaseServise baseServise;
@@ -152,6 +152,7 @@
 
 			var deliverer = await repository.GetByIdAsync<Deliverer>(model.DelivererId);
 			string delivererEmail = deliverer.Email;
+			decimal weight = await GetPrecastActualWeightAsync(id);
 
 			var precastOrder = await repository.AllReadonly<Precast>(p => p.Id == id)
 				.Select(p => new OrderViewModel()
@@ -171,7 +172,7 @@
 					{
 						Position = pr.Position,
 						ReinforceType = $"{pr.ReinforceType.ReinforceClass.ToString()}"
-						+ $" {pr.ReinforceType.Diameter}",
+					+ $" {pr.ReinforceType.Diameter}",
 						Count = pr.Count * model.OrderedCount,
 						Length = pr.Length,
 						Weight = pr.Weight * model.OrderedCount,
@@ -193,7 +194,8 @@
 				DeliverDate = orderModel.DeliveryDate,
 				Count = orderModel.Count,
 				DepartmentId = orderModel.DepartmentId,
-				DelivererId = orderModel.DelivererId
+				DelivererId = orderModel.DelivererId,
+				PrecastWeight = await GetPrecastActualWeightAsync(orderModel.PrecastId),
 			};
 
 			var entity = new PrecastReinforceOrder()
@@ -207,7 +209,10 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(int id, int currentPage = 1, int ordersPerPage = 12)
+		public async Task<OrdersQueryModel> GetReinforceOrdersByPrecastAsync(
+			int id, 
+			int currentPage = 1, 
+			int ordersPerPage = 12)
 		{
 			var query = repository.AllReadonly<PrecastReinforceOrder>(pro => pro.PrecastId == id);
 
@@ -241,7 +246,7 @@
 
 		public async Task<DeleteOrderViewModel> CheckOrderToDeleteByIdAsync(int id)
 		{
-			var entity = await CheckOrderDateAsync(id);
+			await CheckOrderDateAsync(id);
 
 			return await GetOrderToDeleteByIdAsync(id);
 		}
@@ -265,7 +270,7 @@
 
 		public async Task DeleteOrderAsync(int id)
 		{
-			var entity = await CheckOrderDateAsync(id);
+			await CheckOrderDateAsync(id);
 			await DeleteAsync(id);
 		}
 

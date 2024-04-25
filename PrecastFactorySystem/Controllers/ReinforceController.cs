@@ -56,7 +56,7 @@
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
-			ReinforceFormViewModel? model = await reinforceService.GetReinforceByIdAsync(id);
+			ReinforceFormViewModel model = await reinforceService.GetReinforceByIdAsync(id);
 			return View(model);
 		}
 

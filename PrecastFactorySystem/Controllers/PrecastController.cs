@@ -120,7 +120,7 @@
 		[PrecastExists]
 		public async Task<IActionResult> Details(int id)
 		{
-			PrecastDetailsViewModel? model = await precastService.GetPrecastDetailsAsync(id);
+			PrecastDetailsViewModel model = await precastService.GetPrecastDetailsAsync(id);
 			return View(model);
 		}
 
@@ -131,7 +131,7 @@
 		{
 			try
 			{
-				PrecastDeleteViewModel? model = await precastService.GetPrecastToDeleteByIdAsync(id);
+				PrecastDeleteViewModel model = await precastService.GetPrecastToDeleteByIdAsync(id);
 				return View(model);
 			}
 			catch (DeleteActionException dae)

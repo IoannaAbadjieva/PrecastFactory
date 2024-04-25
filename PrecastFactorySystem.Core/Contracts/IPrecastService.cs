@@ -21,9 +21,9 @@
 
 		Task EditPrecastAsync(int id, PrecastFormViewModel model);
 
-		Task<PrecastDetailsViewModel?> GetPrecastDetailsAsync(int id);
+		Task<PrecastDetailsViewModel> GetPrecastDetailsAsync(int id);
 
-		Task<PrecastDeleteViewModel?> GetPrecastToDeleteByIdAsync(int id);
+		Task<PrecastDeleteViewModel> GetPrecastToDeleteByIdAsync(int id);
 
 		Task DeletePrecastAsync(int id);
 

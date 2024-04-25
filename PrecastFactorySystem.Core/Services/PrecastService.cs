@@ -148,7 +148,7 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<PrecastDetailsViewModel?> GetPrecastDetailsAsync(int id)
+		public async Task<PrecastDetailsViewModel> GetPrecastDetailsAsync(int id)
 		{
 			var model = await repository.AllReadonly<Precast>(p => p.Id == id)
 				   .Select(p => new PrecastDetailsViewModel()
@@ -164,12 +164,12 @@
 					   Reinforced = p.PrecastReinforceOrders.Sum(pro => pro.ReinforceOrder.Count),
 					   Produced = p.DepartmentPrecast.Sum(dp => dp.Count),
 
-				   }).FirstOrDefaultAsync();
+				   }).FirstAsync();
 
 			return model;
 		}
 
-		public async Task<PrecastDeleteViewModel?> GetPrecastToDeleteByIdAsync(int id)
+		public async Task<PrecastDeleteViewModel> GetPrecastToDeleteByIdAsync(int id)
 		{
 			var model = await repository.AllReadonly<Precast>(p => p.Id == id)
 			   .Select(p => new PrecastDeleteViewModel()
@@ -180,7 +180,7 @@
 				   Project = p.Project.Name,
 				   PrecastType = p.PrecastType.Name,
 
-			   }).FirstOrDefaultAsync();
+			   }).FirstAsync();
 
 			if (await GetReinforcedPrecastCountAsync(id) > 0)
 			{
