@@ -143,7 +143,7 @@
 				throw new OrderActionException(NoReinforceToOrderErrorMessage);
 			}
 
-			var actualWeight = await GetPrecastActualWeightAsync(id);
+		
 
 			int lastOrderNumber = await repository.AllReadonly<ReinforceOrder>().MaxAsync(o => o.Id);
 
@@ -152,7 +152,7 @@
 
 			var deliverer = await repository.GetByIdAsync<Deliverer>(model.DelivererId);
 			string delivererEmail = deliverer.Email;
-			decimal weight = await GetPrecastActualWeightAsync(id);
+		
 
 			var precastOrder = await repository.AllReadonly<Precast>(p => p.Id == id)
 				.Select(p => new OrderViewModel()
@@ -195,7 +195,7 @@
 				Count = orderModel.Count,
 				DepartmentId = orderModel.DepartmentId,
 				DelivererId = orderModel.DelivererId,
-				PrecastWeight = await GetPrecastActualWeightAsync(orderModel.PrecastId),
+				PrecastWeight = orderModel.Reinforce.Sum(r => r.Weight)/orderModel.Count,
 			};
 
 			var entity = new PrecastReinforceOrder()
@@ -300,11 +300,6 @@
 			return precast.Count - await precastService.GetReinforcedPrecastCountAsync(id);
 		}
 
-		public async Task<decimal> GetPrecastActualWeightAsync(int id)
-		{
-			return await repository.AllReadonly<PrecastReinforce>(pr => pr.PrecastId == id)
-				.SumAsync(pr => pr.Weight);
-		}
 		public async Task<bool> IsOrderExistAsync(int id)
 		{
 			return await repository.AllReadonly<ReinforceOrder>()

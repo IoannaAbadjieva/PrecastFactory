@@ -36,9 +36,7 @@
 
         Task<int> GetPrecastToReinforceCountAsync(int id);
 
-        Task<decimal> GetPrecastActualWeightAsync(int id);
-
-        Task<bool> IsOrderExistAsync(int id);
+         Task<bool> IsOrderExistAsync(int id);
 
     }
 }
