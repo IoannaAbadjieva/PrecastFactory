@@ -9,6 +9,8 @@
 	<p class="card-text"><span class="fw-bold">Order At: </span>@Model.OrderDate</p>
 	<p class="card-text"><span class="fw-bold">Project : </span>@Model.Project</p>
 	<p class="card-text"><span class="fw-bold">Precast: </span>@Model.Precast</p>
+	<p class="card-text"><span class="fw-bold">DelivererId: </span>@Model.DelivererId</p>
+	<p class="card-text"><span class="fw-bold">Deliverer: </span>@Model.DelivererEmail</p>
 	<p class="card-text"><span class="fw-bold">Ordered Count: </span>@Model.OrderedCount</p>
 	<p class="card-text"><span class="fw-bold">Deliver At: </span>@Model.DeliverDate</p>
 	<p class="card-text"><span class="fw-bold">Department: </span>@Model.Department</p>
@@ -17,6 +19,7 @@
 	<div class="card-footer">
 		<form asp-action="DeleteConfirmed" method="post">
 			<input type="hidden" asp-for="Id" />
+			<input type="hidden" asp-for="DelivererEmail" />
 			<button type="submit" class="btn btn-danger">Confirm Delete</button>
 			<a asp-action="All" class="btn btn-secondary">Cancel</a>
 		</form>

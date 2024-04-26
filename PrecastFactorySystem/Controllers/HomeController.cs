@@ -29,11 +29,17 @@
 			if (statusCode == 400)
 			{
 				return View("NotFound");
-			}
-
-			if (statusCode == 401)
+			}	
+			
+			
+			if (statusCode == 401 )
 			{
 				return View("UnAuthorized");
+			}
+
+			if (statusCode == 405)
+			{
+				return View("Forbidden");
 			}
 
 			if (statusCode == 404)

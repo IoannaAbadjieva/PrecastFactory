@@ -22,13 +22,14 @@
 			apiKey = configuration.GetSection("EmailSettings")["Sendgrid_API_Key"];
 		}
 
-		public async Task<bool> SendCancelOrderEmailAsync(string email, string subject, string body)
+		public async Task<bool> SendCancelOrderEmailAsync(string email, string subject)
 		{
 			var client = new SendGridClient(apiKey);
 			var from = configuration.GetSection("EmailSettings")["From"];
 
 			var fromAddress = new EmailAddress(from, "reinforce department");
 			var toAddress = new EmailAddress(email, "Me");
+			var body = $"{subject} has been canceled";
 			var msg = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, body, "");
 
 			var response = await client.SendEmailAsync(msg);

@@ -6,6 +6,6 @@
 	{
 		Task<bool> SendOrderEmailAsync(string email, string fileName, byte[] bytes);
 
-		Task<bool> SendCancelOrderEmailAsync(string email, string subject, string body);
+		Task<bool> SendCancelOrderEmailAsync(string email, string subject);
 	}
 }

@@ -1,4 +1,5 @@
-﻿@model AllReportQueryModel
+﻿@using System.Security.Claims
+@model AllReportQueryModel
 @{
 	ViewBag.Title = "Monthly Report";
 	string month = Model.Month.HasValue ? Model.Month.Value.ToString("MMММ yyyy") : DateTime.Now.ToString("MMMM yyyy");
@@ -55,16 +56,20 @@
 }
 @if (Model.Precast.Any())
 {
-	<div id="report"  class="overflow-auto mb-5">
+	<div id="report" class="overflow-auto mb-5">
 		<partial name="_ReportPartial" model=Model.Precast />
 		<p class="mb-0"><span class="fw-bold">Concrete m3: </span>@Model.TotalConcreteAmount.ToString("f2")</p>
 		<p class="mb-0"><span class="fw-bold">Reinforce kg: </span>@Model.TotalReinforceWeight.ToString("f2")</p>
 	</div>
 }
-<form asp-action="Download" asp-controller="Department" method="post">
-	<input type="hidden" name="ReportHtml" />
-	<input class="btn btn-secondary" type="submit" id="btnSubmit" value="Download Report" />
-</form>
+@if (User.IsAdmin() || User.IsManager())
+{
+	<form asp-action="Download" asp-controller="Department" method="post">
+		<input type="hidden" name="ReportHtml" />
+		<input class="btn btn-secondary" type="submit" id="btnSubmit" value="Download Report" />
+	</form>
+}
+
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

@@ -136,7 +136,7 @@
 		{
 			try
 			{
-				DeleteOrderViewModel model = await orderService.GetOrderToDeleteByIdAsync(id);
+				DeleteOrderViewModel model = await orderService.CheckOrderToDeleteByIdAsync(id);
 				return View(model);
 			}
 			catch (DeleteActionException dae)
@@ -152,11 +152,11 @@
 		[Authorize(Roles = "Administrator, ReinforceManager")]
 		[HttpPost]
 		[OrderExists]
-		public async Task<IActionResult> DeleteConfirmed(int id, DeleteOrderViewModel model)
+		public async Task<IActionResult> DeleteConfirmed(int id,string delivererEmail)
 		{
 			try
 			{
-				var IsSuccess = await emailService.SendCancelOrderEmailAsync(model.DelivererEmail, $"Order N:  {model.Id}", "");
+				var IsSuccess = await emailService.SendCancelOrderEmailAsync(delivererEmail, $"Order N:  {id}");
 				if (IsSuccess)
 				{
 					TempData["Message"] = "You have successfully deleted order!";

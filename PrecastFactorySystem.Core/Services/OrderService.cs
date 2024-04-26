@@ -254,16 +254,19 @@
 		public async Task<DeleteOrderViewModel> GetOrderToDeleteByIdAsync(int id)
 		{
 			return await repository.AllReadonly<PrecastReinforceOrder>(r => r.ReinforceOrderId == id)
+				.Include(pro => pro.ReinforceOrder.Deliverer)
 				.Select(pro => new DeleteOrderViewModel()
 				{
 					Id = id,
 					OrderDate = pro.ReinforceOrder.OrderDate,
 					Project = pro.Precast.Project.Name,
+					Precast = pro.Precast.Name,
 					OrderedCount = pro.ReinforceOrder.Count,
+					DelivererId = pro.ReinforceOrder.DelivererId,
+					DelivererEmail = pro.ReinforceOrder.Deliverer.Email,
 					DeliverDate = pro.ReinforceOrder.OrderDate,
 					DepartmentId = pro.ReinforceOrder.DepartmentId,
 					Department = pro.ReinforceOrder.Department.Name,
-					DelivererEmail = pro.ReinforceOrder.Deliverer.Email
 				})
 				.FirstAsync();
 		}
