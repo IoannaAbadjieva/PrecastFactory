@@ -180,6 +180,12 @@
 				.AnyAsync(p => p.PrecastReinforceOrders.Count > 0);
 		}
 
+		public async Task<bool> IsProjectProductionNumberExist(string productionNumber)
+		{
+			return await repository.AllReadonly<Project>()
+				.AnyAsync(p => p.ProdNumber == productionNumber);
+		}
+
 		public async Task<bool> IsProjectExistAsync(int id)
 		{
 			return await repository.AllReadonly<Project>()

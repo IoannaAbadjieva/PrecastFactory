@@ -62,6 +62,7 @@
 			{
 				options.LoginPath = "/User/Login";
 				options.LogoutPath = "/User/Logout";
+				options.AccessDeniedPath = "/User/AccessDenied";
 			});
 
 			return services;

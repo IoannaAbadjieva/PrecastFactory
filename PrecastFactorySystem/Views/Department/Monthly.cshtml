@@ -62,14 +62,11 @@
 		<p class="mb-0"><span class="fw-bold">Reinforce kg: </span>@Model.TotalReinforceWeight.ToString("f2")</p>
 	</div>
 }
-@if (User.IsAdmin() || User.IsManager())
-{
+
 	<form asp-action="Download" asp-controller="Department" method="post">
 		<input type="hidden" name="ReportHtml" />
 		<input class="btn btn-secondary" type="submit" id="btnSubmit" value="Download Report" />
 	</form>
-}
-
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

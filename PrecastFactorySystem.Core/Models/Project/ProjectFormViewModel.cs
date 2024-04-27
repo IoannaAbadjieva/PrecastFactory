@@ -2,6 +2,8 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
+	using PrecastFactorySystem.Core.ValidationAttributes;
+
 	using static Infrastructure.DataValidation.DataConstants;
 	using static Infrastructure.DataValidation.ErrorMessages;
 
@@ -15,6 +17,8 @@
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		[StringLength(ProjectNumberMaxLength, MinimumLength = ProjectNumberMinLength, 
 			ErrorMessage = StringLengthErrorMessage)]
+
+		[ProjectProductionNumberValidation]
 		public string ProdNumber { get; set; } = string.Empty;
 
 		public string AddedOn { get; set; } = string.Empty;

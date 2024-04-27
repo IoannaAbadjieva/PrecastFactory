@@ -28,10 +28,9 @@
 		{
 			if (statusCode == 400)
 			{
-				return View("NotFound");
+				return View("BadRequest");
 			}	
-			
-			
+					
 			if (statusCode == 401 )
 			{
 				return View("UnAuthorized");
@@ -39,12 +38,12 @@
 
 			if (statusCode == 405)
 			{
-				return View("Forbidden");
+				return View("Forbidden"); 
 			}
 
 			if (statusCode == 404)
 			{
-				return View("BadRequest");
+				return View("NotFound");
 			}
 
 			return View();

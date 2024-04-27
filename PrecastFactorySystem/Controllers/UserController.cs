@@ -3,6 +3,7 @@
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 	using PrecastFactorySystem.Core.Models.User;
 	using PrecastFactorySystem.Infrastructure.Data.Models.IdentityModels;
@@ -73,11 +74,19 @@
 			return View(model);
 		}
 
+		[HttpPost]
 		public async Task<IActionResult> Logout()
 		{
 			await signInManager.SignOutAsync();
 
 			return RedirectToAction("Index", "Home");
 		}
+
+		[HttpGet]
+		public IActionResult AccessDenied()
+		{
+			return RedirectToAction("Error", "Home", new { statusCode = 401 });
+		}
+
 	}
 }

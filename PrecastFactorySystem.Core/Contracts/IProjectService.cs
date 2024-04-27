@@ -30,6 +30,8 @@
 
 		Task<bool>IsReinforcedProjectPrecastAsync(int id);
 
+		Task<bool> IsProjectProductionNumberExist(string productionNumber);
+
 		Task<bool> IsProjectExistAsync(int id);
 	}
 }

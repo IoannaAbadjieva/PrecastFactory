@@ -76,11 +76,11 @@
 			});
 			await repository.AddRangeAsync<Project>(new HashSet<Project>()
 			{
-					new Project { Id = 1, Name = "Project 1" },
-					new Project { Id = 2, Name = "Project 2" },
-					new Project { Id = 3, Name = "Project 3" },
-					new Project { Id = 4, Name = "Project 4" },
-					new Project { Id = 5, Name = "Project 5" }
+					new Project { Id = 1,ProdNumber = "24 - 101", Name = "Project 1" },
+					new Project { Id = 2,ProdNumber = "24 - 102", Name = "Project 2" },
+					new Project { Id = 3,ProdNumber = "24 - 103", Name = "Project 3" },
+					new Project { Id = 4,ProdNumber = "24 - 104", Name = "Project 4" },
+					new Project { Id = 5,ProdNumber = "24 - 105", Name = "Project 5" }
 			});
 
 			await repository.AddRangeAsync<Department>(new HashSet<Department>()
@@ -374,6 +374,20 @@
 		public async Task IsReinforcedPrecastAsync_ShouldReturnFalseWhenProjectDoesNotExist()
 		{
 			var result = await projectService.IsReinforcedProjectPrecastAsync(10);
+			Assert.That(result, Is.False);
+		}
+
+		[Test]
+		public async Task IsProjectProductionNumberExists_ShouldReturnTrueWhenExists()
+		{
+			var result = await projectService.IsProjectProductionNumberExist("24 - 103");
+			Assert.That(result, Is.True);
+		}
+
+		[Test]
+		public async Task IsProjectProductionNumberExists_ShouldReturnFalseWhenDoesNotExist()
+		{
+			var result = await projectService.IsProjectProductionNumberExist("24 - 106");
 			Assert.That(result, Is.False);
 		}
 
