@@ -9,6 +9,6 @@ no record is made in DB, such as for deleting order - if cancelation email is no
 Precast are produced in three departments. Precast could not be produced, if there is no reinforce.
 Production record can be made, edited and deleted, it depends only from reinforce(and count).
 Admin can do all of this, and can delete reinforced precast, projects with reinforced precast and orders  with no restriction - in AdminArea.
-Ordinary user can see almost everything, but adding, editing, deleting - anything.
+Ordinary user can see almost everything, but adding, editing, deleting - nothing.
 New users are registered only from Admin in AdminArea. Admin can register, delete and update user.
 
